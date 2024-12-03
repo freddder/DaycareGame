@@ -18,6 +18,107 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="include\imgui\imgui.cpp" />
+    <ClCompile Include="include\imgui\imgui_demo.cpp" />
+    <ClCompile Include="include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="include\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="include\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="include\imgui\imgui_tables.cpp" />
+    <ClCompile Include="include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="source\cAnimatedModel.cpp" />
+    <ClCompile Include="source\cAnimation.cpp" />
+    <ClCompile Include="source\cAnimationManager.cpp" />
+    <ClCompile Include="source\CanvasFactory.cpp" />
+    <ClCompile Include="source\cCameraManager.cpp" />
+    <ClCompile Include="source\cCharacterEntity.cpp" />
+    <ClCompile Include="source\cEntity.cpp" />
+    <ClCompile Include="source\CharacterSprite.cpp" />
+    <ClCompile Include="source\cInputManager.cpp" />
+    <ClCompile Include="source\cLightManager.cpp" />
+    <ClCompile Include="source\cLinearCongruentialGenerator.cpp" />
+    <ClCompile Include="source\cMapManager.cpp" />
+    <ClCompile Include="source\cParticleSpawner.cpp" />
+    <ClCompile Include="source\cPlayerEntity.cpp" />
+    <ClCompile Include="source\cRenderManager.cpp" />
+    <ClCompile Include="source\cRenderModel.cpp" />
+    <ClCompile Include="source\cSceneManager.cpp" />
+    <ClCompile Include="source\cSpriteModel.cpp" />
+    <ClCompile Include="source\cTamedRoamingPokemon.cpp" />
+    <ClCompile Include="source\cUIManager.cpp" />
+    <ClCompile Include="source\cWildRoamingPokemon.cpp" />
+    <ClCompile Include="source\Engine.cpp" />
+    <ClCompile Include="source\glad.c" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Player.cpp" />
+    <ClCompile Include="source\PokemonData.cpp" />
+    <ClCompile Include="source\UIWidgets.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\imgui\imconfig.h" />
+    <ClInclude Include="include\imgui\imgui.h" />
+    <ClInclude Include="include\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="include\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="include\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="include\imgui\imgui_internal.h" />
+    <ClInclude Include="include\imgui\imstb_rectpack.h" />
+    <ClInclude Include="include\imgui\imstb_textedit.h" />
+    <ClInclude Include="include\imgui\imstb_truetype.h" />
+    <ClInclude Include="source\cAnimatedModel.h" />
+    <ClInclude Include="source\cAnimation.h" />
+    <ClInclude Include="source\cAnimationManager.h" />
+    <ClInclude Include="source\CanvasFactory.h" />
+    <ClInclude Include="source\cCameraManager.h" />
+    <ClInclude Include="source\cCharacterEntity.h" />
+    <ClInclude Include="source\cEntity.h" />
+    <ClInclude Include="source\CharacterSprite.h" />
+    <ClInclude Include="source\cInputManager.h" />
+    <ClInclude Include="source\cLightManager.h" />
+    <ClInclude Include="source\cLinearCongruentialGenerator.h" />
+    <ClInclude Include="source\cMapManager.h" />
+    <ClInclude Include="source\cParticleSpawner.h" />
+    <ClInclude Include="source\cPlayerEntity.h" />
+    <ClInclude Include="source\cRandomNumberGenerator.h" />
+    <ClInclude Include="source\cRenderManager.h" />
+    <ClInclude Include="source\cRenderModel.h" />
+    <ClInclude Include="source\cSceneManager.h" />
+    <ClInclude Include="source\cSpriteModel.h" />
+    <ClInclude Include="source\cTamedRoamingPokemon.h" />
+    <ClInclude Include="source\cUIManager.h" />
+    <ClInclude Include="source\cWildRoamingPokemon.h" />
+    <ClInclude Include="source\DrawInfo.h" />
+    <ClInclude Include="source\Engine.h" />
+    <ClInclude Include="source\Player.h" />
+    <ClInclude Include="source\PokemonData.h" />
+    <ClInclude Include="source\UIWidgets.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\2DSnowFragShader.glsl" />
+    <None Include="assets\shaders\2DSnowVertShader.glsl" />
+    <None Include="assets\shaders\3DParticleVertShader.glsl" />
+    <None Include="assets\shaders\DebugFragShader.glsl" />
+    <None Include="assets\shaders\DebugVertShader.glsl" />
+    <None Include="assets\shaders\DepthFragShader.glsl" />
+    <None Include="assets\shaders\DepthVertShader.glsl" />
+    <None Include="assets\shaders\FoamFragShader.glsl" />
+    <None Include="assets\shaders\FoamVertShader.glsl" />
+    <None Include="assets\shaders\FragShader1.glsl" />
+    <None Include="assets\shaders\OceanFragShader.glsl" />
+    <None Include="assets\shaders\OceanVertShader.glsl" />
+    <None Include="assets\shaders\SkyboxFragShader.glsl" />
+    <None Include="assets\shaders\SkyboxVertShader.glsl" />
+    <None Include="assets\shaders\SnowFragShader.glsl" />
+    <None Include="assets\shaders\SnowVertShader.glsl" />
+    <None Include="assets\shaders\SpriteVertShader.glsl" />
+    <None Include="assets\shaders\TextFragShader.glsl" />
+    <None Include="assets\shaders\TextVertShader.glsl" />
+    <None Include="assets\shaders\TreeVertShader.glsl" />
+    <None Include="assets\shaders\UIFragShader.glsl" />
+    <None Include="assets\shaders\UIVertShader.glsl" />
+    <None Include="assets\shaders\VertShader1.glsl" />
+    <None Include="assets\shaders\WaveFragShader.glsl" />
+    <None Include="assets\shaders\WaveVertShader.glsl" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -70,6 +171,17 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
+    <IncludePath>$(ProjectDir)include</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)Build\$(Platform)\$(Configuration)\</OutDir>
+    <IncludePath>$(ProjectDir)include</IncludePath>
+    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(ProjectDir)lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -104,10 +216,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3.lib;assimp-vc142-mtd.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -124,11 +238,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3.lib;assimp-vc142-mt.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="DaycareGame.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

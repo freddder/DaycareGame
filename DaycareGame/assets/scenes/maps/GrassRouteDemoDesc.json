@@ -1,0 +1,52 @@
+{
+    "mapModelFileName": "GrassRouteDemo.obj",
+    "mapCollisionFileName": "GrassRouteDemo.pdsmap",
+    "arenaDescFileName": "GrassRouteArenaDesc.json",
+    "sceneTransitions": [
+        {
+            "tileType": 1,
+            "quadCoord": { "x": 0, "z": 0 },
+            "localQuadPos": { "x": 19, "y": 0, "z": 10 },
+            "transitionTo": "DemoTownDesc.json",
+            "playerSpawnOffset": { "x": 2, "y": 0, "z": 3 },
+            "newSceneEntranceId": 0
+        }
+    ],
+    "walkableTiles": [52,53,54,55,56,57,58,59,92,93,94,95,100,101,107,109],
+    "correctionTiles": [
+        {
+            "tileId": [143,144,145,175,176,177,178,179,180,181,182,183,184,185,186],
+            "walkableTiles": [
+                { "x": 0, "y": 1, "z": 0 }
+            ],
+            "unwalkableTiles": [
+                { "x": 0, "y": 0, "z": 0 }
+            ]
+        },
+        {
+            "tileId": [0],
+            "walkableTiles": [],
+            "unwalkableTiles": [
+                { "x": 0, "y": 0, "z": 0 },
+                { "x": 0, "y": 0, "z": 1 },
+                { "x": 1, "y": 0, "z": 0 },
+                { "x": 1, "y": 0, "z": 1 }
+            ]
+        }
+    ],
+    "instancedTiles": [
+        {
+            "tileId": 0,
+            "meshName": "r0_treePine.obj",
+            "meshOffset": { "x": -0.5, "y": 0, "z": -0.5 },
+            "meshYOrientation": 0, 
+            "animationType": 3
+        }
+    ],
+    "wildSpawning": [
+        {
+            "spawnType": 0,
+            "spawnTileId": [107]
+        }
+    ]
+}
