@@ -418,11 +418,11 @@ void cBattleCanvas::ConfirmAction()
     }
     else if (currFocus == bagButton)
     {
-        Manager::scene.CatchWildPokemon();
+        //Manager::scene.CatchWildPokemon();
     }
     else if (currFocus == runButton)
     {
-        Manager::scene.ExitEncounter();
+        //Manager::scene.ExitEncounter();
     }
 }
 

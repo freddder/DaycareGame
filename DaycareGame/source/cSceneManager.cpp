@@ -31,7 +31,7 @@ void cSceneManager::Shutdown()
 
 	particleSpawners.clear();
 
-	roamingWildPokemon.clear();
+	//roamingWildPokemon.clear();
 }
 
 void cSceneManager::SetWeather(eEnvironmentWeather newWeather)
@@ -123,83 +123,83 @@ void cSceneManager::SetWeather(eEnvironmentWeather newWeather)
 	currWeather = newWeather;
 }
 
-void cSceneManager::LoadSpawnData(const int nationalDexId, const int minLevel, const int maxLevel, const Pokemon::eSpawnType spawnType, const int spawnChance, const std::string formName)
-{
-	for (int i = 0; i < loadedSpawnData.size(); i++)
-	{
-		if (loadedSpawnData[i].nationalDexNumber == nationalDexId && loadedSpawnData[i].formName == formName)
-		{
-			return; // Already loaded
-		}
-	}
+//void cSceneManager::LoadSpawnData(const int nationalDexId, const int minLevel, const int maxLevel, const Pokemon::eSpawnType spawnType, const int spawnChance, const std::string formName)
+//{
+//	for (int i = 0; i < loadedSpawnData.size(); i++)
+//	{
+//		if (loadedSpawnData[i].nationalDexNumber == nationalDexId && loadedSpawnData[i].formName == formName)
+//		{
+//			return; // Already loaded
+//		}
+//	}
+//
+//	Pokemon::sSpeciesData specieData;
+//	Pokemon::LoadSpecieData(nationalDexId, specieData);
+//
+//	// Load overworld sprite texture
+//	Manager::render.LoadRoamingPokemonSpecieTextures(specieData);
+//
+//	Pokemon::sSpawnData spawnData;
+//	spawnData.nationalDexNumber = nationalDexId;
+//	spawnData.formName = formName;
+//	spawnData.minLevel = minLevel;
+//	spawnData.maxLevel = maxLevel;
+//	spawnData.spawnType = spawnType;
+//	spawnData.spawnChance = spawnChance;
+//	spawnData.genderRatio = specieData.genderRatio;
+//	spawnData.isFormGenderBased = specieData.isFormGenderBased;
+//	spawnData.isSpriteGenderBased = specieData.isSpriteGenderBased;
+//
+//	loadedSpawnData.push_back(spawnData);
+//}
 
-	Pokemon::sSpeciesData specieData;
-	Pokemon::LoadSpecieData(nationalDexId, specieData);
+//std::shared_ptr<cWildRoamingPokemon> cSceneManager::SpawnRandomWildPokemon()
+//{
+//	if (loadedSpawnData.size() == 0) return nullptr;
+//
+//	// Pick a random spawn data
+//	int randIndex = rand() % loadedSpawnData.size();
+//	Pokemon::sSpawnData spawnData = loadedSpawnData[randIndex];
+//	std::shared_ptr<cWildRoamingPokemon> spawnedWildPokemon = nullptr;
+//
+//	// Find a suitable tile
+//	if (spawnData.spawnType == Pokemon::TALL_GRASS)
+//	{
+//		glm::vec3 spawnTilePos;
+//		sTile* spawnTile = Manager::map.GetRandomSpawnTile(spawnTilePos);
+//
+//		if (spawnTile)
+//			spawnedWildPokemon = SpawnWildPokemon(spawnData, spawnTilePos, spawnTile);
+//	}
+//	
+//	return spawnedWildPokemon;
+//}
 
-	// Load overworld sprite texture
-	Manager::render.LoadRoamingPokemonSpecieTextures(specieData);
+//std::shared_ptr<cWildRoamingPokemon> cSceneManager::SpawnWildPokemon(const Pokemon::sSpawnData& spawnData, glm::vec3 tileLocation, sTile* spawnTile)
+//{
+//	if (!spawnTile) return nullptr;
+//
+//	Pokemon::sRoamingPokemonData roamingData = Pokemon::GenerateRoamingPokemonData(spawnData);
+//
+//	std::shared_ptr<cWildRoamingPokemon> newWildPokemon = std::make_shared<cWildRoamingPokemon>(roamingData, tileLocation);
+//	roamingWildPokemon.push_back(newWildPokemon);
+//
+//	spawnTile->entity = newWildPokemon.get();
+//
+//	return newWildPokemon;
+//}
 
-	Pokemon::sSpawnData spawnData;
-	spawnData.nationalDexNumber = nationalDexId;
-	spawnData.formName = formName;
-	spawnData.minLevel = minLevel;
-	spawnData.maxLevel = maxLevel;
-	spawnData.spawnType = spawnType;
-	spawnData.spawnChance = spawnChance;
-	spawnData.genderRatio = specieData.genderRatio;
-	spawnData.isFormGenderBased = specieData.isFormGenderBased;
-	spawnData.isSpriteGenderBased = specieData.isSpriteGenderBased;
-
-	loadedSpawnData.push_back(spawnData);
-}
-
-std::shared_ptr<cWildRoamingPokemon> cSceneManager::SpawnRandomWildPokemon()
-{
-	if (loadedSpawnData.size() == 0) return nullptr;
-
-	// Pick a random spawn data
-	int randIndex = rand() % loadedSpawnData.size();
-	Pokemon::sSpawnData spawnData = loadedSpawnData[randIndex];
-	std::shared_ptr<cWildRoamingPokemon> spawnedWildPokemon = nullptr;
-
-	// Find a suitable tile
-	if (spawnData.spawnType == Pokemon::TALL_GRASS)
-	{
-		glm::vec3 spawnTilePos;
-		sTile* spawnTile = Manager::map.GetRandomSpawnTile(spawnTilePos);
-
-		if (spawnTile)
-			spawnedWildPokemon = SpawnWildPokemon(spawnData, spawnTilePos, spawnTile);
-	}
-	
-	return spawnedWildPokemon;
-}
-
-std::shared_ptr<cWildRoamingPokemon> cSceneManager::SpawnWildPokemon(const Pokemon::sSpawnData& spawnData, glm::vec3 tileLocation, sTile* spawnTile)
-{
-	if (!spawnTile) return nullptr;
-
-	Pokemon::sRoamingPokemonData roamingData = Pokemon::GenerateRoamingPokemonData(spawnData);
-
-	std::shared_ptr<cWildRoamingPokemon> newWildPokemon = std::make_shared<cWildRoamingPokemon>(roamingData, tileLocation);
-	roamingWildPokemon.push_back(newWildPokemon);
-
-	spawnTile->entity = newWildPokemon.get();
-
-	return newWildPokemon;
-}
-
-void cSceneManager::DespawnWildPokemon(cWildRoamingPokemon* pokemonToDespawn)
-{
-	for (int i = 0; roamingWildPokemon.size(); i++)
-	{
-		if (roamingWildPokemon[i].get() == pokemonToDespawn)
-		{
-			roamingWildPokemon.erase(roamingWildPokemon.begin() + i);
-			return;
-		}
-	}
-}
+//void cSceneManager::DespawnWildPokemon(cWildRoamingPokemon* pokemonToDespawn)
+//{
+//	for (int i = 0; roamingWildPokemon.size(); i++)
+//	{
+//		if (roamingWildPokemon[i].get() == pokemonToDespawn)
+//		{
+//			roamingWildPokemon.erase(roamingWildPokemon.begin() + i);
+//			return;
+//		}
+//	}
+//}
 
 std::shared_ptr<cTamedRoamingPokemon> cSceneManager::SpawnTamedPokemon(Pokemon::sRoamingPokemonData& pokemonData, glm::vec3 tileLocation)
 {
@@ -232,8 +232,8 @@ void cSceneManager::ChangeScene(const std::string newSceneDescFile, const int en
 	Manager::render.UnloadModels();
 	Manager::render.UnloadTextures();
 
-	loadedSpawnData.clear();
-	roamingWildPokemon.clear();
+	//loadedSpawnData.clear();
+	//roamingWildPokemon.clear();
 	roamingTamedPokemon.clear();
 
 	Manager::map.LoadMap(newSceneDescFile, entranceNumUsed);
@@ -243,60 +243,60 @@ void cSceneManager::ChangeScene(const std::string newSceneDescFile, const int en
 	Pokemon::LoadSpecieData(Player::party[0].nationalDexNumber, followerSpecieData);
 	Manager::render.LoadRoamingPokemonSpecieTextures(followerSpecieData);
 
-	// TEMP
-	// TODO: find a good place to seed the rand
-	srand((int)time(0));
-	Manager::scene.SpawnRandomWildPokemon();
-	Manager::scene.SpawnRandomWildPokemon();
-	Manager::scene.SpawnRandomWildPokemon();
-	Manager::scene.SpawnRandomWildPokemon();
-	Manager::scene.SpawnRandomWildPokemon();
+	//// TEMP
+	//// TODO: find a good place to seed the rand
+	//srand((int)time(0));
+	//Manager::scene.SpawnRandomWildPokemon();
+	//Manager::scene.SpawnRandomWildPokemon();
+	//Manager::scene.SpawnRandomWildPokemon();
+	//Manager::scene.SpawnRandomWildPokemon();
+	//Manager::scene.SpawnRandomWildPokemon();
 }
 
-void cSceneManager::EnterWildEncounter(const Pokemon::sRoamingPokemonData& roamingPokemonData, cWildRoamingPokemon* roamingEntity)
-{
-	enemyBattleData = Pokemon::GeneratePokemonBattleData(roamingPokemonData);
-	std::string enemyTextureName = enemyBattleData.MakeBattleTextureName();
-	float enemySpriteAspectRatio = Manager::render.LoadPokemonBattleSpriteSheet(enemyBattleData);
+//void cSceneManager::EnterWildEncounter(const Pokemon::sRoamingPokemonData& roamingPokemonData, cWildRoamingPokemon* roamingEntity)
+//{
+//	enemyBattleData = Pokemon::GeneratePokemonBattleData(roamingPokemonData);
+//	std::string enemyTextureName = enemyBattleData.MakeBattleTextureName();
+//	float enemySpriteAspectRatio = Manager::render.LoadPokemonBattleSpriteSheet(enemyBattleData);
+//
+//	Pokemon::sBattleData playerBattleData = (Pokemon::sBattleData&)Player::party[0];
+//	std::string playerTextureName = playerBattleData.MakeBattleTextureName(false);
+//	float playerSpriteAspectRatio = Manager::render.LoadPokemonBattleSpriteSheet(playerBattleData, false);
+//
+//	Manager::map.opponentSpriteModel->SetSpriteData(enemyTextureName, enemyBattleData.form.battleSpriteHeightSize, enemySpriteAspectRatio, enemyBattleData.form.battleFrontSpriteFrameCount);
+//	Manager::map.playerSpriteModel->SetSpriteData(playerTextureName, playerBattleData.form.battleSpriteHeightSize, playerSpriteAspectRatio, playerBattleData.form.battleBackSpriteFrameCount);
+//
+//	Manager::ui.AddCanvas(new cBattleCanvas());
+//	DespawnWildPokemon(roamingEntity);
+//
+//	Engine::currGameMode = eGameMode::BATTLE;
+//	Manager::input.ChangeInputState(MENU_NAVIGATION);
+//}
 
-	Pokemon::sBattleData playerBattleData = (Pokemon::sBattleData&)Player::party[0];
-	std::string playerTextureName = playerBattleData.MakeBattleTextureName(false);
-	float playerSpriteAspectRatio = Manager::render.LoadPokemonBattleSpriteSheet(playerBattleData, false);
+//void cSceneManager::CatchWildPokemon()
+//{
+//	if (Engine::currGameMode != eGameMode::BATTLE) return;
+//
+//	if (enemyBattleData.nationalDexNumber == 0) return;
+//
+//	Player::AddPartyMember(enemyBattleData);
+//	ExitEncounter();
+//}
 
-	Manager::map.opponentSpriteModel->SetSpriteData(enemyTextureName, enemyBattleData.form.battleSpriteHeightSize, enemySpriteAspectRatio, enemyBattleData.form.battleFrontSpriteFrameCount);
-	Manager::map.playerSpriteModel->SetSpriteData(playerTextureName, playerBattleData.form.battleSpriteHeightSize, playerSpriteAspectRatio, playerBattleData.form.battleBackSpriteFrameCount);
-
-	Manager::ui.AddCanvas(new cBattleCanvas());
-	DespawnWildPokemon(roamingEntity);
-
-	Engine::currGameMode = eGameMode::BATTLE;
-	Manager::input.ChangeInputState(MENU_NAVIGATION);
-}
-
-void cSceneManager::CatchWildPokemon()
-{
-	if (Engine::currGameMode != eGameMode::BATTLE) return;
-
-	if (enemyBattleData.nationalDexNumber == 0) return;
-
-	Player::AddPartyMember(enemyBattleData);
-	ExitEncounter();
-}
-
-void cSceneManager::ExitEncounter()
-{
-	if (Engine::currGameMode != eGameMode::BATTLE) return;
-
-	Engine::currGameMode = eGameMode::MAP;
-	Manager::input.ChangeInputState(OVERWORLD_MOVEMENT);
-
-	Manager::ui.RemoveCanvas();
-
-	Manager::map.opponentSpriteModel->ClearSpriteData();
-	Manager::map.playerSpriteModel->ClearSpriteData();
-
-	enemyBattleData = Pokemon::sBattleData();
-}
+//void cSceneManager::ExitEncounter()
+//{
+//	if (Engine::currGameMode != eGameMode::BATTLE) return;
+//
+//	Engine::currGameMode = eGameMode::MAP;
+//	Manager::input.ChangeInputState(OVERWORLD_MOVEMENT);
+//
+//	Manager::ui.RemoveCanvas();
+//
+//	Manager::map.opponentSpriteModel->ClearSpriteData();
+//	Manager::map.playerSpriteModel->ClearSpriteData();
+//
+//	enemyBattleData = Pokemon::sBattleData();
+//}
 
 std::shared_ptr<cParticleSpawner> cSceneManager::CreateParticleSpawner(glm::vec3 position, cRenderModel model, unsigned int maxParticles)
 {

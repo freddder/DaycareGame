@@ -55,23 +55,23 @@ public:
 
 	// Entities
 private:
-	std::vector<Pokemon::sSpawnData> loadedSpawnData;
-	std::vector<std::shared_ptr<cWildRoamingPokemon>> roamingWildPokemon;
+	//std::vector<Pokemon::sSpawnData> loadedSpawnData;
+	//std::vector<std::shared_ptr<cWildRoamingPokemon>> roamingWildPokemon;
 	std::vector<std::shared_ptr<cTamedRoamingPokemon>> roamingTamedPokemon;
 public:
-	void LoadSpawnData(const int nationalDexId, const int minLevel, const int maxLevel, const Pokemon::eSpawnType spawnType,  const int spawnChance, const std::string formName = "");
-	std::shared_ptr<cWildRoamingPokemon> SpawnRandomWildPokemon();
-	std::shared_ptr<cWildRoamingPokemon> SpawnWildPokemon(const Pokemon::sSpawnData& spawnData, glm::vec3 tileLocation, sTile* spawnTile);
-	void DespawnWildPokemon(cWildRoamingPokemon* pokemonToDespawn);
+	//void LoadSpawnData(const int nationalDexId, const int minLevel, const int maxLevel, const Pokemon::eSpawnType spawnType,  const int spawnChance, const std::string formName = "");
+	//std::shared_ptr<cWildRoamingPokemon> SpawnRandomWildPokemon();
+	//std::shared_ptr<cWildRoamingPokemon> SpawnWildPokemon(const Pokemon::sSpawnData& spawnData, glm::vec3 tileLocation, sTile* spawnTile);
+	//void DespawnWildPokemon(cWildRoamingPokemon* pokemonToDespawn);
 	std::shared_ptr<cTamedRoamingPokemon> SpawnTamedPokemon(Pokemon::sRoamingPokemonData& pokemonData, glm::vec3 tileLocation);
 
 private:
 	Pokemon::sBattleData enemyBattleData;
 public:
 	void ChangeScene(const std::string newSceneDescFile, const int entranceNumUsed);
-	void EnterWildEncounter(const Pokemon::sRoamingPokemonData& roamingPokemonData, cWildRoamingPokemon* roamingEntity);
-	void CatchWildPokemon();
-	void ExitEncounter();
+	//void EnterWildEncounter(const Pokemon::sRoamingPokemonData& roamingPokemonData, cWildRoamingPokemon* roamingEntity);
+	//void CatchWildPokemon();
+	//void ExitEncounter();
 
 private:
 	std::vector<std::shared_ptr<cParticleSpawner>> particleSpawners;

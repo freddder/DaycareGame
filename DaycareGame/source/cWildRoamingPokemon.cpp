@@ -16,5 +16,5 @@ cWildRoamingPokemon::~cWildRoamingPokemon()
 
 void cWildRoamingPokemon::WalkInteract()
 {
-	Manager::scene.EnterWildEncounter(data, this);
+	//Manager::scene.EnterWildEncounter(data, this);
 }

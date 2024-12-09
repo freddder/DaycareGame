@@ -434,8 +434,8 @@ void cMapManager::LoadMap(const std::string mapDescriptionFile, const int entran
 	}
 
 	// TEMP: loading specific wild encounters for all maps for now
-	Manager::scene.LoadSpawnData(406, 0, 0, Pokemon::TALL_GRASS, 0, "");
-	Manager::scene.LoadSpawnData(678, 0, 0, Pokemon::TALL_GRASS, 0, "");
+	//Manager::scene.LoadSpawnData(406, 0, 0, Pokemon::TALL_GRASS, 0, "");
+	//Manager::scene.LoadSpawnData(678, 0, 0, Pokemon::TALL_GRASS, 0, "");
 
 	// Load collision map
 	std::string collisionMapFileName = d["mapCollisionFileName"].GetString();
