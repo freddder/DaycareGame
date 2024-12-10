@@ -14,7 +14,7 @@
             ]
         },
         {
-            "tileId": [0],
+            "tileId": [2],
             "walkableTiles": [],
             "unwalkableTiles": [
                 { "x": 0, "y": 0, "z": 0 },
@@ -53,25 +53,88 @@
             "animationType": 0
         },
         {
-            "tileId": 118,
-            "meshName": "Water_b2.obj",
+            "tileId": 144,
+            "meshName": "Foam_b2.obj",
+            "meshOffset": { "x": 0.5, "y": 0, "z": 0.5 },
+            "meshYOrientation": 180, 
+            "animationType": 1
+        },
+        {
+            "tileId": 145,
+            "meshName": "Foam_b2.obj",
+            "meshOffset": { "x": 0.5, "y": 0, "z": -0.5 },
+            "meshYOrientation": -90, 
+            "animationType": 1
+        },
+        {
+            "tileId": 146,
+            "meshName": "Foam_b2.obj",
             "meshOffset": { "x": -0.5, "y": 0, "z": -0.5 },
             "meshYOrientation": 0, 
-            "animationType": 2
+            "animationType": 1
         },
         {
-            "tileId": 117,
-            "meshName": "Water_c2.obj",
-            "meshOffset": { "x": -0.5, "y": 0, "z": 2.5 },
+            "tileId": 147,
+            "meshName": "Foam_b2.obj",
+            "meshOffset": { "x": -0.5, "y": 0, "z": 0.5 },
             "meshYOrientation": 90, 
-            "animationType": 2
+            "animationType": 1
         },
         {
-            "tileId": 139,
-            "meshName": "Water_bl2.obj",
-            "meshOffset": { "x": -0.5, "y": 0, "z": 2.5 },
+            "tileId": 148,
+            "meshName": "Foam_bl2.obj",
+            "meshOffset": { "x": -0.5, "y": 0, "z": -0.5 },
+            "meshYOrientation": -90, 
+            "animationType": 1
+        },
+        {
+            "tileId": 149,
+            "meshName": "Foam_bl2.obj",
+            "meshOffset": { "x": 0.5, "y": 0, "z": -0.5 },
+            "meshYOrientation": 180, 
+            "animationType": 1
+        },
+        {
+            "tileId": 150,
+            "meshName": "Foam_bl2.obj",
+            "meshOffset": { "x": -0.5, "y": 0, "z": 0.5 },
+            "meshYOrientation": 0, 
+            "animationType": 1
+        },
+        {
+            "tileId": 151,
+            "meshName": "Foam_bl2.obj",
+            "meshOffset": { "x": 0.5, "y": 0, "z": 0.5 },
             "meshYOrientation": 90, 
-            "animationType": 2
+            "animationType": 1
+        },
+        {
+            "tileId": 152,
+            "meshName": "Foam_c2.obj",
+            "meshOffset": { "x": 0.5, "y": 0, "z": -0.5 },
+            "meshYOrientation": 180, 
+            "animationType": 1
+        },
+        {
+            "tileId": 153,
+            "meshName": "Foam_c2.obj",
+            "meshOffset": { "x": -0.5, "y": 0, "z": -0.5 },
+            "meshYOrientation": -90, 
+            "animationType": 1
+        },
+        {
+            "tileId": 154,
+            "meshName": "Foam_c2.obj",
+            "meshOffset": { "x": 0.5, "y": 0, "z": 0.5 },
+            "meshYOrientation": 90, 
+            "animationType": 1
+        },
+        {
+            "tileId": 155,
+            "meshName": "Foam_c2.obj",
+            "meshOffset": { "x": -0.5, "y": 0, "z": 0.5 },
+            "meshYOrientation": 0, 
+            "animationType": 1
         }
     ],
     "wildSpawning": [

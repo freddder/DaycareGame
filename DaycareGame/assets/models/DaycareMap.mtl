@@ -25,7 +25,7 @@ illum 1
 map_Kd gake1_1.png
 map_d gake1_1.png
 
-newmtl gate
+newmtl gate.001
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -49,7 +49,7 @@ illum 1
 map_Kd grass01ax.png
 map_d grass01ax.png
 
-newmtl h_mado_lm2
+newmtl h_mado_lm2.001
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -61,7 +61,7 @@ illum 1
 map_Kd h_mado_lm2.png
 map_d h_mado_lm2.png
 
-newmtl kabe_001_lm1
+newmtl kabe_001_lm1.001
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -73,7 +73,7 @@ illum 1
 map_Kd kabe_001_lm1.png
 map_d kabe_001_lm1.png
 
-newmtl kabe_002_lm1
+newmtl kabe_002_lm1.001
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -85,7 +85,7 @@ illum 1
 map_Kd kabe_002_lm1.png
 map_d kabe_002_lm1.png
 
-newmtl kazami001_lm1
+newmtl kazami001_lm1.001
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -157,7 +157,7 @@ illum 1
 map_Kd saku2.png
 map_d saku2.png
 
-newmtl yane_001_lm1
+newmtl yane_001_lm1.001
 Ns 0.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000

@@ -3,7 +3,7 @@ gameindex
 tileset
 Daycare.pdsts
 mapstart
-0 0
+1 0
 areaindex
 0
 tilegrid
@@ -536,7 +536,7 @@ heightgrid
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 mapend
 mapstart
-1 1
+0 1
 areaindex
 0
 tilegrid
@@ -1069,7 +1069,7 @@ heightgrid
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 mapend
 mapstart
-2 0
+1 2
 areaindex
 0
 tilegrid
@@ -1602,7 +1602,7 @@ heightgrid
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 mapend
 mapstart
-0 1
+0 0
 areaindex
 0
 tilegrid
@@ -2135,7 +2135,7 @@ heightgrid
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 mapend
 mapstart
-1 0
+1 1
 areaindex
 0
 tilegrid
@@ -2668,7 +2668,7 @@ heightgrid
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 mapend
 mapstart
-2 1
+0 2
 areaindex
 0
 tilegrid
