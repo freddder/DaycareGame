@@ -93,11 +93,11 @@ public:
     // Render models
 private:
     std::vector< std::shared_ptr<cRenderModel> > mapModels;
-    std::vector< std::shared_ptr<cRenderModel> > battleModels; // prob not the best idea
+    //std::vector< std::shared_ptr<cRenderModel> > battleModels; // prob not the best idea
 public:
-    std::shared_ptr<cRenderModel> CreateRenderModel(bool isBattleModel = false);
-    std::shared_ptr<class cSpriteModel> CreateSpriteModel(bool isBattleModel = false);
-    std::shared_ptr<class cAnimatedModel> CreateAnimatedModel(eAnimatedModel modelType, bool isBattleModel = false);
+    std::shared_ptr<cRenderModel> CreateRenderModel(/*bool isBattleModel = false*/);
+    std::shared_ptr<class cSpriteModel> CreateSpriteModel(/*bool isBattleModel = false*/);
+    std::shared_ptr<class cAnimatedModel> CreateAnimatedModel(eAnimatedModel modelType/*, bool isBattleModel = false*/);
     void RemoveModel(std::shared_ptr<cRenderModel> model);
 
     // Textures

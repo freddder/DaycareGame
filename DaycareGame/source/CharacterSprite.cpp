@@ -231,59 +231,59 @@ void cPlayerSprite::StopMovement()
 	else if (lastDesiredDirection == RIGHT) model->currSpriteId = 9;
 }
 
-cBattleSprite::cBattleSprite(glm::vec3 pos)
-{
-	model = Manager::render.CreateSpriteModel(true);
-	model->meshName = "SpriteHolder.obj";
-	model->position = pos;
-	model->orientation.y = glm::radians(15.f);
-
-	cRenderModel prtcl;
-	prtcl.meshName = "ParticleHolder.obj";
-	prtcl.shaderName = "particle";
-	prtcl.textureName = "HitParticle.png";
-	prtcl.scale = glm::vec3(0.3f);
-
-	glm::vec3 spawnerPos = pos;
-	spawnerPos.y += 0.5f;
-	hitParticleSpawner = Manager::scene.CreateParticleSpawner(spawnerPos, prtcl, 30);
-	hitParticleSpawner->particleLifeTime = 0.5f;
-	hitParticleSpawner->spawnSpeed = glm::vec3(0.f, 5.f, 0.f);
-	hitParticleSpawner->minSpeedOffset = glm::vec3(0.f, -2.f, -2.f);
-	hitParticleSpawner->maxSpeedOffset = glm::vec3(0.f, 2.f, 2.f);
-	hitParticleSpawner->gravity = glm::vec3(0.f, -20.f, 0.f);
-}
-
-cBattleSprite::~cBattleSprite()
-{
-	Manager::render.RemoveModel(model);
-
-	Manager::animation.RemoveAnimation(spriteAnimation);
-}
-
-void cBattleSprite::SetSpriteData(std::string textureName, float spriteHeightSize, float spriteAspectRatio, int spritesNum)
-{
-	model->scale.z = spriteHeightSize * spriteAspectRatio;
-	model->scale.y = spriteHeightSize;
-	model->textureName = textureName;
-
-	spriteAnimation = std::make_shared<cPeriodicSpriteAnimation>(model->currSpriteId, spritesNum);
-	spriteAnimation->isRepeat = true;
-
-	Manager::animation.AddAnimation(spriteAnimation);
-}
-
-void cBattleSprite::ClearSpriteData()
-{
-	model->scale.z = 1.f;
-	model->scale.y = 1.f;
-	model->textureName = "";
-
-	spriteAnimation->Reset();
-	Manager::animation.RemoveAnimation(spriteAnimation);
-}
-
-void cBattleSprite::SpawnHitParticles()
-{
-	hitParticleSpawner->SpawnParticles(10);
-}
+//cBattleSprite::cBattleSprite(glm::vec3 pos)
+//{
+//	model = Manager::render.CreateSpriteModel(true);
+//	model->meshName = "SpriteHolder.obj";
+//	model->position = pos;
+//	model->orientation.y = glm::radians(15.f);
+//
+//	cRenderModel prtcl;
+//	prtcl.meshName = "ParticleHolder.obj";
+//	prtcl.shaderName = "particle";
+//	prtcl.textureName = "HitParticle.png";
+//	prtcl.scale = glm::vec3(0.3f);
+//
+//	glm::vec3 spawnerPos = pos;
+//	spawnerPos.y += 0.5f;
+//	hitParticleSpawner = Manager::scene.CreateParticleSpawner(spawnerPos, prtcl, 30);
+//	hitParticleSpawner->particleLifeTime = 0.5f;
+//	hitParticleSpawner->spawnSpeed = glm::vec3(0.f, 5.f, 0.f);
+//	hitParticleSpawner->minSpeedOffset = glm::vec3(0.f, -2.f, -2.f);
+//	hitParticleSpawner->maxSpeedOffset = glm::vec3(0.f, 2.f, 2.f);
+//	hitParticleSpawner->gravity = glm::vec3(0.f, -20.f, 0.f);
+//}
+//
+//cBattleSprite::~cBattleSprite()
+//{
+//	Manager::render.RemoveModel(model);
+//
+//	Manager::animation.RemoveAnimation(spriteAnimation);
+//}
+//
+//void cBattleSprite::SetSpriteData(std::string textureName, float spriteHeightSize, float spriteAspectRatio, int spritesNum)
+//{
+//	model->scale.z = spriteHeightSize * spriteAspectRatio;
+//	model->scale.y = spriteHeightSize;
+//	model->textureName = textureName;
+//
+//	spriteAnimation = std::make_shared<cPeriodicSpriteAnimation>(model->currSpriteId, spritesNum);
+//	spriteAnimation->isRepeat = true;
+//
+//	Manager::animation.AddAnimation(spriteAnimation);
+//}
+//
+//void cBattleSprite::ClearSpriteData()
+//{
+//	model->scale.z = 1.f;
+//	model->scale.y = 1.f;
+//	model->textureName = "";
+//
+//	spriteAnimation->Reset();
+//	Manager::animation.RemoveAnimation(spriteAnimation);
+//}
+//
+//void cBattleSprite::SpawnHitParticles()
+//{
+//	hitParticleSpawner->SpawnParticles(10);
+//}

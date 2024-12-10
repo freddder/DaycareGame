@@ -166,30 +166,30 @@ namespace Pokemon
 	void SaveSpecieData(const int nationalDexNumber, const sSpeciesData& data);
 	void LoadSpecieData(const int nationalDexNumber, sSpeciesData& data);
 
-	enum eSpawnType
-	{
-		TALL_GRASS,
-		ST_WATER,
-		CAVE,
-		ST_ENUM_COUNT
-	};
+	//enum eSpawnType
+	//{
+	//	TALL_GRASS,
+	//	ST_WATER,
+	//	CAVE,
+	//	ST_ENUM_COUNT
+	//};
 
-	struct sSpawnData
-	{
-		int nationalDexNumber = 0;
-		std::string formName = "";
+	//struct sSpawnData
+	//{
+	//	int nationalDexNumber = 0;
+	//	std::string formName = "";
 
-		// These should be the same as the species data
-		int genderRatio = 50;
-		bool isFormGenderBased = false; // Use an alternate form if female. Will only be used a few times (ex: Meowstic, Indeedee)
-		bool isSpriteGenderBased = false; // Change sprite if its female (doesn't matter if isStatsGenderBased is true)
+	//	// These should be the same as the species data
+	//	int genderRatio = 50;
+	//	bool isFormGenderBased = false; // Use an alternate form if female. Will only be used a few times (ex: Meowstic, Indeedee)
+	//	bool isSpriteGenderBased = false; // Change sprite if its female (doesn't matter if isStatsGenderBased is true)
 
-		eSpawnType spawnType = TALL_GRASS;
-		int spawnChance = 0; // Number of "entries"
+	//	eSpawnType spawnType = TALL_GRASS;
+	//	int spawnChance = 0; // Number of "entries"
 
-		int minLevel;
-		int maxLevel;
-	};
+	//	int minLevel;
+	//	int maxLevel;
+	//};
 
 	struct sRoamingPokemonData // Minimal data for rendering sprite in overworld
 	{
@@ -205,7 +205,7 @@ namespace Pokemon
 
 		const std::string MakeRoamingTextureName();
 	};
-	sRoamingPokemonData GenerateRoamingPokemonData(const sSpawnData& spawnData);
+	//sRoamingPokemonData GenerateRoamingPokemonData(const sSpawnData& spawnData);
 
 	struct sIndividualData : public sRoamingPokemonData // Individual data (outside of battle)
 	{
@@ -238,9 +238,9 @@ namespace Pokemon
 	};
 	sIndividualData GenerateIndividualPokemonData(int nationalDexId);
 
-	struct sBattleData : public sIndividualData // Individual data (in battle)
-	{
-		sStats statChanges;
-	};
-	sBattleData GeneratePokemonBattleData(const sRoamingPokemonData& roamingData); // For wild encounters
+	//struct sBattleData : public sIndividualData // Individual data (in battle)
+	//{
+	//	sStats statChanges;
+	//};
+	//sBattleData GeneratePokemonBattleData(const sRoamingPokemonData& roamingData); // For wild encounters
 }

@@ -45,9 +45,9 @@ struct sQuadrant
 
 	std::map<int, sTile> data;
 
-	int wildPokemonCount = 0;
-	std::vector<int> localSpawnTiles;
-	sTile* GetRandomSpawnTile(glm::vec3& globalPos);
+	//int wildPokemonCount = 0;
+	//std::vector<int> localSpawnTiles;
+	//sTile* GetRandomSpawnTile(glm::vec3& globalPos);
 	
 	static int GetTileIdFromPosition(glm::ivec3 localPos);
 	sTile* GetTileFromLocalPosition(glm::ivec3 localPos);
@@ -96,11 +96,11 @@ private:
 	std::vector<sQuadrant> quads;
 	std::map<int, sCorrectionTiles> walkableTiles;
 	std::shared_ptr<cRenderModel> mapModel;
-	std::shared_ptr<cRenderModel> arenaModel;
+	//std::shared_ptr<cRenderModel> arenaModel;
 	std::map<int, sInstancedTile> mapInstancedTiles;
-	std::map<int, sInstancedTile> arenaInstancedTiles;
+	//std::map<int, sInstancedTile> arenaInstancedTiles;
 	sQuadrant* GetQuad(int worldX, int worldZ);
-	void LoadArena(const std::string arenaDescriptionFile);
+	//void LoadArena(const std::string arenaDescriptionFile);
 public:
 	void LoadMap(const std::string mapDescriptionFile, const int entranceNumUsed);
 	void UnloadMap();
@@ -108,13 +108,13 @@ public:
 
 public:
 	sTile* GetTile(glm::ivec3 worldPosition);
-	sTile* GetRandomSpawnTile(glm::vec3& globalPositionOut);
+	//sTile* GetRandomSpawnTile(glm::vec3& globalPositionOut);
 	void RemoveEntityFromTile(glm::ivec3 worldPosition);
 
 	eEntityMoveResult TryMoveEntity(cEntity* entityToMove, eDirection direction);
 	
-	cBattleSprite* opponentSpriteModel;
-	cBattleSprite* playerSpriteModel;
+	//cBattleSprite* opponentSpriteModel;
+	//cBattleSprite* playerSpriteModel;
 
 private:
 	std::map<eTransitionTileTypes, std::vector<glm::ivec3>> transitionTiles;

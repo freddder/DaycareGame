@@ -26,7 +26,7 @@ namespace Manager
 enum eGameMode
 {
 	MAP,
-	BATTLE,
+	//BATTLE,
 	MENU
 };
 

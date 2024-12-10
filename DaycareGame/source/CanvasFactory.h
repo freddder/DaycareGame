@@ -38,43 +38,43 @@ public:
 	void UpdateHealthBar(float healthPercent);
 };
 
-class cPlayerBattleInfo : public cUIWidget
-{
-	cHealthBar* playerHb;
-public:
-	cPlayerBattleInfo(cUICanvas* canvas);
-	virtual ~cPlayerBattleInfo() {};
+//class cPlayerBattleInfo : public cUIWidget
+//{
+//	cHealthBar* playerHb;
+//public:
+//	cPlayerBattleInfo(cUICanvas* canvas);
+//	virtual ~cPlayerBattleInfo() {};
+//
+//	void UpdatePlayerInfo();
+//};
 
-	void UpdatePlayerInfo();
-};
-
-class cEnemyBattleInfo : public cUIWidget
-{
-	cHealthBar* enemyHb;
-public:
-	cEnemyBattleInfo(cUICanvas* canvas);
-	virtual ~cEnemyBattleInfo() {};
-
-	void UpdateEnemyInfo();
-};
-
-class cBattleCanvas : public cUICanvas
-{
-	cUIImage* fightButton;
-	cUIImage* pokemonButton;
-	cUIImage* bagButton;
-	cUIImage* runButton;
-
-	cPlayerBattleInfo* pbi;
-	cEnemyBattleInfo* ebi;
-
-public:
-	cBattleCanvas();
-	virtual ~cBattleCanvas() {};
-
-	virtual void ConfirmAction();
-	virtual void CancelAction();
-};
+//class cEnemyBattleInfo : public cUIWidget
+//{
+//	cHealthBar* enemyHb;
+//public:
+//	cEnemyBattleInfo(cUICanvas* canvas);
+//	virtual ~cEnemyBattleInfo() {};
+//
+//	void UpdateEnemyInfo();
+//};
+//
+//class cBattleCanvas : public cUICanvas
+//{
+//	cUIImage* fightButton;
+//	cUIImage* pokemonButton;
+//	cUIImage* bagButton;
+//	cUIImage* runButton;
+//
+//	cPlayerBattleInfo* pbi;
+//	cEnemyBattleInfo* ebi;
+//
+//public:
+//	cBattleCanvas();
+//	virtual ~cBattleCanvas() {};
+//
+//	virtual void ConfirmAction();
+//	virtual void CancelAction();
+//};
 
 class cPartyMemberButton : public cUIImage
 {

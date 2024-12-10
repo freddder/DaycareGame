@@ -22,16 +22,16 @@
 const std::string MAPS_PATH = "assets/scenes/maps/";
 const std::string ARENAS_PATH = "assets/scenes/arenas/";
 
-sTile* sQuadrant::GetRandomSpawnTile(glm::vec3& globalPos)
-{
-	if (wildPokemonCount >= 5) return nullptr;
-
-	int tileId = localSpawnTiles[rand() % localSpawnTiles.size()];
-
-	sTile* spawnTile = &data[tileId];
-	globalPos = TileIdToGlobalPosition(tileId);
-	return spawnTile;
-}
+//sTile* sQuadrant::GetRandomSpawnTile(glm::vec3& globalPos)
+//{
+//	if (wildPokemonCount >= 5) return nullptr;
+//
+//	int tileId = localSpawnTiles[rand() % localSpawnTiles.size()];
+//
+//	sTile* spawnTile = &data[tileId];
+//	globalPos = TileIdToGlobalPosition(tileId);
+//	return spawnTile;
+//}
 
 int sQuadrant::GetTileIdFromPosition(glm::ivec3 localPos)
 {
@@ -119,16 +119,17 @@ void cMapManager::Startup()
 	mapModel = Manager::render.CreateRenderModel();
 	mapModel->position = glm::vec3(0.5f, 0.f, 0.5f);
 
-	arenaModel = Manager::render.CreateRenderModel(true);
+	//arenaModel = Manager::render.CreateRenderModel(true);
 
-	LoadMap("DemoTownDesc.json", 0);
+	LoadMap("DaycareMapDesc.json", 0);
+	//LoadMap("DemoTownDesc.json", 0);
 	//LoadMap("GrassRouteDemoDesc.json", 0);
 }
 
 void cMapManager::Shutdown()
 {
 	Manager::render.RemoveModel(mapModel);
-	Manager::render.RemoveModel(arenaModel);
+	//Manager::render.RemoveModel(arenaModel);
 
 	for (std::map<int, sInstancedTile>::iterator it = mapInstancedTiles.begin(); it != mapInstancedTiles.end(); it++)
 	{
@@ -136,14 +137,14 @@ void cMapManager::Shutdown()
 		Manager::render.RemoveModel(it->second.instancedModel);
 	}
 
-	for (std::map<int, sInstancedTile>::iterator it = arenaInstancedTiles.begin(); it != arenaInstancedTiles.end(); it++)
-	{
-		Manager::animation.RemoveAnimation(it->second.instancedModel.get()->animation);
-		Manager::render.RemoveModel(it->second.instancedModel);
-	}
+	//for (std::map<int, sInstancedTile>::iterator it = arenaInstancedTiles.begin(); it != arenaInstancedTiles.end(); it++)
+	//{
+	//	Manager::animation.RemoveAnimation(it->second.instancedModel.get()->animation);
+	//	Manager::render.RemoveModel(it->second.instancedModel);
+	//}
 
-	delete opponentSpriteModel;
-	delete playerSpriteModel;
+	//delete opponentSpriteModel;
+	//delete playerSpriteModel;
 }
 
 sQuadrant* cMapManager::GetQuad(int worldX, int worldZ)
@@ -164,149 +165,149 @@ sQuadrant* cMapManager::GetQuad(int worldX, int worldZ)
 	return nullptr;
 }
 
-void cMapManager::LoadArena(std::string arenaDescriptionFile)
-{
-	FILE* fp = 0;
-	fopen_s(&fp, (ARENAS_PATH + arenaDescriptionFile).c_str(), "rb"); // non-Windows use "r"
-
-	// OPTIMIZATION: best buffer size might be different
-	char readBuffer[4096];
-	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
-
-	rapidjson::Document d;
-	d.ParseStream(is);
-
-	if (fp == 0) return;
-	fclose(fp);
-
-	// Load arena model
-	std::string mapModelName = d["arenaModelFileName"].GetString();
-	Manager::render.LoadModel(mapModelName, "scene");
-	arenaModel->meshName = mapModelName;
-
-	// Load tile animations
-	rapidjson::Value& instancedTileData = d["instancedTiles"];
-	for (unsigned int i = 0; i < instancedTileData.Size(); i++)
-	{
-		rapidjson::Value& currInstancedTile = d["instancedTiles"][i];
-
-		int tileId = currInstancedTile["tileId"].GetInt();
-
-		float meshOrientationY = currInstancedTile["meshYOrientation"].GetFloat();
-		glm::vec3 meshPosOffset;
-		meshPosOffset.x = currInstancedTile["meshOffset"]["x"].GetFloat();
-		meshPosOffset.y = currInstancedTile["meshOffset"]["y"].GetFloat();
-		meshPosOffset.z = currInstancedTile["meshOffset"]["z"].GetFloat();
-
-		int animationType = currInstancedTile["animationType"].GetInt();
-		arenaInstancedTiles[tileId].instancedModel = Manager::render.CreateAnimatedModel(static_cast<eAnimatedModel>(animationType), true);
-		arenaInstancedTiles[tileId].instancedModel->meshName = currInstancedTile["meshName"].GetString();
-		arenaInstancedTiles[tileId].instancedModel->orientation.y = glm::radians(meshOrientationY);
-		arenaInstancedTiles[tileId].modelOffset = meshPosOffset;
-	}
-
-	// Load detail file
-	std::string arenaDetailFileName = d["arenaDetailFileName"].GetString();
-	std::ifstream pdsmap(ARENAS_PATH + arenaDetailFileName);
-
-	if (!pdsmap.is_open()) return;
-
-	std::string currToken;
-
-	// make sure reader is at first mapstart
-	while (pdsmap >> currToken)
-	{
-		if (currToken == "mapstart") break;
-	}
-
-	// start here
-	while (currToken == "mapstart")
-	{
-		sQuadrant newQuad;
-		int tempLayers[32][32][8];
-
-		// set quadrant coords
-		pdsmap >> newQuad.posX;
-		pdsmap >> newQuad.posZ;
-
-		// skip areaindex
-		pdsmap >> currToken;
-		pdsmap >> currToken;
-
-		for (int layerId = 0; layerId < 8; layerId++)
-		{
-			pdsmap >> currToken;
-
-			if (currToken != "tilegrid") break;
-
-			for (int x = 0; x < 32; x++)
-			{
-				for (int z = 0; z < 32; z++)
-				{
-					pdsmap >> tempLayers[x][z][layerId];
-				}
-			}
-		}
-
-		for (int layerId = 0; layerId < 8; layerId++)
-		{
-			pdsmap >> currToken;
-
-			if (currToken != "heightgrid") break;
-
-			for (int x = 0; x < 32; x++)
-			{
-				for (int z = 0; z < 32; z++)
-				{
-					int currHeight;
-					pdsmap >> currHeight;
-
-					int tileId = tempLayers[x][z][layerId];
-
-					if (tileId == -1) continue;
-
-					sTile* currTile = newQuad.GetTileFromLocalPosition(glm::vec3(x, currHeight, z));
-
-					if (arenaInstancedTiles.find(tileId) != arenaInstancedTiles.end()) // it exists
-					{
-						glm::vec4 newOffset = glm::vec4((newQuad.posX * 32 - 15 + x), currHeight, (newQuad.posZ * 32 - 15 + z), 1.f);
-						newOffset.x += arenaInstancedTiles[tileId].modelOffset.x;
-						newOffset.y += arenaInstancedTiles[tileId].modelOffset.y;
-						newOffset.z += arenaInstancedTiles[tileId].modelOffset.z;
-
-						arenaInstancedTiles[tileId].instanceOffsets.push_back(newOffset);
-					}
-				}
-			}
-		}
-
-		pdsmap >> currToken; // this should be mapend
-		pdsmap >> currToken; // if there is another quad, this will be mapstart
-	}
-	// end here
-
-	pdsmap.close();
-
-	// Load tile specific animations
-	for (std::map<int, sInstancedTile>::iterator it = arenaInstancedTiles.begin(); it != arenaInstancedTiles.end(); it++)
-	{
-		if (it->second.instanceOffsets.size() != 0)
-		{
-			it->second.instancedModel->InstanceObject(it->second.instanceOffsets);
-
-			if (it->second.instancedModel->animation)
-				Manager::animation.AddAnimation(it->second.instancedModel->animation);
-
-			it->second.instanceOffsets.clear();
-		}
-	}
-
-	if (!opponentSpriteModel)
-		opponentSpriteModel = new cBattleSprite(glm::vec3(3.f, 0.f, 1.f));
-
-	if (!playerSpriteModel)
-		playerSpriteModel = new cBattleSprite(glm::vec3(-4.f, 0.f, 1.f));
-}
+//void cMapManager::LoadArena(std::string arenaDescriptionFile)
+//{
+//	FILE* fp = 0;
+//	fopen_s(&fp, (ARENAS_PATH + arenaDescriptionFile).c_str(), "rb"); // non-Windows use "r"
+//
+//	// OPTIMIZATION: best buffer size might be different
+//	char readBuffer[4096];
+//	rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+//
+//	rapidjson::Document d;
+//	d.ParseStream(is);
+//
+//	if (fp == 0) return;
+//	fclose(fp);
+//
+//	// Load arena model
+//	std::string mapModelName = d["arenaModelFileName"].GetString();
+//	Manager::render.LoadModel(mapModelName, "scene");
+//	arenaModel->meshName = mapModelName;
+//
+//	// Load tile animations
+//	rapidjson::Value& instancedTileData = d["instancedTiles"];
+//	for (unsigned int i = 0; i < instancedTileData.Size(); i++)
+//	{
+//		rapidjson::Value& currInstancedTile = d["instancedTiles"][i];
+//
+//		int tileId = currInstancedTile["tileId"].GetInt();
+//
+//		float meshOrientationY = currInstancedTile["meshYOrientation"].GetFloat();
+//		glm::vec3 meshPosOffset;
+//		meshPosOffset.x = currInstancedTile["meshOffset"]["x"].GetFloat();
+//		meshPosOffset.y = currInstancedTile["meshOffset"]["y"].GetFloat();
+//		meshPosOffset.z = currInstancedTile["meshOffset"]["z"].GetFloat();
+//
+//		int animationType = currInstancedTile["animationType"].GetInt();
+//		arenaInstancedTiles[tileId].instancedModel = Manager::render.CreateAnimatedModel(static_cast<eAnimatedModel>(animationType), true);
+//		arenaInstancedTiles[tileId].instancedModel->meshName = currInstancedTile["meshName"].GetString();
+//		arenaInstancedTiles[tileId].instancedModel->orientation.y = glm::radians(meshOrientationY);
+//		arenaInstancedTiles[tileId].modelOffset = meshPosOffset;
+//	}
+//
+//	// Load detail file
+//	std::string arenaDetailFileName = d["arenaDetailFileName"].GetString();
+//	std::ifstream pdsmap(ARENAS_PATH + arenaDetailFileName);
+//
+//	if (!pdsmap.is_open()) return;
+//
+//	std::string currToken;
+//
+//	// make sure reader is at first mapstart
+//	while (pdsmap >> currToken)
+//	{
+//		if (currToken == "mapstart") break;
+//	}
+//
+//	// start here
+//	while (currToken == "mapstart")
+//	{
+//		sQuadrant newQuad;
+//		int tempLayers[32][32][8];
+//
+//		// set quadrant coords
+//		pdsmap >> newQuad.posX;
+//		pdsmap >> newQuad.posZ;
+//
+//		// skip areaindex
+//		pdsmap >> currToken;
+//		pdsmap >> currToken;
+//
+//		for (int layerId = 0; layerId < 8; layerId++)
+//		{
+//			pdsmap >> currToken;
+//
+//			if (currToken != "tilegrid") break;
+//
+//			for (int x = 0; x < 32; x++)
+//			{
+//				for (int z = 0; z < 32; z++)
+//				{
+//					pdsmap >> tempLayers[x][z][layerId];
+//				}
+//			}
+//		}
+//
+//		for (int layerId = 0; layerId < 8; layerId++)
+//		{
+//			pdsmap >> currToken;
+//
+//			if (currToken != "heightgrid") break;
+//
+//			for (int x = 0; x < 32; x++)
+//			{
+//				for (int z = 0; z < 32; z++)
+//				{
+//					int currHeight;
+//					pdsmap >> currHeight;
+//
+//					int tileId = tempLayers[x][z][layerId];
+//
+//					if (tileId == -1) continue;
+//
+//					sTile* currTile = newQuad.GetTileFromLocalPosition(glm::vec3(x, currHeight, z));
+//
+//					if (arenaInstancedTiles.find(tileId) != arenaInstancedTiles.end()) // it exists
+//					{
+//						glm::vec4 newOffset = glm::vec4((newQuad.posX * 32 - 15 + x), currHeight, (newQuad.posZ * 32 - 15 + z), 1.f);
+//						newOffset.x += arenaInstancedTiles[tileId].modelOffset.x;
+//						newOffset.y += arenaInstancedTiles[tileId].modelOffset.y;
+//						newOffset.z += arenaInstancedTiles[tileId].modelOffset.z;
+//
+//						arenaInstancedTiles[tileId].instanceOffsets.push_back(newOffset);
+//					}
+//				}
+//			}
+//		}
+//
+//		pdsmap >> currToken; // this should be mapend
+//		pdsmap >> currToken; // if there is another quad, this will be mapstart
+//	}
+//	// end here
+//
+//	pdsmap.close();
+//
+//	// Load tile specific animations
+//	for (std::map<int, sInstancedTile>::iterator it = arenaInstancedTiles.begin(); it != arenaInstancedTiles.end(); it++)
+//	{
+//		if (it->second.instanceOffsets.size() != 0)
+//		{
+//			it->second.instancedModel->InstanceObject(it->second.instanceOffsets);
+//
+//			if (it->second.instancedModel->animation)
+//				Manager::animation.AddAnimation(it->second.instancedModel->animation);
+//
+//			it->second.instanceOffsets.clear();
+//		}
+//	}
+//
+//	if (!opponentSpriteModel)
+//		opponentSpriteModel = new cBattleSprite(glm::vec3(3.f, 0.f, 1.f));
+//
+//	if (!playerSpriteModel)
+//		playerSpriteModel = new cBattleSprite(glm::vec3(-4.f, 0.f, 1.f));
+//}
 
 void cMapManager::LoadMap(const std::string mapDescriptionFile, const int entranceNumUsed)
 {
@@ -415,23 +416,23 @@ void cMapManager::LoadMap(const std::string mapDescriptionFile, const int entran
 	}
 
 	// Load spawn data
-	std::vector<int> spawnTileIds;
-	if (d.HasMember("wildSpawning"))
-	{
-		rapidjson::Value& spawnData = d["wildSpawning"];
-		for (unsigned int i = 0; i < spawnData.Size(); i++)
-		{
-			Pokemon::eSpawnType spawnType = static_cast<Pokemon::eSpawnType>(spawnData[i]["spawnType"].GetInt());
-			if (spawnType == Pokemon::TALL_GRASS)
-			{
-				rapidjson::Value& spawnTileId = spawnData[i]["spawnTileId"];
-				for (unsigned int j = 0; j < spawnTileId.Size(); j++)
-				{
-					spawnTileIds.push_back(spawnTileId[j].GetInt());
-				}
-			}
-		}
-	}
+	//std::vector<int> spawnTileIds;
+	//if (d.HasMember("wildSpawning"))
+	//{
+	//	rapidjson::Value& spawnData = d["wildSpawning"];
+	//	for (unsigned int i = 0; i < spawnData.Size(); i++)
+	//	{
+	//		Pokemon::eSpawnType spawnType = static_cast<Pokemon::eSpawnType>(spawnData[i]["spawnType"].GetInt());
+	//		if (spawnType == Pokemon::TALL_GRASS)
+	//		{
+	//			rapidjson::Value& spawnTileId = spawnData[i]["spawnTileId"];
+	//			for (unsigned int j = 0; j < spawnTileId.Size(); j++)
+	//			{
+	//				spawnTileIds.push_back(spawnTileId[j].GetInt());
+	//			}
+	//		}
+	//	}
+	//}
 
 	// TEMP: loading specific wild encounters for all maps for now
 	//Manager::scene.LoadSpawnData(406, 0, 0, Pokemon::TALL_GRASS, 0, "");
@@ -441,7 +442,11 @@ void cMapManager::LoadMap(const std::string mapDescriptionFile, const int entran
 	std::string collisionMapFileName = d["mapCollisionFileName"].GetString();
 	std::ifstream pdsmap(MAPS_PATH + collisionMapFileName);
 
-	if (!pdsmap.is_open()) return;
+	if (!pdsmap.is_open())
+	{
+		std::cout << "Could not open map collision file: " << collisionMapFileName << std::endl;
+		return;
+	}
 
 	std::string currToken;
 
@@ -526,10 +531,10 @@ void cMapManager::LoadMap(const std::string mapDescriptionFile, const int entran
 							tileToCorrect->isUnchangeable = true;
 						}
 
-						if (std::find(spawnTileIds.begin(), spawnTileIds.end(), tileId) != spawnTileIds.end())
-						{
-							newQuad.localSpawnTiles.push_back(sQuadrant::GetTileIdFromPosition(glm::vec3(x, currHeight, z)));
-						}
+						//if (std::find(spawnTileIds.begin(), spawnTileIds.end(), tileId) != spawnTileIds.end())
+						//{
+						//	newQuad.localSpawnTiles.push_back(sQuadrant::GetTileIdFromPosition(glm::vec3(x, currHeight, z)));
+						//}
 					}
 					else // is NOT walkable
 					{
@@ -672,8 +677,8 @@ void cMapManager::LoadMap(const std::string mapDescriptionFile, const int entran
 		}
 	}
 
-	std::string arenaDescFileName = d["arenaDescFileName"].GetString();
-	LoadArena(arenaDescFileName);
+	//std::string arenaDescFileName = d["arenaDescFileName"].GetString();
+	//LoadArena(arenaDescFileName);
 }
 
 void cMapManager::UnloadMap()
@@ -685,12 +690,12 @@ void cMapManager::UnloadMap()
 	}
 	mapInstancedTiles.clear();
 
-	for (std::map<int, sInstancedTile>::iterator it = arenaInstancedTiles.begin(); it != arenaInstancedTiles.end(); it++)
-	{
-		Manager::animation.RemoveAnimation(it->second.instancedModel.get()->animation);
-		Manager::render.RemoveModel(it->second.instancedModel);
-	}
-	arenaInstancedTiles.clear();
+	//for (std::map<int, sInstancedTile>::iterator it = arenaInstancedTiles.begin(); it != arenaInstancedTiles.end(); it++)
+	//{
+	//	Manager::animation.RemoveAnimation(it->second.instancedModel.get()->animation);
+	//	Manager::render.RemoveModel(it->second.instancedModel);
+	//}
+	//arenaInstancedTiles.clear();
 
 	quads.clear();
 	walkableTiles.clear();
@@ -718,38 +723,38 @@ sTile* cMapManager::GetTile(glm::ivec3 worldPosition)
 	return nullptr;
 }
 
-sTile* cMapManager::GetRandomSpawnTile(glm::vec3& globalPositionOut)
-{
-	// Semi random: make sure to pick a tile close to player
-	glm::vec3 playerPos = Player::GetPlayerPosition();
-
-	sQuadrant* spawnQuad = nullptr;
-	int findQuadAttempts = 0;
-	bool foundValidQuad = false;
-	while (!foundValidQuad)
-	{
-		// Pick a random adjacent quad (assuming player quad is valid)
-		int randQuadOffsetX = (rand() % 3) - 1; // [-1,1]
-		int randQuadOffsetZ = (rand() % 3) - 1; // [-1,1]
-
-		spawnQuad = GetQuad((int)playerPos.x + (randQuadOffsetX * 32), (int)playerPos.z + (randQuadOffsetZ * 32));
-		if (spawnQuad && spawnQuad->localSpawnTiles.size() != 0)
-			foundValidQuad = true;
-
-		findQuadAttempts++;
-		if (findQuadAttempts >= 5) 
-			return nullptr;
-	}
-
-	glm::vec3 tilePos;
-	sTile* spawnTile = spawnQuad->GetRandomSpawnTile(tilePos);
-
-	if (spawnTile)
-		spawnQuad->wildPokemonCount++;
-
-	globalPositionOut = tilePos;
-	return spawnTile;
-}
+//sTile* cMapManager::GetRandomSpawnTile(glm::vec3& globalPositionOut)
+//{
+//	// Semi random: make sure to pick a tile close to player
+//	glm::vec3 playerPos = Player::GetPlayerPosition();
+//
+//	sQuadrant* spawnQuad = nullptr;
+//	int findQuadAttempts = 0;
+//	bool foundValidQuad = false;
+//	while (!foundValidQuad)
+//	{
+//		// Pick a random adjacent quad (assuming player quad is valid)
+//		int randQuadOffsetX = (rand() % 3) - 1; // [-1,1]
+//		int randQuadOffsetZ = (rand() % 3) - 1; // [-1,1]
+//
+//		spawnQuad = GetQuad((int)playerPos.x + (randQuadOffsetX * 32), (int)playerPos.z + (randQuadOffsetZ * 32));
+//		if (spawnQuad && spawnQuad->localSpawnTiles.size() != 0)
+//			foundValidQuad = true;
+//
+//		findQuadAttempts++;
+//		if (findQuadAttempts >= 5) 
+//			return nullptr;
+//	}
+//
+//	glm::vec3 tilePos;
+//	sTile* spawnTile = spawnQuad->GetRandomSpawnTile(tilePos);
+//
+//	if (spawnTile)
+//		spawnQuad->wildPokemonCount++;
+//
+//	globalPositionOut = tilePos;
+//	return spawnTile;
+//}
 
 void cMapManager::RemoveEntityFromTile(glm::ivec3 worldPosition)
 {

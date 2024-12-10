@@ -147,34 +147,34 @@ namespace Pokemon
 		}
 	}
 
-	sRoamingPokemonData GenerateRoamingPokemonData(const sSpawnData& spawnData)
-	{
-		sRoamingPokemonData newRoamingData;
+	//sRoamingPokemonData GenerateRoamingPokemonData(const sSpawnData& spawnData)
+	//{
+	//	sRoamingPokemonData newRoamingData;
 
-		newRoamingData.nationalDexNumber = spawnData.nationalDexNumber;
-		newRoamingData.formName = spawnData.formName;
-		newRoamingData.isFormGenderBased = spawnData.isFormGenderBased;
-		newRoamingData.isSpriteGenderBased = spawnData.isSpriteGenderBased;
+	//	newRoamingData.nationalDexNumber = spawnData.nationalDexNumber;
+	//	newRoamingData.formName = spawnData.formName;
+	//	newRoamingData.isFormGenderBased = spawnData.isFormGenderBased;
+	//	newRoamingData.isSpriteGenderBased = spawnData.isSpriteGenderBased;
 
-		// Determine level
-		newRoamingData.level = rand() % (spawnData.maxLevel - spawnData.minLevel + 1) + spawnData.minLevel;
+	//	// Determine level
+	//	newRoamingData.level = rand() % (spawnData.maxLevel - spawnData.minLevel + 1) + spawnData.minLevel;
 
-		// Determine gender
-		newRoamingData.gender = Pokemon::NO_GENDER;
-		if (spawnData.genderRatio >= 0) // not genderless
-		{
-			int genderRandom = (rand() % 100); // [0-99]
+	//	// Determine gender
+	//	newRoamingData.gender = Pokemon::NO_GENDER;
+	//	if (spawnData.genderRatio >= 0) // not genderless
+	//	{
+	//		int genderRandom = (rand() % 100); // [0-99]
 
-			if (spawnData.genderRatio < genderRandom) newRoamingData.gender = Pokemon::MALE;
-			else newRoamingData.gender = Pokemon::FEMALE;
-		}
+	//		if (spawnData.genderRatio < genderRandom) newRoamingData.gender = Pokemon::MALE;
+	//		else newRoamingData.gender = Pokemon::FEMALE;
+	//	}
 
-		// Determine shiny
-		int shinyRandom = (rand() % 100); // [0-99]
-		if (shinyRandom < 50) newRoamingData.isShiny = true;
+	//	// Determine shiny
+	//	int shinyRandom = (rand() % 100); // [0-99]
+	//	if (shinyRandom < 50) newRoamingData.isShiny = true;
 
-		return newRoamingData;
-	}
+	//	return newRoamingData;
+	//}
 
 	// TODO: have a more versitile way to create battle ready pokemon & incorporate into entering wild encounters and spawn data
 	sIndividualData GenerateIndividualPokemonData(int nationalDexId)
@@ -184,62 +184,62 @@ namespace Pokemon
 		return sIndividualData();
 	}
 
-	sBattleData GeneratePokemonBattleData(const sRoamingPokemonData& roamingData)
-	{
-		sBattleData newData;
-		newData.nationalDexNumber = roamingData.nationalDexNumber;
-		newData.formName = roamingData.formName;
-		newData.gender = roamingData.gender;
-		newData.level = roamingData.level;
-		newData.isShiny = roamingData.isShiny;
-		newData.isFormGenderBased = roamingData.isFormGenderBased;
-		newData.isSpriteGenderBased = roamingData.isSpriteGenderBased;
+	//sBattleData GeneratePokemonBattleData(const sRoamingPokemonData& roamingData)
+	//{
+	//	sBattleData newData;
+	//	newData.nationalDexNumber = roamingData.nationalDexNumber;
+	//	newData.formName = roamingData.formName;
+	//	newData.gender = roamingData.gender;
+	//	newData.level = roamingData.level;
+	//	newData.isShiny = roamingData.isShiny;
+	//	newData.isFormGenderBased = roamingData.isFormGenderBased;
+	//	newData.isSpriteGenderBased = roamingData.isSpriteGenderBased;
 
-		rapidjson::Document d;
-		OpenPokemonDataFile(d, roamingData.nationalDexNumber);
+	//	rapidjson::Document d;
+	//	OpenPokemonDataFile(d, roamingData.nationalDexNumber);
 
-		if (newData.isFormGenderBased && newData.gender == FEMALE) // load "female" form
-		{
-			rapidjson::Value& alternateForms = d["alternateForms"];
-			for (unsigned int i = 0; i < alternateForms.Size(); i++)
-			{
-				if (alternateForms[i]["name"].GetString() == "female")
-				{
-					LoadFormData(alternateForms[i], newData.form);
-					break;
-				}
-			}
-		}
-		else if (newData.formName != "") // load custom form
-		{
-			rapidjson::Value& alternateForms = d["alternateForms"];
-			for (unsigned int i = 0; i < alternateForms.Size(); i++)
-			{
-				if (alternateForms[i]["name"].GetString() == newData.formName)
-				{
-					LoadFormData(alternateForms[i], newData.form);
-					break;
-				}
-			}
-		}
-		else // load default form
-		{
-			rapidjson::Value& defaultFormObject = d["defaultForm"];
-			LoadFormData(defaultFormObject, newData.form);
-		}
+	//	if (newData.isFormGenderBased && newData.gender == FEMALE) // load "female" form
+	//	{
+	//		rapidjson::Value& alternateForms = d["alternateForms"];
+	//		for (unsigned int i = 0; i < alternateForms.Size(); i++)
+	//		{
+	//			if (alternateForms[i]["name"].GetString() == "female")
+	//			{
+	//				LoadFormData(alternateForms[i], newData.form);
+	//				break;
+	//			}
+	//		}
+	//	}
+	//	else if (newData.formName != "") // load custom form
+	//	{
+	//		rapidjson::Value& alternateForms = d["alternateForms"];
+	//		for (unsigned int i = 0; i < alternateForms.Size(); i++)
+	//		{
+	//			if (alternateForms[i]["name"].GetString() == newData.formName)
+	//			{
+	//				LoadFormData(alternateForms[i], newData.form);
+	//				break;
+	//			}
+	//		}
+	//	}
+	//	else // load default form
+	//	{
+	//		rapidjson::Value& defaultFormObject = d["defaultForm"];
+	//		LoadFormData(defaultFormObject, newData.form);
+	//	}
 
-		newData.name = d["name"].GetString();
+	//	newData.name = d["name"].GetString();
 
-		newData.maxHealth = 100;
-		newData.currHealth = 100;
+	//	newData.maxHealth = 100;
+	//	newData.currHealth = 100;
 
-		newData.expToNextLevel = 2000;
-		newData.currExp = 0;
+	//	newData.expToNextLevel = 2000;
+	//	newData.currExp = 0;
 
-		newData.level = 29;
+	//	newData.level = 29;
 
-		return newData;
-	}
+	//	return newData;
+	//}
 
 	const std::string sRoamingPokemonData::MakeRoamingTextureName()
 	{

@@ -193,7 +193,7 @@ void cRenderManager::Shutdown()
 
     UnloadTextures();
     mapModels.clear();
-    battleModels.clear();
+    //battleModels.clear();
 }
 
 void cRenderManager::CreateShaderProgram(std::string programName, const char* vertexPath, const char* fragmentPath)
@@ -613,31 +613,31 @@ void cRenderManager::setVec4(const std::string& name, const glm::vec4& value)
     glUniform4fv(programs[currShader].uniformLocations[name], 1, &value[0]);
 }
 
-std::shared_ptr<cRenderModel> cRenderManager::CreateRenderModel(bool isBattleModel)
+std::shared_ptr<cRenderModel> cRenderManager::CreateRenderModel(/*bool isBattleModel*/)
 {
     std::shared_ptr<cRenderModel> newModel = std::make_shared<cRenderModel>();
 
-    if (isBattleModel) 
-        battleModels.push_back(newModel);
-    else 
+    //if (isBattleModel) 
+    //    battleModels.push_back(newModel);
+    //else 
         mapModels.push_back(newModel);
 
     return newModel;
 }
 
-std::shared_ptr<cSpriteModel> cRenderManager::CreateSpriteModel(bool isBattleModel)
+std::shared_ptr<cSpriteModel> cRenderManager::CreateSpriteModel(/*bool isBattleModel*/)
 {
     std::shared_ptr<cSpriteModel> newModel = std::make_shared<cSpriteModel>();
 
-    if (isBattleModel) 
-        battleModels.push_back(newModel);
-    else 
+    //if (isBattleModel) 
+    //    battleModels.push_back(newModel);
+    //else 
         mapModels.push_back(newModel);
 
     return newModel;
 }
 
-std::shared_ptr<cAnimatedModel> cRenderManager::CreateAnimatedModel(eAnimatedModel modelType, bool isBattleModel)
+std::shared_ptr<cAnimatedModel> cRenderManager::CreateAnimatedModel(eAnimatedModel modelType/*, bool isBattleModel*/)
 {
     std::shared_ptr<cAnimatedModel> newModel;
 
@@ -657,9 +657,9 @@ std::shared_ptr<cAnimatedModel> cRenderManager::CreateAnimatedModel(eAnimatedMod
         break;
     }
 
-    if (isBattleModel)
-        battleModels.push_back(newModel);
-    else
+    //if (isBattleModel)
+    //    battleModels.push_back(newModel);
+    //else
         mapModels.push_back(newModel);
 
     return newModel;
@@ -667,20 +667,20 @@ std::shared_ptr<cAnimatedModel> cRenderManager::CreateAnimatedModel(eAnimatedMod
 
 void cRenderManager::RemoveModel(std::shared_ptr<cRenderModel> model)
 {
-    if (Engine::currGameMode == eGameMode::MAP) // TEMP
+    //if (Engine::currGameMode == eGameMode::MAP) // TEMP
     {
         std::vector< std::shared_ptr<cRenderModel> >::iterator it = std::find(mapModels.begin(), mapModels.end(), model);
 
         if (it != mapModels.end())
             mapModels.erase(it);
     }
-    else
-    {
-        std::vector< std::shared_ptr<cRenderModel> >::iterator it = std::find(battleModels.begin(), battleModels.end(), model);
+    //else
+    //{
+    //    std::vector< std::shared_ptr<cRenderModel> >::iterator it = std::find(battleModels.begin(), battleModels.end(), model);
 
-        if (it != battleModels.end())
-            battleModels.erase(it);
-    }
+    //    if (it != battleModels.end())
+    //        battleModels.erase(it);
+    //}
 }
 
 unsigned int cRenderManager::CreateTexture(const std::string fullPath, int& width, int& height)
@@ -1047,11 +1047,11 @@ void cRenderManager::DrawShadowPass(glm::mat4& outLightSpaceMatrix)
         lightPos = glm::vec3(Manager::light.lights[0].position) + Player::GetPlayerPosition();
         lightAt = Player::GetPlayerPosition();
     }
-    else if (Engine::currGameMode == eGameMode::BATTLE)
-    {
-        lightPos = glm::vec3(-20.f, 12.f, -10.f);
-        lightAt = glm::vec3(0.f); // look at world origin
-    }
+    //else if (Engine::currGameMode == eGameMode::BATTLE)
+    //{
+    //    lightPos = glm::vec3(-20.f, 12.f, -10.f);
+    //    lightAt = glm::vec3(0.f); // look at world origin
+    //}
 
     lightProjection = glm::ortho(-25.0f, 25.0f, -25.0f, 25.0f, near_plane, far_plane);
     lightView = glm::lookAt(lightPos, lightAt, glm::vec3(0.0, 1.0, 0.0));
@@ -1073,13 +1073,13 @@ void cRenderManager::DrawShadowPass(glm::mat4& outLightSpaceMatrix)
             DrawObject(mapModels[i]);
         }
     }
-    else if (Engine::currGameMode == eGameMode::BATTLE)
-    {
-        for (int i = 0; i < battleModels.size(); i++)
-        {
-            DrawObject(battleModels[i]);
-        }
-    }
+    //else if (Engine::currGameMode == eGameMode::BATTLE)
+    //{
+    //    for (int i = 0; i < battleModels.size(); i++)
+    //    {
+    //        DrawObject(battleModels[i]);
+    //    }
+    //}
 
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
@@ -1126,13 +1126,13 @@ void cRenderManager::DrawFrame()
             DrawObject(mapModels[i]);
         }
     }
-    else if (Engine::currGameMode == eGameMode::BATTLE)
-    {
-        for (int i = 0; i < battleModels.size(); i++)
-        {
-            DrawObject(battleModels[i]);
-        }
-    }
+    //else if (Engine::currGameMode == eGameMode::BATTLE)
+    //{
+    //    for (int i = 0; i < battleModels.size(); i++)
+    //    {
+    //        DrawObject(battleModels[i]);
+    //    }
+    //}
 
     // Draw particles
     if (Engine::currGameMode != eGameMode::MENU)

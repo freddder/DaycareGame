@@ -66,7 +66,7 @@ public:
 	std::shared_ptr<cTamedRoamingPokemon> SpawnTamedPokemon(Pokemon::sRoamingPokemonData& pokemonData, glm::vec3 tileLocation);
 
 private:
-	Pokemon::sBattleData enemyBattleData;
+	//Pokemon::sBattleData enemyBattleData;
 public:
 	void ChangeScene(const std::string newSceneDescFile, const int entranceNumUsed);
 	//void EnterWildEncounter(const Pokemon::sRoamingPokemonData& roamingPokemonData, cWildRoamingPokemon* roamingEntity);

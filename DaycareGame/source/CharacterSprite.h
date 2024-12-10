@@ -62,21 +62,21 @@ public:
 	void StopMovement();
 };
 
-class cBattleSprite
-{
-public:
-	cBattleSprite(glm::vec3 pos);
-	~cBattleSprite();
-
-	void SetSpriteData(std::string textureName, float spriteHeightSize, float spriteAspectRatio, int spritesNum);
-	void ClearSpriteData();
-
-protected:
-	std::shared_ptr<cPeriodicSpriteAnimation> spriteAnimation;
-	std::shared_ptr<cSpriteModel> model;
-
-protected:
-	std::shared_ptr<class cParticleSpawner> hitParticleSpawner;
-public:
-	void SpawnHitParticles();
-};
+//class cBattleSprite
+//{
+//public:
+//	cBattleSprite(glm::vec3 pos);
+//	~cBattleSprite();
+//
+//	void SetSpriteData(std::string textureName, float spriteHeightSize, float spriteAspectRatio, int spritesNum);
+//	void ClearSpriteData();
+//
+//protected:
+//	std::shared_ptr<cPeriodicSpriteAnimation> spriteAnimation;
+//	std::shared_ptr<cSpriteModel> model;
+//
+//protected:
+//	std::shared_ptr<class cParticleSpawner> hitParticleSpawner;
+//public:
+//	void SpawnHitParticles();
+//};
