@@ -371,3 +371,5 @@ Build/x64/Release/*
 !Build/x64/Release/*.dll
 
 DaycareGame/imgui.ini
+
+Assets-Scripts/.venv
