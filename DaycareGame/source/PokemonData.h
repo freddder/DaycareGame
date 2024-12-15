@@ -103,12 +103,21 @@ namespace Pokemon
 
 	struct sStats
 	{
-		int hp = 0;		// Health
-		int atk = 0;	// Attack
-		int spAtk = 0;	// Special Attack
-		int def = 0;	// Defence
-		int spDef = 0;	// Special Defence
-		int spd = 0;	// Speed
+		sStats() : 
+			hp{ 0 },
+			atk{ 0 },
+			spAtk{ 0 },
+			def{ 0 },
+			spDef{ 0 },
+			spd{ 0 }
+		{}
+
+		unsigned int hp		: 8;	// Health
+		unsigned int atk	: 8;	// Attack
+		unsigned int spAtk	: 8;	// Special Attack
+		unsigned int def	: 8;	// Defence
+		unsigned int spDef	: 8;	// Special Defence
+		unsigned int spd	: 8;	// Speed
 
 		int Total()
 		{

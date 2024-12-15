@@ -309,7 +309,7 @@ sQuadrant* cMapManager::GetQuad(int worldX, int worldZ)
 //		playerSpriteModel = new cBattleSprite(glm::vec3(-4.f, 0.f, 1.f));
 //}
 
-void cMapManager::LoadMap(const std::string mapDescriptionFile, const int entranceNumUsed)
+void cMapManager::LoadMap(const std::string mapDescriptionFile, const unsigned int entranceNumUsed)
 {
 	// TEMP: will find a more modular way to load necessary models
 	Manager::render.LoadModel("SpriteHolder.obj", "sprite");

@@ -345,12 +345,12 @@ namespace Pokemon
 		form.type1 = static_cast<eType>(formObject["type1"].GetInt());
 		form.type2 = static_cast<eType>(formObject["type2"].GetInt());
 
-		form.baseStats.hp = formObject["baseHp"].GetInt();
-		form.baseStats.atk = formObject["baseAtk"].GetInt();
-		form.baseStats.spAtk = formObject["baseSpAtk"].GetInt();
-		form.baseStats.def = formObject["baseDef"].GetInt();
-		form.baseStats.spDef = formObject["baseSpDef"].GetInt();
-		form.baseStats.spd = formObject["baseSpd"].GetInt();
+		form.baseStats.hp = formObject["baseHp"].GetUint();
+		form.baseStats.atk = formObject["baseAtk"].GetUint();
+		form.baseStats.spAtk = formObject["baseSpAtk"].GetUint();
+		form.baseStats.def = formObject["baseDef"].GetUint();
+		form.baseStats.spDef = formObject["baseSpDef"].GetUint();
+		form.baseStats.spd = formObject["baseSpd"].GetUint();
 
 		form.height = formObject["height"].GetFloat();
 		form.weight = formObject["weight"].GetFloat();

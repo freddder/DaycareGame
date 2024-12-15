@@ -22,7 +22,7 @@ def create_entry(dex_num):
     response = requests.get(url)
     data = response.json()
 
-    icon_url = data["sprites"]["versions"]["generation-viii"]["icons"]["front_default"]
+    icon_url = data["sprites"]["versions"]["generation-vii"]["icons"]["front_default"]
     icon = requests.get(icon_url)
     with open(f"{dex_num}_ico.png", 'wb') as file:
         file.write(icon.content)
@@ -48,17 +48,22 @@ def create_entry(dex_num):
             position = (frame * battle_sprite_gif.size[0], 0)
             sprite_sheet.paste(extracted_frame, position)
 
-        sprite_sheet.save("result.png")
+        sprite_sheet.save(f"{dex_num}_bf.png", optimize=True)
+        battle_sprite_gif.close()
+        os.remove(gif_file_name)
 
-    os.remove(gif_file_name)
+    os.chdir("../")
     
 
 def main():
     os.chdir("../DaycareGame/assets/pokemon")
 
     #create_entry(132)
-    create_entry(445)
+    #create_entry(445)
     #create_entry(681)
+
+    for i in range(387, 408):
+        create_entry(i)
 
 if __name__ == "__main__":
     main()

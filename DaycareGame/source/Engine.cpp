@@ -103,12 +103,12 @@ void RenderFormData(Pokemon::sForm& form)
         ImGui::EndCombo();
     }
 
-    ImGui::DragInt("HP", &form.baseStats.hp, 1, 1, 150);
-    ImGui::DragInt("Attack", &form.baseStats.atk, 1, 1, 150);
-    ImGui::DragInt("Defence", &form.baseStats.def, 1, 1, 150);
-    ImGui::DragInt("Special Attack", &form.baseStats.spAtk, 1, 1, 150);
-    ImGui::DragInt("Special Defence", &form.baseStats.spDef, 1, 1, 150);
-    ImGui::DragInt("Speed", &form.baseStats.spd, 1, 1, 150);
+    //ImGui::DragInt("HP", &form.baseStats.hp, 1, 1, 150);
+    //ImGui::DragInt("Attack", &form.baseStats.atk, 1, 1, 150);
+    //ImGui::DragInt("Defence", &form.baseStats.def, 1, 1, 150);
+    //ImGui::DragInt("Special Attack", &form.baseStats.spAtk, 1, 1, 150);
+    //ImGui::DragInt("Special Defence", &form.baseStats.spDef, 1, 1, 150);
+    //ImGui::DragInt("Speed", &form.baseStats.spd, 1, 1, 150);
 
     ImGui::DragFloat("Height(m)", &form.height, 0.1f, 0.1f, 25.f);
     ImGui::SameLine();

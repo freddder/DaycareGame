@@ -102,7 +102,7 @@ private:
 	sQuadrant* GetQuad(int worldX, int worldZ);
 	//void LoadArena(const std::string arenaDescriptionFile);
 public:
-	void LoadMap(const std::string mapDescriptionFile, const int entranceNumUsed);
+	void LoadMap(const std::string mapDescriptionFile, const unsigned int entranceNumUsed);
 	void UnloadMap();
 	//void ChangeScene(const std::string newSceneDescFile);
 
