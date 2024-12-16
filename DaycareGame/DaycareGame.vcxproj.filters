@@ -162,7 +162,7 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="source\Pasture.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>UI\Pastures</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

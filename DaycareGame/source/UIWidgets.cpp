@@ -321,14 +321,8 @@ void cUIGrid::AssignChildAtIndex(cUIWidget* newChild, unsigned int index)
 	newChild->anchor = MIDDLE_MIDDLE;
 	newChild->heightPercent = 1.f / (float)height;
 	
-	if (width % 2 == 0)
-	{
-
-	}
-	else
-	{
-		horizontalTranslate = (1.f / (float)width) * ((index % 5) - (width / 2));
-	}
+	//			(amount to shift per whole unit) (   how many whole units to move   )
+	horizontalTranslate = (1.f / (float)width) * ((index % width) - ((float)width / 2.f));
 
 	children[index] = newChild;
 }
