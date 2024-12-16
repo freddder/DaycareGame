@@ -55,8 +55,8 @@ int main()
     Manager::animation.InitializeAnimationsPresets();
 
     //Manager::scene.SetWeather(SNOW);
-    Pokemon::sStats test;
-    std::cout << test.hp;
+    //Pokemon::sStats test;
+    //std::cout << test.hp;
 
     Engine::GameLoop(true);
 

@@ -50,6 +50,7 @@
     <ClCompile Include="source\Engine.cpp" />
     <ClCompile Include="source\glad.c" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Pasture.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\PokemonData.cpp" />
     <ClCompile Include="source\UIWidgets.cpp" />
@@ -88,6 +89,7 @@
     <ClInclude Include="source\cWildRoamingPokemon.h" />
     <ClInclude Include="source\DrawInfo.h" />
     <ClInclude Include="source\Engine.h" />
+    <ClInclude Include="source\Pasture.h" />
     <ClInclude Include="source\Player.h" />
     <ClInclude Include="source\PokemonData.h" />
     <ClInclude Include="source\UIWidgets.h" />

@@ -51,7 +51,7 @@ public:
 	bool isHidden = false;
 	virtual void Draw();
 
-private:
+protected:
 	std::vector<cUIWidget*> children;
 	cUIWidget* parent;
 public:
@@ -77,9 +77,11 @@ protected:
 	virtual void ConfirmAction();
 public:
 	void SetMoveFocus(cUIWidget* to, eDirection dir, bool isViceVersa);
+	virtual cUIWidget* GetAdjecentFocus(eDirection dir);
 
 	friend class cUIManager;
 	friend class cUICanvas;
+	friend class cUIGrid;
 };
 
 class cUIImage : public cUIWidget
@@ -119,4 +121,23 @@ public:
 	float textSizePercent = 1.f; // Of this widget
 
 	virtual void Draw();
+};
+
+class cUIGrid : public cUIWidget
+{
+public:
+	cUIGrid(unsigned int width, unsigned int height);
+	virtual ~cUIGrid() {};
+
+private:
+	unsigned int width, height;
+	unsigned int focusIndex = 0;
+
+public:
+	// Use this instead of AddChild
+	void AssignChildAtIndex(cUIWidget* newChild, unsigned int index);
+	cUIWidget* GetAdjecentFocus(eDirection dir) override;
+
+	void EnterFocus() override;
+	void LeaveFocus() override;
 };

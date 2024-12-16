@@ -454,7 +454,7 @@ cPartyMemberButton::cPartyMemberButton(cUICanvas* canvas, int memberNum)
     AddChild(icon);
 }
 
-cPartyBackground::cPartyBackground(cUICanvas* canvas)
+cAnimatedBackground::cAnimatedBackground(cUICanvas* canvas)
 {
     scroll = std::make_shared<cVec2Animation>(translate);
     scroll->AddKeyFrame(sKeyFrameVec2(5.f, glm::vec2(5.f)));
@@ -462,14 +462,14 @@ cPartyBackground::cPartyBackground(cUICanvas* canvas)
     Manager::animation.AddAnimation(scroll);
 }
 
-cPartyBackground::~cPartyBackground()
+cAnimatedBackground::~cAnimatedBackground()
 {
     Manager::animation.RemoveAnimation(scroll);
 }
 
 cPartyCanvas::cPartyCanvas()
 {
-    cPartyBackground* background = new cPartyBackground(this);
+    cAnimatedBackground* background = new cAnimatedBackground(this);
     background->textureId = LoadUITexture("background.png");
     background->aspectRatio = (float)Manager::camera.SCR_HEIGHT / (float)Manager::camera.SCR_WIDTH;
     background->useScreenSpace = true;

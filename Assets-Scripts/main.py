@@ -48,7 +48,7 @@ def create_entry(dex_num):
             position = (frame * battle_sprite_gif.size[0], 0)
             sprite_sheet.paste(extracted_frame, position)
 
-        sprite_sheet.save(f"{dex_num}_bf.png", optimize=True)
+        sprite_sheet.save(f"{dex_num}_bf.png", optimize=True, quality=95)
         battle_sprite_gif.close()
         os.remove(gif_file_name)
 

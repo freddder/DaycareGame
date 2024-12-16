@@ -353,21 +353,28 @@ void cUIManager::ExecuteInputAction(eInputType inputType)
         return;
     }
 
+    cUIWidget* newFocus = nullptr;
     switch (inputType)
     {
     case IT_UP:
-        currCanvas->MoveFocus(currCanvas->currFocus->focusUp);
+        //currCanvas->MoveFocus(currCanvas->currFocus->focusUp);
+        newFocus = currCanvas->currFocus->GetAdjecentFocus(UP);
         break;
     case IT_DOWN:
-        currCanvas->MoveFocus(currCanvas->currFocus->focusDown);
+        //currCanvas->MoveFocus(currCanvas->currFocus->focusDown);
+        newFocus = currCanvas->currFocus->GetAdjecentFocus(DOWN);
         break;
     case IT_LEFT:
-        currCanvas->MoveFocus(currCanvas->currFocus->focusLeft);
+        //currCanvas->MoveFocus(currCanvas->currFocus->focusLeft);
+        newFocus = currCanvas->currFocus->GetAdjecentFocus(LEFT);
         break;
     case IT_RIGHT:
-        currCanvas->MoveFocus(currCanvas->currFocus->focusRight);
+        //currCanvas->MoveFocus(currCanvas->currFocus->focusRight);
+        newFocus = currCanvas->currFocus->GetAdjecentFocus(RIGHT);
         break;
     }
+
+    currCanvas->MoveFocus(newFocus);
 }
 void cUIManager::DrawUI()
 {

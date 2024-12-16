@@ -153,6 +153,31 @@ void cUIWidget::SetMoveFocus(cUIWidget* to, eDirection dir, bool isViceVersa)
 	}
 }
 
+cUIWidget* cUIWidget::GetAdjecentFocus(eDirection dir)
+{
+	cUIWidget* adjecent = nullptr;
+
+	switch (dir)
+	{
+	case UP:
+		adjecent = focusUp;
+		break;
+	case DOWN:
+		adjecent = focusDown;
+		break;
+	case LEFT:
+		adjecent = focusLeft;
+		break;
+	case RIGHT:
+		adjecent = focusRight;
+		break;
+	default:
+		break;
+	}
+
+	return adjecent;
+}
+
 void cUIWidget::EnterFocus()
 {
 	isFocused = true;
@@ -279,4 +304,79 @@ void cUIText::Draw()
 	glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (void*)0, drawCharCount);
 
 	glBindVertexArray(0);
+}
+
+cUIGrid::cUIGrid(unsigned int _width, unsigned int _height)
+{
+	width = _width;
+	height = _height;
+	children = std::vector<cUIWidget*>(width * height);
+}
+
+void cUIGrid::AssignChildAtIndex(cUIWidget* newChild, unsigned int index)
+{
+	if (index < 0 || index >= height * width)
+		return;
+
+	newChild->anchor = MIDDLE_MIDDLE;
+	newChild->heightPercent = 1.f / (float)height;
+	
+	if (width % 2 == 0)
+	{
+
+	}
+	else
+	{
+		horizontalTranslate = (1.f / (float)width) * ((index % 5) - (width / 2));
+	}
+
+	children[index] = newChild;
+}
+
+cUIWidget* cUIGrid::GetAdjecentFocus(eDirection dir)
+{
+	int desiredIndex = 0;
+	switch (dir)
+	{
+	case UP:
+		desiredIndex = focusIndex - width;
+		if (desiredIndex < 0)
+			return focusUp;
+		break;
+	case DOWN:
+		desiredIndex = focusIndex + width;
+		if (desiredIndex >= width * height)
+			return focusDown;
+		break;
+	case LEFT:
+		if (focusIndex % width == 0)
+			return focusLeft;
+		desiredIndex = focusIndex - 1;
+		break;
+	case RIGHT:
+		if (focusIndex % width == width - 1)
+			return focusRight;
+		desiredIndex = focusIndex + 1;
+		break;
+	default:
+		break;
+	}
+
+	focusIndex = desiredIndex;
+	
+	return this;
+}
+
+void cUIGrid::EnterFocus()
+{
+	isFocused = true;
+	children[focusIndex]->EnterFocus();
+	
+	// Move position of cursor here
+}
+
+void cUIGrid::LeaveFocus()
+{
+	isFocused = false;
+	children[focusIndex]->LeaveFocus();
 }

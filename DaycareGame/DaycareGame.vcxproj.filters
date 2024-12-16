@@ -54,6 +54,9 @@
     <Filter Include="Input">
       <UniqueIdentifier>{4a2235ad-122c-4759-95c6-23ac8d771e56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI\Pastures">
+      <UniqueIdentifier>{b9c299e2-06f5-4356-9e1c-c44076bd6821}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\CanvasFactory.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="source\cAnimationManager.cpp">
       <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Pasture.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -267,6 +273,9 @@
     </ClInclude>
     <ClInclude Include="source\cAnimationManager.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Pasture.h">
+      <Filter>UI\Pastures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

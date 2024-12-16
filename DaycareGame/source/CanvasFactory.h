@@ -83,12 +83,12 @@ public:
 	virtual ~cPartyMemberButton() {};
 };
 
-class cPartyBackground : public cUIImage
+class cAnimatedBackground : public cUIImage
 {
 	std::shared_ptr<cVec2Animation> scroll;
 public:
-	cPartyBackground(cUICanvas* canvas);
-	virtual ~cPartyBackground();
+	cAnimatedBackground(cUICanvas* canvas);
+	virtual ~cAnimatedBackground();
 };
 
 class cPartyCanvas : public cUICanvas
