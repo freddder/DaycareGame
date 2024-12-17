@@ -140,4 +140,6 @@ public:
 
 	void EnterFocus() override;
 	void LeaveFocus() override;
+
+	void Draw() override;
 };

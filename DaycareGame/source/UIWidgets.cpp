@@ -321,9 +321,20 @@ void cUIGrid::AssignChildAtIndex(cUIWidget* newChild, unsigned int index)
 	newChild->anchor = MIDDLE_MIDDLE;
 	newChild->heightPercent = 1.f / (float)height;
 	
-	//			(amount to shift per whole unit) (   how many whole units to move   )
-	horizontalTranslate = (1.f / (float)width) * ((index % width) - ((float)width / 2.f));
+	//			          (amount to shift per whole unit)   (   how many whole units to move   )
+	newChild->horizontalTranslate = (1.f / (float)width) * ((index % width) - ((float)width / 2.f));
+	newChild->verticalTranslate = -(1.f / (float)height) * ((index / width) - ((float)height / 2.f));
 
+	if (width % 2 == 0)
+	{
+		newChild->horizontalTranslate += 1.f / (float)width / 2.f;
+	}
+	if (height % 2 != 0)
+	{
+		newChild->verticalTranslate -= 1.f / (float)height / 2.f;
+	}
+
+	newChild->parent = this;
 	children[index] = newChild;
 }
 
@@ -373,4 +384,15 @@ void cUIGrid::LeaveFocus()
 {
 	isFocused = false;
 	children[focusIndex]->LeaveFocus();
+}
+
+void cUIGrid::Draw()
+{
+	if (isHidden) return;
+
+	for (int i = 0; i < children.size(); i++)
+	{
+		if (children[i])
+			children[i]->Draw();
+	}
 }

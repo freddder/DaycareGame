@@ -11,6 +11,8 @@
 
 #include "Player.h"
 
+#include "Pasture.h"
+
 cMenuButtonWidget::cMenuButtonWidget(cUICanvas* canvas, std::string text, std::string iconFileName)
 {
     textureId = canvas->LoadUITexture("panel.png");
@@ -95,6 +97,11 @@ void cOverworldCanvas::ConfirmAction()
     {
         Engine::currGameMode = eGameMode::MENU;
         Manager::ui.AddCanvas(new cPartyCanvas());
+    }
+    else if (currFocus == bagButton)
+    {
+        Engine::currGameMode = eGameMode::MENU;
+        Manager::ui.AddCanvas(new cPastureCanvas());
     }
 }
 
