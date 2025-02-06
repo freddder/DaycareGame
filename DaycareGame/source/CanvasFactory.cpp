@@ -111,40 +111,40 @@ void cOverworldCanvas::CancelAction()
 	Manager::input.ChangeInputState(OVERWORLD_MOVEMENT);
 }
 
-cHealthBar::cHealthBar(cUICanvas* canvas, float initialRatio)
-{
-    aspectRatio = 0.1f;
-    textureId = canvas->LoadUITexture("HealthBarBackground.png");
-
-    cUIWidget* fillable = new cUIWidget();
-    fillable->aspectRatio = 0.0625f;
-    fillable->heightPercent = 3.f / 5.f;
-    fillable->anchor = MIDDLE_MIDDLE;
-
-    hbContent = new cUIImage();
-    hbContent->aspectRatio = 0.0625f * (1.f / initialRatio); // Inverse the health percentage
-    hbContent->anchor = MIDDLE_LEFT;
-    hbContent->textureId = canvas->LoadUITexture("HealthBar.png");
-    hbContent->colorFilter = glm::vec3(0.f, 1.f, 0.f);
-    fillable->AddChild(hbContent);
-
-    // all I have to do is change the aspect ratio (idk the numbers tho)
-    AddChild(fillable);
-}
-
-void cHealthBar::UpdateHealthBar(float healthPercent)
-{
-    float percentToUse = glm::clamp(healthPercent, 0.f, 1.f);
-    
-    hbContent->aspectRatio = 0.0625f * (1.f / healthPercent);
-
-    if (healthPercent < 0.25f) 
-        hbContent->colorFilter = glm::vec3(1.f, 0.f, 0.f); // red
-    else if (healthPercent < 0.5f)
-        hbContent->colorFilter = glm::vec3(1.f, 1.f, 0.f); // yellow
-    else 
-        hbContent->colorFilter = glm::vec3(0.f, 1.f, 0.f); // green
-}
+//cHealthBar::cHealthBar(cUICanvas* canvas, float initialRatio)
+//{
+//    aspectRatio = 0.1f;
+//    textureId = canvas->LoadUITexture("HealthBarBackground.png");
+//
+//    cUIWidget* fillable = new cUIWidget();
+//    fillable->aspectRatio = 0.0625f;
+//    fillable->heightPercent = 3.f / 5.f;
+//    fillable->anchor = MIDDLE_MIDDLE;
+//
+//    hbContent = new cUIImage();
+//    hbContent->aspectRatio = 0.0625f * (1.f / initialRatio); // Inverse the health percentage
+//    hbContent->anchor = MIDDLE_LEFT;
+//    hbContent->textureId = canvas->LoadUITexture("HealthBar.png");
+//    hbContent->colorFilter = glm::vec3(0.f, 1.f, 0.f);
+//    fillable->AddChild(hbContent);
+//
+//    // all I have to do is change the aspect ratio (idk the numbers tho)
+//    AddChild(fillable);
+//}
+//
+//void cHealthBar::UpdateHealthBar(float healthPercent)
+//{
+//    float percentToUse = glm::clamp(healthPercent, 0.f, 1.f);
+//    
+//    hbContent->aspectRatio = 0.0625f * (1.f / healthPercent);
+//
+//    if (healthPercent < 0.25f) 
+//        hbContent->colorFilter = glm::vec3(1.f, 0.f, 0.f); // red
+//    else if (healthPercent < 0.5f)
+//        hbContent->colorFilter = glm::vec3(1.f, 1.f, 0.f); // yellow
+//    else 
+//        hbContent->colorFilter = glm::vec3(0.f, 1.f, 0.f); // green
+//}
 
 //cPlayerBattleInfo::cPlayerBattleInfo(cUICanvas* canvas)
 //{

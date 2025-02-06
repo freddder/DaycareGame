@@ -26,7 +26,6 @@ protected:
     cUIWidget* currFocus;
     virtual void ConfirmAction();
     virtual void CancelAction();
-    void MoveFocus(cUIWidget* newFocus);
     void ResetFocus();
 
     friend class cUIManager;

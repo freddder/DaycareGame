@@ -77,7 +77,7 @@ protected:
 	virtual void ConfirmAction();
 public:
 	void SetMoveFocus(cUIWidget* to, eDirection dir, bool isViceVersa);
-	virtual cUIWidget* GetAdjecentFocus(eDirection dir);
+	virtual cUIWidget* MoveFocus(eDirection dir);
 
 	friend class cUIManager;
 	friend class cUICanvas;
@@ -136,10 +136,7 @@ private:
 public:
 	// Use this instead of AddChild
 	void AssignChildAtIndex(cUIWidget* newChild, unsigned int index);
-	cUIWidget* GetAdjecentFocus(eDirection dir) override;
-
-	void EnterFocus() override;
-	void LeaveFocus() override;
+	virtual cUIWidget* MoveFocus(eDirection dir) override;
 
 	void Draw() override;
 };

@@ -153,7 +153,7 @@ void cUIWidget::SetMoveFocus(cUIWidget* to, eDirection dir, bool isViceVersa)
 	}
 }
 
-cUIWidget* cUIWidget::GetAdjecentFocus(eDirection dir)
+cUIWidget* cUIWidget::MoveFocus(eDirection dir)
 {
 	cUIWidget* adjecent = nullptr;
 
@@ -175,6 +175,11 @@ cUIWidget* cUIWidget::GetAdjecentFocus(eDirection dir)
 		break;
 	}
 
+	LeaveFocus();
+
+	if (adjecent)
+		adjecent->EnterFocus();
+
 	return adjecent;
 }
 
@@ -183,7 +188,8 @@ void cUIWidget::EnterFocus()
 	isFocused = true;
 	for (int i = 0; i < children.size(); i++)
 	{
-		children[i]->EnterFocus();
+		if (children[i])
+			children[i]->EnterFocus();
 	}
 }
 
@@ -192,7 +198,8 @@ void cUIWidget::LeaveFocus()
 	isFocused = false;
 	for (int i = 0; i < children.size(); i++)
 	{
-		children[i]->LeaveFocus();
+		if (children[i])
+			children[i]->LeaveFocus();
 	}
 }
 
@@ -338,7 +345,7 @@ void cUIGrid::AssignChildAtIndex(cUIWidget* newChild, unsigned int index)
 	children[index] = newChild;
 }
 
-cUIWidget* cUIGrid::GetAdjecentFocus(eDirection dir)
+cUIWidget* cUIGrid::MoveFocus(eDirection dir)
 {
 	int desiredIndex = 0;
 	switch (dir)
@@ -346,44 +353,36 @@ cUIWidget* cUIGrid::GetAdjecentFocus(eDirection dir)
 	case UP:
 		desiredIndex = focusIndex - width;
 		if (desiredIndex < 0)
-			return focusUp;
+			return cUIWidget::MoveFocus(UP);
 		break;
 	case DOWN:
 		desiredIndex = focusIndex + width;
 		if (desiredIndex >= width * height)
-			return focusDown;
+			return cUIWidget::MoveFocus(DOWN);
 		break;
 	case LEFT:
 		if (focusIndex % width == 0)
-			return focusLeft;
+			return cUIWidget::MoveFocus(LEFT);
 		desiredIndex = focusIndex - 1;
 		break;
 	case RIGHT:
 		if (focusIndex % width == width - 1)
-			return focusRight;
+			return cUIWidget::MoveFocus(RIGHT);
 		desiredIndex = focusIndex + 1;
 		break;
 	default:
 		break;
 	}
 
+	if (children[focusIndex])
+		children[focusIndex]->LeaveFocus();
+
 	focusIndex = desiredIndex;
-	
-	return this;
-}
 
-void cUIGrid::EnterFocus()
-{
-	isFocused = true;
-	children[focusIndex]->EnterFocus();
+	if (children[focusIndex])
+		children[focusIndex]->EnterFocus();
 	
-	// Move position of cursor here
-}
-
-void cUIGrid::LeaveFocus()
-{
-	isFocused = false;
-	children[focusIndex]->LeaveFocus();
+	return nullptr;
 }
 
 void cUIGrid::Draw()

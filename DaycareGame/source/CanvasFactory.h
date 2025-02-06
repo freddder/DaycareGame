@@ -28,15 +28,15 @@ public:
 	virtual void CancelAction();
 };
 
-class cHealthBar : public cUIImage
-{
-	cUIImage* hbContent;
-public:
-	cHealthBar(cUICanvas* canvas, float initialRatio);
-	virtual ~cHealthBar() {};
-
-	void UpdateHealthBar(float healthPercent);
-};
+//class cHealthBar : public cUIImage
+//{
+//	cUIImage* hbContent;
+//public:
+//	cHealthBar(cUICanvas* canvas, float initialRatio);
+//	virtual ~cHealthBar() {};
+//
+//	void UpdateHealthBar(float healthPercent);
+//};
 
 //class cPlayerBattleInfo : public cUIWidget
 //{

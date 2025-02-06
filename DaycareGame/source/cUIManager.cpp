@@ -141,15 +141,6 @@ void cUICanvas::CancelAction()
 {
 }
 
-void cUICanvas::MoveFocus(cUIWidget* newFocus)
-{
-    if (!newFocus) return;
-
-    currFocus->LeaveFocus();
-    currFocus = newFocus;
-    currFocus->EnterFocus();
-}
-
 void cUICanvas::ResetFocus()
 {
     if (currFocus)
@@ -357,24 +348,21 @@ void cUIManager::ExecuteInputAction(eInputType inputType)
     switch (inputType)
     {
     case IT_UP:
-        //currCanvas->MoveFocus(currCanvas->currFocus->focusUp);
-        newFocus = currCanvas->currFocus->GetAdjecentFocus(UP);
+        newFocus = currCanvas->currFocus->MoveFocus(UP);
         break;
     case IT_DOWN:
-        //currCanvas->MoveFocus(currCanvas->currFocus->focusDown);
-        newFocus = currCanvas->currFocus->GetAdjecentFocus(DOWN);
+        newFocus = currCanvas->currFocus->MoveFocus(DOWN);
         break;
     case IT_LEFT:
-        //currCanvas->MoveFocus(currCanvas->currFocus->focusLeft);
-        newFocus = currCanvas->currFocus->GetAdjecentFocus(LEFT);
+        newFocus = currCanvas->currFocus->MoveFocus(LEFT);
         break;
     case IT_RIGHT:
-        //currCanvas->MoveFocus(currCanvas->currFocus->focusRight);
-        newFocus = currCanvas->currFocus->GetAdjecentFocus(RIGHT);
+        newFocus = currCanvas->currFocus->MoveFocus(RIGHT);
         break;
     }
-
-    currCanvas->MoveFocus(newFocus);
+    
+    if (newFocus)
+        currCanvas->currFocus = newFocus;
 }
 void cUIManager::DrawUI()
 {

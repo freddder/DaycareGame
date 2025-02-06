@@ -48,4 +48,6 @@ cPastureCanvas::cPastureCanvas()
 
     anchoredWidgets.push_back(grid);
     anchoredWidgets.push_back(background);
+
+    defaultFocus = grid;
 }
