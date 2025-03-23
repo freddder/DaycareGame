@@ -1,10 +1,18 @@
 #pragma once
 #include <string>
 #include <map>
+#include <vector>
+//#include <array>
+
+// TODO: see if this is better
+//typedef std::array<char, 12> Name;
+
+//Name to_name(const std::string& string);
+//std::string to_string(const Name& name);
 
 namespace Pokemon
 {
-	const static float BASE_SHINY_ODDS = 1.f / 8192.f;
+	const static unsigned int BASE_SHINY_ODDS = 8192; // 2^13
 
 	enum eType
 	{
@@ -101,6 +109,35 @@ namespace Pokemon
 		NO_GENDER
 	};
 
+	enum eNature
+	{
+		HARDY,		// +Atk   -Atk
+		LONELY,		// +Atk   -Def
+		ADAMANT,	// +Atk   -SpAtk
+		NAUGHTY,	// +Atk   -SpDef
+		BRAVE,		// +Atk   -Spd
+		BOLD,		// +Def   -Atk
+		DOCILE,		// +Def   -Def
+		IMPISH,		// +Def   -SpAtk
+		LAX,		// +Def   -SpDef
+		RELAXED,	// +Def   -Spd
+		MODEST,		// +SpAtk -Atk
+		MILD,		// +SpAtk -Def
+		BASHFUL,	// +SpAtk -SpAtk
+		RASH,		// +SpAtk -SpDef
+		QUIET,		// +SpAtk -Spd
+		CALM,		// +SpDef -Atk
+		GENTLE,		// +SpDef -Def
+		CAREFUL,	// +SpDef -SpAtk
+		QUIRKY,		// +SpDef -SpDef
+		SASSY,		// +SpDef -Spd
+		TIMID,		// +Spd	  -Atk
+		HASTY,		// +Spd	  -Def
+		JOLLY,		// +Spd	  -SpAtk
+		NAIVE,		// +Spd	  -SpDef
+		SERIOUS		// +Spd	  -Spd
+	};
+
 	struct sStats
 	{
 		sStats() : 
@@ -130,16 +167,41 @@ namespace Pokemon
 		return nationalDexNumber > 0 && nationalDexNumber <= 1008;
 	}
 
+	enum eMoveClass
+	{
+		PHYSICAL,
+		SPECIAL,
+		STATUS
+	};
+
+	//enum eMoveTargetType
+	//{
+	//	a lot more than I thought... luckly not necessary for this game
+	//};
+
+	struct sMove
+	{
+		unsigned int id = 0;
+		eType type = NO_TYPE;
+		eMoveClass damageClass = PHYSICAL;
+
+		unsigned int power = 0;
+		unsigned int pp = 0; // Power points
+		unsigned int accuracy = 100;
+		//int priority = 0;
+		//eMoveTargetType targetType;
+	};
+
 	struct sForm
 	{
 		sStats baseStats;
-		
-		// Ability ability1
-		// Ability ability2
-		// Ability hiddenAbility
 
 		eType type1 = NORMAL;
 		eType type2 = NO_TYPE;
+		
+		unsigned int ability1 = 0;
+		unsigned int ability2 = 0;
+		unsigned int hiddenAbility = 0;
 
 		float height = 0.f; // in meters
 		float weight = 0.f; // in kilograms
@@ -148,7 +210,8 @@ namespace Pokemon
 		int battleFrontSpriteFrameCount = 1;
 		int battleBackSpriteFrameCount = 1;
 
-		// Learnset as a pair of int (level) and int (move id)
+		// Learnset as a pair of int (level) and unsigned int (move id)
+		std::vector<std::pair<int, unsigned int>> learnset;
 	};
 
 	struct sSpeciesData
@@ -203,10 +266,10 @@ namespace Pokemon
 	struct sRoamingPokemonData // Minimal data for rendering sprite in overworld
 	{
 		int nationalDexNumber = 0;
-		std::string formName = "";
+		std::string formName;
 
 		int level = 0;
-		eGender gender = Pokemon::NO_GENDER;
+		eGender gender = NO_GENDER;
 		bool isShiny = false;
 
 		bool isFormGenderBased = false;
@@ -218,32 +281,29 @@ namespace Pokemon
 
 	struct sIndividualData : public sRoamingPokemonData // Individual data (outside of battle)
 	{
-		std::string name = "";
+		unsigned int maxHealth = 0;
+		unsigned int currHealth = 0;
 
-		int maxHealth;
-		int currHealth;
+		unsigned int expToNextLevel = 0;
+		unsigned int currExp = 0;
 
-		int expToNextLevel;
-		int currExp;
+		unsigned int abilityId = 0;
+		eNature nature;
 
-		sForm form;
+		unsigned int move1 :10;
+		unsigned int move2 :10;
+		unsigned int move3 :10;
+		unsigned int move4 :10;
 
-		// Ability ability;
-		// Natire nature;
 		sStats IVs; // Individial values
 		sStats EVs; // Effort values
 
-		// eStatus condition
-		// HeldItem item;
-
-		// Move move1;
-		// Move move2;
-		// Move move3;
-		// Move move4;
+		unsigned int item = 0;
+		std::string nickname = "";
 
 		const std::string MakeIconTextureName();
 		const std::string MakeBattleTextureName(bool isFront = true);
-		void LoadFormFromSpeciesData();
+		//void LoadFormFromSpeciesData();
 	};
 	sIndividualData GenerateIndividualPokemonData(int nationalDexId);
 
@@ -252,4 +312,5 @@ namespace Pokemon
 	//	sStats statChanges;
 	//};
 	//sBattleData GeneratePokemonBattleData(const sRoamingPokemonData& roamingData); // For wild encounters
+
 }

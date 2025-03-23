@@ -12,17 +12,23 @@
     "defaultForm": {
         "type1": 14,
         "type2": 8,
+        "ability1": 0,
+        "ability2": 0,
+        "hiddenAbility": 0,
         "baseHp": 108,
         "baseAtk": 130,
         "baseSpAtk": 80,
         "baseDef": 95,
         "baseSpDef": 85,
         "baseSpd": 102,
-        "height": 1.899999976158142,
+        "height": 1.9,
         "weight": 95.0,
         "battleSpriteHeightSize": 1.0,
         "battleFrontSpriteFrameCount": 90,
-        "battleBackSpriteFrameCount": 48
+        "battleBackSpriteFrameCount": 48,
+        "learnset": [
+
+        ]
     },
     "alternateForms": []
 }

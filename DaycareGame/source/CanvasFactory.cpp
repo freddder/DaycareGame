@@ -448,7 +448,7 @@ cPartyMemberButton::cPartyMemberButton(cUICanvas* canvas, int memberNum)
 
     cUIText* memberText = new cUIText();
     memberText->fontName = "Truth And Ideals-Normal.ttf";
-    memberText->text = member.name;
+    memberText->text = "notthat";// member.nickname;
     memberText->heightPercent = 0.3f;
     AddChild(memberText);
     Manager::ui.CreateTextDataBuffer(memberText);

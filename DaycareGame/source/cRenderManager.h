@@ -112,7 +112,7 @@ public:
 private:
     std::map<std::string, sSpriteSheet> spriteSheets;
 public:
-    void LoadRoamingPokemonFormSpriteSheet(const int nationalDexId, const std::string formTag = "");
+    void LoadRoamingPokemonFormSpriteSheet(const int nationalDexId, const std::string& formTag = "");
     void LoadSpriteSheet(const std::string spriteSheetName, unsigned int cols, unsigned int rows, bool sym = false, const std::string subdirectory = "");
     void LoadRoamingPokemonSpecieTextures(const Pokemon::sSpeciesData& specieData);
     float LoadPokemonBattleSpriteSheet(Pokemon::sIndividualData& data, bool isFront = true); // kinda wanted to make this const but whatever

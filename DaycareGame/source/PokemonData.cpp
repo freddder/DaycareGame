@@ -8,6 +8,18 @@
 #include <rapidjson/writer.h>
 #include <iostream>
 
+//Name to_name(const std::string& string)
+//{
+//	Name newName;
+//	std::copy(newName.begin(), newName.end(), string);
+//	return newName;
+//}
+//
+//std::string to_string(const Name& name)
+//{
+//	return std::string(name.begin(), name.end());
+//}
+
 namespace Pokemon
 {
 	bool OpenPokemonDataFile(rapidjson::Document& doc, const int nationalDexNumber);
@@ -299,26 +311,26 @@ namespace Pokemon
 		return textureName;
 	}
 
-	void sIndividualData::LoadFormFromSpeciesData()
-	{
-		if (!IsNationalDexNumberValid(nationalDexNumber)) return;
+	//void sIndividualData::LoadFormFromSpeciesData()
+	//{
+	//	if (!IsNationalDexNumberValid(nationalDexNumber)) return;
 
-		sSpeciesData speciesData;
-		LoadSpecieData(nationalDexNumber, speciesData);
+	//	sSpeciesData speciesData;
+	//	LoadSpecieData(nationalDexNumber, speciesData);
 
-		if (speciesData.isFormGenderBased && gender == FEMALE)
-			form = speciesData.alternateForms["female"];
-		else if (formName != "")
-			form = speciesData.alternateForms[formName];
-		else
-			form = speciesData.defaultForm;
+	//	if (speciesData.isFormGenderBased && gender == FEMALE)
+	//		form = speciesData.alternateForms["female"];
+	//	else if (formName != "")
+	//		form = speciesData.alternateForms[formName];
+	//	else
+	//		form = speciesData.defaultForm;
 
-		if (name == "")
-			name = speciesData.name;
+	//	if (name == "")
+	//		name = speciesData.name;
 
-		isFormGenderBased = speciesData.isFormGenderBased;
-		isSpriteGenderBased = speciesData.isSpriteGenderBased;
-	}
+	//	isFormGenderBased = speciesData.isFormGenderBased;
+	//	isSpriteGenderBased = speciesData.isSpriteGenderBased;
+	//}
 
 	bool OpenPokemonDataFile(rapidjson::Document& doc, const int nationalDexNumber)
 	{

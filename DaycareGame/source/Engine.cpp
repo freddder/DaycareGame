@@ -453,9 +453,9 @@ namespace Engine
         partner.nationalDexNumber = 445;
         partner.gender = Pokemon::FEMALE;
         partner.isShiny = true;
-        partner.form.battleBackSpriteFrameCount = 48; // hard coded for now
+        //partner.form.battleBackSpriteFrameCount = 48; // hard coded for now
         partner.level = 98;
-        partner.LoadFormFromSpeciesData();
+        //partner.LoadFormFromSpeciesData();
         Player::AddPartyMember(partner);
 
         Pokemon::sSpeciesData followerSpecieData;

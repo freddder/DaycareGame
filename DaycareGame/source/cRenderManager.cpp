@@ -775,7 +775,7 @@ unsigned int cRenderManager::CreateCubemap(const std::vector<std::string> faces)
     return textureID;
 }
 
-void cRenderManager::LoadRoamingPokemonFormSpriteSheet(const int nationalDexId, const std::string formTag)
+void cRenderManager::LoadRoamingPokemonFormSpriteSheet(const int nationalDexId, const std::string& formTag)
 {
     std::string textureName = std::to_string(nationalDexId);
     if (formTag != "")
@@ -873,7 +873,7 @@ float cRenderManager::LoadPokemonBattleSpriteSheet(Pokemon::sIndividualData& dat
     std::string fullPath = texturePath + textureName;
     sSpriteSheet newSpriteSheet;
     newSpriteSheet.numRows = 1;
-    newSpriteSheet.numCols = isFront ? data.form.battleFrontSpriteFrameCount : data.form.battleBackSpriteFrameCount;
+    //newSpriteSheet.numCols = isFront ? data.form.battleFrontSpriteFrameCount : data.form.battleBackSpriteFrameCount;
 
     int width, height;
     newSpriteSheet.textureId = CreateTexture(fullPath, width, height);
