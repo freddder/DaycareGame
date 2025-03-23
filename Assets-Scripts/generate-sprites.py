@@ -62,8 +62,8 @@ def main():
     #create_entry(445)
     #create_entry(681)
 
-    for i in range(387, 408):
-        create_entry(i)
+    #for i in range(387, 408):
+    #    create_entry(i)
 
 if __name__ == "__main__":
     main()

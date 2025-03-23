@@ -16,7 +16,8 @@ namespace Pokemon
 
 	enum eType
 	{
-		NORMAL = 0,
+		NO_TYPE,
+		NORMAL,
 		FIGHTING,
 		FLYING,
 		POISON,
@@ -34,12 +35,12 @@ namespace Pokemon
 		DRAGON,
 		DARK,
 		FAIRY,
-		NO_TYPE,
 		TYPE_ENUM_COUNT
 	};
 
 	const static char* Type_Strings[] =
 	{
+		"No Type"
 		"Normal",
 		"Fighting",
 		"Flying",
@@ -58,7 +59,6 @@ namespace Pokemon
 		"Dragon",
 		"Dark",
 		"Fairy",
-		"No Type"
 	};
 
 	enum eEggGroup
