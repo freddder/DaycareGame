@@ -159,6 +159,50 @@ namespace Pokemon
 		}
 	}
 
+	void LoadFormData(const int nationalDexNumber, sForm& form, const std::string& formName)
+	{
+		rapidjson::Document d;
+		if (!OpenPokemonDataFile(d, nationalDexNumber))
+		{
+			return;
+		}
+
+		if (d["data_version"].GetInt() != JSON_DATA_VERSION)
+		{
+			std::cout << "WARNING: loader function has a different version as json data" << std::endl;
+		}
+
+		if (d["isStatsGenderBased"].GetBool() && formName == "f") // load "female" form
+		{
+			rapidjson::Value& alternateForms = d["alternateForms"];
+			for (unsigned int i = 0; i < alternateForms.Size(); i++)
+			{
+				if (alternateForms[i]["name"].GetString() == "female")
+				{
+					LoadFormData(alternateForms[i], form);
+					break;
+				}
+			}
+		}
+		else if (formName != "" && formName != "f") // load custom form
+		{
+			rapidjson::Value& alternateForms = d["alternateForms"];
+			for (unsigned int i = 0; i < alternateForms.Size(); i++)
+			{
+				if (alternateForms[i]["name"].GetString() == formName)
+				{
+					LoadFormData(alternateForms[i], form);
+					break;
+				}
+			}
+		}
+		else // load default form
+		{
+			rapidjson::Value& defaultFormObject = d["defaultForm"];
+			LoadFormData(defaultFormObject, form);
+		}
+	}
+
 	//sRoamingPokemonData GenerateRoamingPokemonData(const sSpawnData& spawnData)
 	//{
 	//	sRoamingPokemonData newRoamingData;

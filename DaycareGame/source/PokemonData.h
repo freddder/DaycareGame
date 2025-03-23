@@ -63,20 +63,20 @@ namespace Pokemon
 
 	enum eEggGroup
 	{
-		EGG_AMORPHOUS,
+		EGG_MONSTER,
+		EGG_WATER_1,
 		EGG_BUG,
+		EGG_FLYING,
+		EGG_FIELD,
+		EGG_FAIRY,
+		EGG_GRASS,
+		EGG_HUMAN_LIKE,
+		EGG_WATER_3,
+		EGG_MINERAL,
+		EGG_AMORPHOUS,
+		EGG_WATER_2,
 		EGG_DITTO,
 		EGG_DRAGON,
-		EGG_FAIRY,
-		EGG_FIELD,
-		EGG_FLYING,
-		EGG_GRASS,
-		EGG_MINERAL,
-		EGG_MONSTER,
-		EGG_HUMAN_LIKE,
-		EGG_WATER_1,
-		EGG_WATER_2,
-		EGG_WATER_3,
 		EGG_NO_EGGS_DISCOVERED,
 		EGG_NO_EGG_GROUP,
 		EGG_ENUM_COUNT
@@ -84,20 +84,20 @@ namespace Pokemon
 
 	const static char* EggGroup_Strings[] =
 	{
-		"Amorphous",
+		"Monster",
+		"Water 1",
 		"Bug",
+		"Flying",
+		"Field",
+		"Fairy",
+		"Grass",
+		"Human Like",
+		"Water 3",
+		"Mineral",
+		"Amorphous",
+		"Water 2",
 		"Ditto",
 		"Dragon",
-		"Fairy",
-		"Field",
-		"Flying",
-		"Grass",
-		"Mineral",
-		"Monster",
-		"Human Like",
-		"Water 1",
-		"Water 2",
-		"Water 3",
 		"No Eggs Discovered",
 		"No Egg Group"
 	};
@@ -219,7 +219,7 @@ namespace Pokemon
 		std::string name;
 		int nationalDexNumber = 0;
 
-		int genderRatio = 50; // chance to be male (0 to 100 and <0 for genderless)
+		int genderRatio = 50; // chance to be male (0 to 100 and <0 for genderless) TODO: change to eigths
 		eEggGroup eggGroup1 = EGG_NO_EGGS_DISCOVERED;
 		eEggGroup eggGroup2 = EGG_NO_EGG_GROUP;
 		int hatchCycles = 0; // Not sure what this means, but its related to the amount of steps to hatch
@@ -237,6 +237,7 @@ namespace Pokemon
 	std::string MakeDexNumberFolderName(const int nationalDexNumber);
 	void SaveSpecieData(const int nationalDexNumber, const sSpeciesData& data);
 	void LoadSpecieData(const int nationalDexNumber, sSpeciesData& data);
+	void LoadFormData(const int nationalDexNumber, sForm& form, const std::string& formName = "");
 
 	//enum eSpawnType
 	//{
