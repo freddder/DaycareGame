@@ -35,6 +35,27 @@ def load_form_data(form_json):
 
     form_data["height"] = form_json["height"]
     form_data["weight"] = form_json["weight"]
+
+    learnset = []
+    for move in form_json["moves"]:
+        for vgd in move["version_group_details"]:
+            if vgd["version_group"]["name"] == "ultra-sun-ultra-moon":
+                new_move = {}
+                new_move["id"] = int(move["move"]["url"].split('/')[-2])
+                new_move["name"] = move["move"]["name"]
+                if vgd["move_learn_method"]["name"] == "level-up":
+                    new_move["level"] = vgd["level_learned_at"]
+                elif vgd["move_learn_method"]["name"] == "egg":
+                    new_move["level"] = 0
+                elif vgd["move_learn_method"]["name"] == "machine":
+                    new_move["level"] = -1
+                elif vgd["move_learn_method"]["name"] == "tutor":
+                    new_move["level"] = -2
+                learnset.append(new_move)
+                break
+    
+    learnset.sort(key=lambda x: x["level"])
+    form_data["learnset"] = learnset
     
     return form_data
 
