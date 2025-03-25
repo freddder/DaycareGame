@@ -3,58 +3,69 @@ import os
 import json
 
 max_dex_num = 1008
-
 current_data_version = 1
 
 def load_form_data(form_json):
     form_data = {}
-
-    form_data["type1"] = int(form_json["types"][0]["type"]["url"].split('/')[-2])
-    if len(form_json["types"]) > 1:
-        form_data["type2"] = int(form_json["types"][1]["type"]["url"].split('/')[-2])
+    	
+    split_name = form_json["name"].split('-')
+    if len(split_name) > 1:
+        form_data["name"] = split_name[-1]
     else:
-        form_data["type2"] = 0
+        form_data["name"] = ""
+
+    form_data["type_1"] = int(form_json["types"][0]["type"]["url"].split('/')[-2])
+    if len(form_json["types"]) > 1:
+        form_data["type_2"] = int(form_json["types"][1]["type"]["url"].split('/')[-2])
+    else:
+        form_data["type_2"] = 0
     
     ability_count = 1
-    form_data["ability1"] = 0
-    form_data["ability2"] = 0
-    form_data["hiddenAbility"] = 0
+    form_data["ability_1"] = 0
+    form_data["ability_2"] = 0
+    form_data["hidden_ability"] = 0
     for ability in form_json["abilities"]:
         if ability["is_hidden"]:
-            form_data["hiddenAbility"] = int(ability["ability"]["url"].split('/')[-2])
+            form_data["hidden_ability"] = int(ability["ability"]["url"].split('/')[-2])
         else:
-            form_data[f"ability{ability_count}"] = int(ability["ability"]["url"].split('/')[-2])
+            form_data[f"ability_{ability_count}"] = int(ability["ability"]["url"].split('/')[-2])
             ability_count += 1
     
-    form_data["baseHp"] = form_json["stats"][0]["base_stat"]
-    form_data["baseAtk"] = form_json["stats"][1]["base_stat"]
-    form_data["baseDef"] = form_json["stats"][2]["base_stat"]
-    form_data["baseSpAtk"] = form_json["stats"][3]["base_stat"]
-    form_data["baseSpDef"] = form_json["stats"][4]["base_stat"]
-    form_data["baseSpd"] = form_json["stats"][5]["base_stat"]
+    form_data["base_hp"] = form_json["stats"][0]["base_stat"]
+    form_data["base_atk"] = form_json["stats"][1]["base_stat"]
+    form_data["base_def"] = form_json["stats"][2]["base_stat"]
+    form_data["base_spAtk"] = form_json["stats"][3]["base_stat"]
+    form_data["base_spDef"] = form_json["stats"][4]["base_stat"]
+    form_data["base_spd"] = form_json["stats"][5]["base_stat"]
 
     form_data["height"] = form_json["height"]
     form_data["weight"] = form_json["weight"]
 
-    learnset = []
+    moves = []
     for move in form_json["moves"]:
         for vgd in move["version_group_details"]:
             if vgd["version_group"]["name"] == "ultra-sun-ultra-moon":
-                new_move = {}
-                new_move["id"] = int(move["move"]["url"].split('/')[-2])
-                new_move["name"] = move["move"]["name"]
-                if vgd["move_learn_method"]["name"] == "level-up":
-                    new_move["level"] = vgd["level_learned_at"]
-                elif vgd["move_learn_method"]["name"] == "egg":
-                    new_move["level"] = 0
-                elif vgd["move_learn_method"]["name"] == "machine":
-                    new_move["level"] = -1
-                elif vgd["move_learn_method"]["name"] == "tutor":
-                    new_move["level"] = -2
-                learnset.append(new_move)
+                move_id = int(move["move"]["url"].split('/')[-2])
+                move_learn_method = vgd["move_learn_method"]["name"]
+                move_level = 0
+                if move_learn_method == "level-up":
+                    move_level = vgd["level_learned_at"]
+                    if move_level == 0: # when evolving
+                        move_level = -3
+                elif move_learn_method == "egg":
+                    move_level = 0
+                elif move_learn_method == "machine":
+                    move_level = -1
+                elif move_learn_method == "tutor":
+                    move_level = -2
+
+                moves.append((move_level, move_id))
                 break
-    
-    learnset.sort(key=lambda x: x["level"])
+    moves.sort(key=lambda tup: tup[0])
+    learnset = []
+    for move in moves:
+        learnset.extend(move)
+
     form_data["learnset"] = learnset
     
     return form_data
@@ -72,10 +83,6 @@ def create_entry(dex_num):
         os.mkdir(folder_path)
     os.chdir(dex_str)
 
-    pkm_url = f"https://pokeapi.co/api/v2/pokemon/{dex_num}/"
-    pkm_response = requests.get(pkm_url)
-    pkm_data = pkm_response.json()
-
     specie_url = f"https://pokeapi.co/api/v2/pokemon-species/{dex_num}/"
     specie_response = requests.get(specie_url)
     specie_data = specie_response.json()
@@ -86,28 +93,40 @@ def create_entry(dex_num):
         if name["language"]["name"] == "en":
             file_data["name"] = name["name"]
     
-    file_data["nationalDexNumber"] = dex_num
+    file_data["national_dex_number"] = dex_num
 
-    file_data["genderRatio"] = specie_data["gender_rate"]
+    file_data["gender_ratio"] = specie_data["gender_rate"]
 
-    file_data["eggGroup1"] = int(specie_data["egg_groups"][0]["url"].split('/')[-2])
+    file_data["egg_group_1"] = int(specie_data["egg_groups"][0]["url"].split('/')[-2])
     egg_group_2 = 16
     if len(specie_data["egg_groups"]) > 1:
         egg_group_2 = int(specie_data["egg_groups"][1]["url"].split('/')[-2])
-    file_data["eggGroup2"] = egg_group_2
+    file_data["egg_group_2"] = egg_group_2
 
-    file_data["hatchCycles"] = specie_data["hatch_counter"]
+    file_data["hatch_cycles"] = specie_data["hatch_counter"]
 
-    file_data["catchRate"] = specie_data["capture_rate"]
+    file_data["catch_rate"] = specie_data["capture_rate"]
 
-    file_data["isSpriteGenderBased"] = specie_data["has_gender_differences"]
+    file_data["is_sprite_gender_based"] = specie_data["has_gender_differences"]
 
-    file_data["isStatsGenderBased"] = specie_data["varieties"][1]["pokemon"]["name"].split('-')[-1] == "female"
+    if len(specie_data["varieties"]) > 1:
+        file_data["is_stats_gender_based"] = specie_data["varieties"][1]["pokemon"]["name"].split('-')[-1] == "female"
+    else:
+        file_data["is_stats_gender_based"] = False
 
-    file_data["defaultForm"] = load_form_data(pkm_data)
+    alternate_forms = []
+    for form in specie_data["varieties"]:
+        url = form["pokemon"]["url"]
+        form_response = requests.get(url)
+        form_data = form_response.json()
+        if form["is_default"]:
+            file_data["default_form"] = load_form_data(form_data)
+        elif "mega" not in form["pokemon"]["name"].split('-'): # dont include megas
+            alternate_forms.append(load_form_data(form_data))
+    file_data["alternate_forms"] = alternate_forms
 
     dump = json.dumps(file_data, indent=4)
-    with open(f"{dex_num}new.json", 'w') as file:
+    with open(f"{dex_str}.json", 'w') as file:
         file.write(dump)
     
     os.chdir("../")
@@ -116,6 +135,8 @@ def create_entry(dex_num):
 def main():
     os.chdir("../DaycareGame/assets/pokemon")
 
+    create_entry(150)
+    create_entry(406)
     create_entry(445)
     create_entry(678)
 

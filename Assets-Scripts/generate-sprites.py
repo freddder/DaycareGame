@@ -28,12 +28,12 @@ def create_entry(dex_num):
         file.write(icon.content)
 
     battle_sprite_url = data["sprites"]["versions"]["generation-v"]["black-white"]["animated"]["front_default"]
-    if battle_sprite_url is None:
+    if battle_sprite_url is None: # single image
         battle_sprite_url = data["sprites"]["versions"]["generation-v"]["black-white"]["front_default"]
         battle_sprite = requests.get(battle_sprite_url)
         with open(f"{dex_num}_bf.png", 'wb') as file:
             file.write(battle_sprite.content)
-    else:
+    else: #animated
         battle_sprite = requests.get(battle_sprite_url)
         gif_file_name = "temp.gif"
         with open(gif_file_name, 'wb') as file:
@@ -64,6 +64,32 @@ def main():
 
     #for i in range(387, 408):
     #    create_entry(i)
+
+    # trying to figure out the tallest sprite (its pidgeotto at 117 pixels) (only checked front battle sprites)
+    #largest = 0
+    #largest_name = ""
+    #for i in range(1, max_dex_num):
+    #    url = f"https://pokeapi.co/api/v2/pokemon/{i}/"
+    #    response = requests.get(url)
+    #    data = response.json()
+    #
+    #    battle_sprite_url = data["sprites"]["versions"]["generation-v"]["black-white"]["animated"]["front_default"]
+    #    if battle_sprite_url is None:
+    #        battle_sprite_url = data["sprites"]["versions"]["generation-v"]["black-white"]["front_default"]
+    #
+    #    response = requests.get(battle_sprite_url, stream=True)
+    #    img = Image.open(response.raw)
+    #    name = data["name"]
+    #    print(name + ": " + f"{img.size[1]}")
+    #    if img.size[1] > largest:
+    #       largest = img.size[1]
+    #        largest_name = data["name"]
+    #
+    #print("Largest:" + largest_name + ": " + largest)
+            
+            
+
+
 
 if __name__ == "__main__":
     main()
