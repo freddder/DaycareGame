@@ -16,7 +16,7 @@ namespace Pokemon
 
 	enum eType
 	{
-		NO_TYPE,
+		NO_TYPE = 0,
 		NORMAL,
 		FIGHTING,
 		FLYING,
@@ -40,7 +40,7 @@ namespace Pokemon
 
 	const static char* Type_Strings[] =
 	{
-		"No Type"
+		"No Type",
 		"Normal",
 		"Fighting",
 		"Flying",
@@ -63,6 +63,7 @@ namespace Pokemon
 
 	enum eEggGroup
 	{
+		EGG_NO_EGG_GROUP,
 		EGG_MONSTER,
 		EGG_WATER_1,
 		EGG_BUG,
@@ -78,12 +79,12 @@ namespace Pokemon
 		EGG_DITTO,
 		EGG_DRAGON,
 		EGG_NO_EGGS_DISCOVERED,
-		EGG_NO_EGG_GROUP,
 		EGG_ENUM_COUNT
 	};
 
 	const static char* EggGroup_Strings[] =
 	{
+		"No Egg Group",
 		"Monster",
 		"Water 1",
 		"Bug",
@@ -99,7 +100,6 @@ namespace Pokemon
 		"Ditto",
 		"Dragon",
 		"No Eggs Discovered",
-		"No Egg Group"
 	};
 
 	enum eGender
@@ -203,12 +203,11 @@ namespace Pokemon
 		unsigned int ability2 = 0;
 		unsigned int hiddenAbility = 0;
 
-		float height = 0.f; // in meters
-		float weight = 0.f; // in kilograms
+		int height = 0; // in decimeters (/10 for meters)
+		int weight = 0; // in hectograms (/10 for kilograms)
 
-		float battleSpriteHeightSize = 1.f;
-		int battleFrontSpriteFrameCount = 1;
-		int battleBackSpriteFrameCount = 1;
+		unsigned int frontSpriteFrameCount = 1;
+		unsigned int backSpriteFrameCount = 1;
 
 		// Learnset as a pair of int (level) and unsigned int (move id)
 		std::vector<std::pair<int, unsigned int>> learnset;
@@ -217,19 +216,20 @@ namespace Pokemon
 	struct sSpeciesData
 	{
 		std::string name;
-		int nationalDexNumber = 0;
+		unsigned int nationalDexNumber = 0;
 
-		int genderRatio = 50; // chance to be male (0 to 100 and <0 for genderless) TODO: change to eigths
+		int genderRatio = 4; // in eigths (8 = only female; 0 = only male; -1 = genderless)
 		eEggGroup eggGroup1 = EGG_NO_EGGS_DISCOVERED;
 		eEggGroup eggGroup2 = EGG_NO_EGG_GROUP;
 		int hatchCycles = 0; // Not sure what this means, but its related to the amount of steps to hatch
 
-		float catchRate; // Not sure how this will work either
+		int catchRate; // Not sure how this will work either
 
 		bool isFormGenderBased = false; // Use an alternate form if female. Will only be used a few times (ex: Meowstic, Indeedee)
 		bool isSpriteGenderBased = false; // Change sprite if its female (doesn't matter if isStatsGenderBased is true)
 
 		sForm defaultForm;
+		std::string defaultFormName = "";
 		std::map<std::string, sForm> alternateForms;
 	};
 
@@ -239,35 +239,10 @@ namespace Pokemon
 	void LoadSpecieData(const int nationalDexNumber, sSpeciesData& data);
 	void LoadFormData(const int nationalDexNumber, sForm& form, const std::string& formName = "");
 
-	//enum eSpawnType
-	//{
-	//	TALL_GRASS,
-	//	ST_WATER,
-	//	CAVE,
-	//	ST_ENUM_COUNT
-	//};
-
-	//struct sSpawnData
-	//{
-	//	int nationalDexNumber = 0;
-	//	std::string formName = "";
-
-	//	// These should be the same as the species data
-	//	int genderRatio = 50;
-	//	bool isFormGenderBased = false; // Use an alternate form if female. Will only be used a few times (ex: Meowstic, Indeedee)
-	//	bool isSpriteGenderBased = false; // Change sprite if its female (doesn't matter if isStatsGenderBased is true)
-
-	//	eSpawnType spawnType = TALL_GRASS;
-	//	int spawnChance = 0; // Number of "entries"
-
-	//	int minLevel;
-	//	int maxLevel;
-	//};
-
 	struct sRoamingPokemonData // Minimal data for rendering sprite in overworld
 	{
-		int nationalDexNumber = 0;
-		std::string formName;
+		unsigned int nationalDexNumber = 0;
+		std::string formName = "";
 
 		int level = 0;
 		eGender gender = NO_GENDER;
@@ -278,7 +253,6 @@ namespace Pokemon
 
 		const std::string MakeRoamingTextureName();
 	};
-	//sRoamingPokemonData GenerateRoamingPokemonData(const sSpawnData& spawnData);
 
 	struct sIndividualData : public sRoamingPokemonData // Individual data (outside of battle)
 	{
@@ -307,11 +281,4 @@ namespace Pokemon
 		//void LoadFormFromSpeciesData();
 	};
 	sIndividualData GenerateIndividualPokemonData(int nationalDexId);
-
-	//struct sBattleData : public sIndividualData // Individual data (in battle)
-	//{
-	//	sStats statChanges;
-	//};
-	//sBattleData GeneratePokemonBattleData(const sRoamingPokemonData& roamingData); // For wild encounters
-
 }

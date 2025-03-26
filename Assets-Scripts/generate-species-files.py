@@ -1,6 +1,7 @@
 import requests
 import os
 import json
+from PIL import Image
 
 max_dex_num = 1008
 current_data_version = 1
@@ -40,6 +41,20 @@ def load_form_data(form_json):
 
     form_data["height"] = form_json["height"]
     form_data["weight"] = form_json["weight"]
+
+    front_sprite_url = form_json["sprites"]["versions"]["generation-v"]["black-white"]["animated"]["front_default"]
+    back_sprite_url = form_json["sprites"]["versions"]["generation-v"]["black-white"]["animated"]["back_default"]
+    if front_sprite_url is None:
+        form_data["front_sprite_count"] = 1
+        form_data["back_sprite_count"] = 1
+    else:
+        response = requests.get(front_sprite_url, stream=True)
+        img = Image.open(response.raw)
+        form_data["front_sprite_count"] = img.n_frames
+
+        response = requests.get(back_sprite_url, stream=True)
+        img = Image.open(response.raw)
+        form_data["back_sprite_count"] = img.n_frames
 
     moves = []
     for move in form_json["moves"]:
@@ -135,10 +150,11 @@ def create_entry(dex_num):
 def main():
     os.chdir("../DaycareGame/assets/pokemon")
 
-    create_entry(150)
-    create_entry(406)
-    create_entry(445)
-    create_entry(678)
+    #create_entry(150)
+    #create_entry(406)
+    create_entry(413)
+    #create_entry(445)
+    #create_entry(678)
 
     #for i in range(387, 408):
     #    create_entry(i)

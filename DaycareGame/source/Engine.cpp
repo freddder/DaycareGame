@@ -103,16 +103,58 @@ void RenderFormData(Pokemon::sForm& form)
         ImGui::EndCombo();
     }
 
-    //ImGui::DragInt("HP", &form.baseStats.hp, 1, 1, 150);
-    //ImGui::DragInt("Attack", &form.baseStats.atk, 1, 1, 150);
-    //ImGui::DragInt("Defence", &form.baseStats.def, 1, 1, 150);
-    //ImGui::DragInt("Special Attack", &form.baseStats.spAtk, 1, 1, 150);
-    //ImGui::DragInt("Special Defence", &form.baseStats.spDef, 1, 1, 150);
-    //ImGui::DragInt("Speed", &form.baseStats.spd, 1, 1, 150);
+    int hp = form.baseStats.hp;
+    int atk = form.baseStats.atk;
+    int def = form.baseStats.def;
+    int spAtk = form.baseStats.spAtk;
+    int spDef = form.baseStats.spDef;
+    int spd = form.baseStats.spd;
 
-    ImGui::DragFloat("Height(m)", &form.height, 0.1f, 0.1f, 25.f);
+    ImGui::DragInt("HP", &hp, 1, 1, 150);
+    ImGui::DragInt("Attack", &atk, 1, 1, 150);
+    ImGui::DragInt("Defence", &def, 1, 1, 150);
+    ImGui::DragInt("Special Attack", &spAtk, 1, 1, 150);
+    ImGui::DragInt("Special Defence", &spDef, 1, 1, 150);
+    ImGui::DragInt("Speed", &spd, 1, 1, 150);
+
+    form.baseStats.hp = hp;
+    form.baseStats.atk = atk;
+    form.baseStats.def = def;
+    form.baseStats.spAtk = spAtk;
+    form.baseStats.spDef = spDef;
+    form.baseStats.spd = spd;
+
+    ImGui::DragInt("Height(dm)", &form.height, 1, 1, 250);
     ImGui::SameLine();
-    ImGui::DragFloat("Weight(kg)", &form.weight, 0.1f, 0.1f, 1000.f);
+    ImGui::DragInt("Weight(hg)", &form.weight, 1, 1, 10000);
+
+    if (ImGui::TreeNode("Learnset"))
+    {
+        ImGui::BeginTable("", 2, ImGuiTableFlags_Borders);
+        for (unsigned int i = 0; i < form.learnset.size(); i++)
+        {
+            ImGui::TableNextRow();
+            ImGui::TableNextColumn();
+
+            if (form.learnset[i].first == -3)
+                ImGui::Text("Evo");
+            else if (form.learnset[i].first == -2)
+                ImGui::Text("Tutor");
+            else if (form.learnset[i].first == -1)
+                ImGui::Text("TM");
+            else if (form.learnset[i].first == 0)
+                ImGui::Text("Egg");
+            else
+                ImGui::Text(std::to_string(form.learnset[i].first).c_str());
+
+            ImGui::TableNextColumn();
+            ImGui::Text(std::to_string(form.learnset[i].second).c_str());
+            ImGui::TableNextRow();
+        }
+
+        ImGui::EndTable();
+        ImGui::TreePop();
+    }
 }
 
 void RenderImgui()
@@ -293,8 +335,8 @@ void RenderImgui()
 
                 ImGui::TableNextColumn();
 
-                ImGui::DragInt("Gender ratio", &selectedSpecies.genderRatio, 1, -1, 100);
-                if (ImGui::IsItemHovered()) ImGui::SetTooltip("Chance to be male (-1 for genderless)");
+                ImGui::DragInt("Gender ratio", &selectedSpecies.genderRatio, 1, -1, 8);
+                if (ImGui::IsItemHovered()) ImGui::SetTooltip("Chance to be female in eights (-1 for genderless)");
                 if (selectedSpecies.genderRatio != -1)
                 {
                     ImGui::Checkbox("Are stats gender based", &selectedSpecies.isFormGenderBased);
@@ -346,7 +388,9 @@ void RenderImgui()
             {
                 std::string formTitle = it->first + " form";
                 ImGui::Text(formTitle.c_str());
+                ImGui::PushID(it->first.c_str());
                 RenderFormData(it->second);
+                ImGui::PopID();
                 ImGui::Separator();
             }
 

@@ -83,13 +83,9 @@ def main():
     #    print(name + ": " + f"{img.size[1]}")
     #    if img.size[1] > largest:
     #       largest = img.size[1]
-    #        largest_name = data["name"]
+    #       largest_name = data["name"]
     #
-    #print("Largest:" + largest_name + ": " + largest)
-            
-            
-
-
+    #print("Largest:" + largest_name + ": " + largest)  
 
 if __name__ == "__main__":
     main()

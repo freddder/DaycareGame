@@ -24,6 +24,8 @@
         "base_spd": 104,
         "height": 6,
         "weight": 85,
+        "front_sprite_count": 1,
+        "back_sprite_count": 1,
         "learnset": [
             -2,
             173,
@@ -181,6 +183,8 @@
             "base_spd": 104,
             "height": 6,
             "weight": 85,
+            "front_sprite_count": 1,
+            "back_sprite_count": 1,
             "learnset": [
                 -2,
                 173,

@@ -61,58 +61,85 @@ namespace Pokemon
 		d.AddMember("data_version", JSON_DATA_VERSION, allocator);
 		rapidjson::Value name(data.name.c_str(), allocator);
 		d.AddMember("name", name, allocator);
-		d.AddMember("nationalDexNumber", data.nationalDexNumber, allocator);
+		d.AddMember("national_dex_number", data.nationalDexNumber, allocator);
 
-		d.AddMember("genderRatio", data.genderRatio, allocator);
-		d.AddMember("eggGroup1", data.eggGroup1, allocator);
-		d.AddMember("eggGroup2", data.eggGroup2, allocator);
-		d.AddMember("hatchCycles", data.hatchCycles, allocator);
+		d.AddMember("gender_ratio", data.genderRatio, allocator);
+		d.AddMember("egg_group_1", data.eggGroup1, allocator);
+		d.AddMember("egg_group_2", data.eggGroup2, allocator);
+		d.AddMember("hatch_cycles", data.hatchCycles, allocator);
 
-		d.AddMember("catchRate", data.catchRate, allocator);
+		d.AddMember("catch_rate", data.catchRate, allocator);
 
-		d.AddMember("isStatsGenderBased", data.isFormGenderBased, allocator);
-		d.AddMember("isSpriteGenderBased", data.isSpriteGenderBased, allocator);
+		d.AddMember("is_sprite_gender_based", data.isSpriteGenderBased, allocator);
+		d.AddMember("is_stats_gender_based", data.isFormGenderBased, allocator);
 
 		rapidjson::Value defaultForm(rapidjson::kObjectType);
 
-		defaultForm.AddMember("type1", data.defaultForm.type1, allocator);
-		defaultForm.AddMember("type2", data.defaultForm.type2, allocator);
+		rapidjson::Value formName(data.defaultFormName.c_str(), allocator);
+		defaultForm.AddMember("name", formName, allocator);
 
-		defaultForm.AddMember("baseHp", data.defaultForm.baseStats.hp, allocator);
-		defaultForm.AddMember("baseAtk", data.defaultForm.baseStats.atk, allocator);
-		defaultForm.AddMember("baseSpAtk", data.defaultForm.baseStats.spAtk, allocator);
-		defaultForm.AddMember("baseDef", data.defaultForm.baseStats.def, allocator);
-		defaultForm.AddMember("baseSpDef", data.defaultForm.baseStats.spDef, allocator);
-		defaultForm.AddMember("baseSpd", data.defaultForm.baseStats.spd, allocator);
+		defaultForm.AddMember("type_1", data.defaultForm.type1, allocator);
+		defaultForm.AddMember("type_2", data.defaultForm.type2, allocator);
+
+		defaultForm.AddMember("ability_1", data.defaultForm.ability1, allocator);
+		defaultForm.AddMember("ability_2", data.defaultForm.ability2, allocator);
+		defaultForm.AddMember("hidden_ability", data.defaultForm.hiddenAbility, allocator);
+
+		defaultForm.AddMember("base_hp", data.defaultForm.baseStats.hp, allocator);
+		defaultForm.AddMember("base_atk", data.defaultForm.baseStats.atk, allocator);
+		defaultForm.AddMember("base_spAtk", data.defaultForm.baseStats.spAtk, allocator);
+		defaultForm.AddMember("base_def", data.defaultForm.baseStats.def, allocator);
+		defaultForm.AddMember("base_spDef", data.defaultForm.baseStats.spDef, allocator);
+		defaultForm.AddMember("base_spd", data.defaultForm.baseStats.spd, allocator);
 
 		defaultForm.AddMember("height", data.defaultForm.height, allocator);
 		defaultForm.AddMember("weight", data.defaultForm.weight, allocator);
 
-		d.AddMember("defaultForm", defaultForm, allocator);
+		rapidjson::Value defaultLearnset(rapidjson::kArrayType);
+		for (unsigned int i = 0; i < data.defaultForm.learnset.size(); i++)
+		{
+			defaultLearnset.PushBack(data.defaultForm.learnset[i].first, allocator);
+			defaultLearnset.PushBack(data.defaultForm.learnset[i].second, allocator);
+		}
+		defaultForm.AddMember("learnset", defaultLearnset, allocator);
+
+		d.AddMember("default_form", defaultForm, allocator);
 
 		rapidjson::Value alternateForms(rapidjson::kArrayType);
 		for (std::map<std::string, sForm>::const_iterator it = data.alternateForms.begin(); it != data.alternateForms.end(); it++)
 		{
 			rapidjson::Value newAlternateForm(rapidjson::kObjectType);
-			rapidjson::Value alternateFormId(it->first.c_str(), allocator);
-			newAlternateForm.AddMember("formId", alternateFormId, allocator);
+			rapidjson::Value alternateFormName(it->first.c_str(), allocator);
+			newAlternateForm.AddMember("name", alternateFormName, allocator);
 
-			newAlternateForm.AddMember("baseHp", it->second.baseStats.hp, allocator);
-			newAlternateForm.AddMember("baseAtk", it->second.baseStats.atk, allocator);
-			newAlternateForm.AddMember("baseSpAtk", it->second.baseStats.spAtk, allocator);
-			newAlternateForm.AddMember("baseDef", it->second.baseStats.def, allocator);
-			newAlternateForm.AddMember("baseSpDef", it->second.baseStats.spDef, allocator);
-			newAlternateForm.AddMember("baseSpd", it->second.baseStats.spd, allocator);
+			newAlternateForm.AddMember("type_1", it->second.type1, allocator);
+			newAlternateForm.AddMember("type_2", it->second.type2, allocator);
 
-			newAlternateForm.AddMember("type1", it->second.type1, allocator);
-			newAlternateForm.AddMember("type2", it->second.type2, allocator);
+			newAlternateForm.AddMember("ability_1", it->second.ability1, allocator);
+			newAlternateForm.AddMember("ability_2", it->second.ability2, allocator);
+			newAlternateForm.AddMember("hidden_ability", it->second.hiddenAbility, allocator);
+
+			newAlternateForm.AddMember("base_hp", it->second.baseStats.hp, allocator);
+			newAlternateForm.AddMember("base_atk", it->second.baseStats.atk, allocator);
+			newAlternateForm.AddMember("base_spAtk", it->second.baseStats.spAtk, allocator);
+			newAlternateForm.AddMember("base_def", it->second.baseStats.def, allocator);
+			newAlternateForm.AddMember("base_spDef", it->second.baseStats.spDef, allocator);
+			newAlternateForm.AddMember("base_spd", it->second.baseStats.spd, allocator);
 
 			newAlternateForm.AddMember("height", it->second.height, allocator);
 			newAlternateForm.AddMember("weight", it->second.weight, allocator);
 
+			rapidjson::Value alternateLearnset(rapidjson::kArrayType);
+			for (unsigned int i = 0; i < it->second.learnset.size(); i++)
+			{
+				alternateLearnset.PushBack(it->second.learnset[i].first, allocator);
+				alternateLearnset.PushBack(it->second.learnset[i].second, allocator);
+			}
+			newAlternateForm.AddMember("learnset", alternateLearnset, allocator);
+
 			alternateForms.PushBack(newAlternateForm, allocator);
 		}
-		d.AddMember("alternateForms", alternateForms, allocator);
+		d.AddMember("alternate_forms", alternateForms, allocator);
 	
 		rapidjson::Writer<rapidjson::FileWriteStream> writer(os);
 		d.Accept(writer);
@@ -135,19 +162,21 @@ namespace Pokemon
 		}
 
 		data.name = d["name"].GetString();
-		data.nationalDexNumber = d["nationalDexNumber"].GetInt();
-		data.genderRatio = d["genderRatio"].GetInt();
-		data.eggGroup1 = static_cast<eEggGroup>(d["eggGroup1"].GetInt());
-		data.eggGroup2 = static_cast<eEggGroup>(d["eggGroup2"].GetInt());
-		data.hatchCycles = d["hatchCycles"].GetInt();
-		data.catchRate = d["catchRate"].GetFloat();
-		data.isFormGenderBased = d["isStatsGenderBased"].GetBool();
-		data.isSpriteGenderBased = d["isSpriteGenderBased"].GetBool();
+		data.nationalDexNumber = d["national_dex_number"].GetUint();
 
-		rapidjson::Value& defaultFormObject = d["defaultForm"];
+		data.genderRatio = d["gender_ratio"].GetInt();
+		data.eggGroup1 = static_cast<eEggGroup>(d["egg_group_1"].GetInt());
+		data.eggGroup2 = static_cast<eEggGroup>(d["egg_group_2"].GetInt());
+		data.hatchCycles = d["hatch_cycles"].GetInt();
+
+		data.catchRate = d["catch_rate"].GetInt();
+		data.isSpriteGenderBased = d["is_sprite_gender_based"].GetBool();
+		data.isFormGenderBased = d["is_stats_gender_based"].GetBool();
+
+		rapidjson::Value& defaultFormObject = d["default_form"];
 		LoadFormData(defaultFormObject, data.defaultForm);
 
-		rapidjson::Value& alternateForms = d["alternateForms"];
+		rapidjson::Value& alternateForms = d["alternate_forms"];
 		for (unsigned int i = 0; i < alternateForms.Size(); i++)
 		{
 			rapidjson::Value& newFormObject = alternateForms[i];
@@ -172,9 +201,9 @@ namespace Pokemon
 			std::cout << "WARNING: loader function has a different version as json data" << std::endl;
 		}
 
-		if (d["isStatsGenderBased"].GetBool() && formName == "f") // load "female" form
+		if (d["is_stats_gender_based"].GetBool() && formName == "f") // load "female" form
 		{
-			rapidjson::Value& alternateForms = d["alternateForms"];
+			rapidjson::Value& alternateForms = d["alternate_forms"];
 			for (unsigned int i = 0; i < alternateForms.Size(); i++)
 			{
 				if (alternateForms[i]["name"].GetString() == "female")
@@ -186,7 +215,7 @@ namespace Pokemon
 		}
 		else if (formName != "" && formName != "f") // load custom form
 		{
-			rapidjson::Value& alternateForms = d["alternateForms"];
+			rapidjson::Value& alternateForms = d["alternate_forms"];
 			for (unsigned int i = 0; i < alternateForms.Size(); i++)
 			{
 				if (alternateForms[i]["name"].GetString() == formName)
@@ -198,39 +227,10 @@ namespace Pokemon
 		}
 		else // load default form
 		{
-			rapidjson::Value& defaultFormObject = d["defaultForm"];
+			rapidjson::Value& defaultFormObject = d["default_form"];
 			LoadFormData(defaultFormObject, form);
 		}
 	}
-
-	//sRoamingPokemonData GenerateRoamingPokemonData(const sSpawnData& spawnData)
-	//{
-	//	sRoamingPokemonData newRoamingData;
-
-	//	newRoamingData.nationalDexNumber = spawnData.nationalDexNumber;
-	//	newRoamingData.formName = spawnData.formName;
-	//	newRoamingData.isFormGenderBased = spawnData.isFormGenderBased;
-	//	newRoamingData.isSpriteGenderBased = spawnData.isSpriteGenderBased;
-
-	//	// Determine level
-	//	newRoamingData.level = rand() % (spawnData.maxLevel - spawnData.minLevel + 1) + spawnData.minLevel;
-
-	//	// Determine gender
-	//	newRoamingData.gender = Pokemon::NO_GENDER;
-	//	if (spawnData.genderRatio >= 0) // not genderless
-	//	{
-	//		int genderRandom = (rand() % 100); // [0-99]
-
-	//		if (spawnData.genderRatio < genderRandom) newRoamingData.gender = Pokemon::MALE;
-	//		else newRoamingData.gender = Pokemon::FEMALE;
-	//	}
-
-	//	// Determine shiny
-	//	int shinyRandom = (rand() % 100); // [0-99]
-	//	if (shinyRandom < 50) newRoamingData.isShiny = true;
-
-	//	return newRoamingData;
-	//}
 
 	// TODO: have a more versitile way to create battle ready pokemon & incorporate into entering wild encounters and spawn data
 	sIndividualData GenerateIndividualPokemonData(int nationalDexId)
@@ -239,63 +239,6 @@ namespace Pokemon
 
 		return sIndividualData();
 	}
-
-	//sBattleData GeneratePokemonBattleData(const sRoamingPokemonData& roamingData)
-	//{
-	//	sBattleData newData;
-	//	newData.nationalDexNumber = roamingData.nationalDexNumber;
-	//	newData.formName = roamingData.formName;
-	//	newData.gender = roamingData.gender;
-	//	newData.level = roamingData.level;
-	//	newData.isShiny = roamingData.isShiny;
-	//	newData.isFormGenderBased = roamingData.isFormGenderBased;
-	//	newData.isSpriteGenderBased = roamingData.isSpriteGenderBased;
-
-	//	rapidjson::Document d;
-	//	OpenPokemonDataFile(d, roamingData.nationalDexNumber);
-
-	//	if (newData.isFormGenderBased && newData.gender == FEMALE) // load "female" form
-	//	{
-	//		rapidjson::Value& alternateForms = d["alternateForms"];
-	//		for (unsigned int i = 0; i < alternateForms.Size(); i++)
-	//		{
-	//			if (alternateForms[i]["name"].GetString() == "female")
-	//			{
-	//				LoadFormData(alternateForms[i], newData.form);
-	//				break;
-	//			}
-	//		}
-	//	}
-	//	else if (newData.formName != "") // load custom form
-	//	{
-	//		rapidjson::Value& alternateForms = d["alternateForms"];
-	//		for (unsigned int i = 0; i < alternateForms.Size(); i++)
-	//		{
-	//			if (alternateForms[i]["name"].GetString() == newData.formName)
-	//			{
-	//				LoadFormData(alternateForms[i], newData.form);
-	//				break;
-	//			}
-	//		}
-	//	}
-	//	else // load default form
-	//	{
-	//		rapidjson::Value& defaultFormObject = d["defaultForm"];
-	//		LoadFormData(defaultFormObject, newData.form);
-	//	}
-
-	//	newData.name = d["name"].GetString();
-
-	//	newData.maxHealth = 100;
-	//	newData.currHealth = 100;
-
-	//	newData.expToNextLevel = 2000;
-	//	newData.currExp = 0;
-
-	//	newData.level = 29;
-
-	//	return newData;
-	//}
 
 	const std::string sRoamingPokemonData::MakeRoamingTextureName()
 	{
@@ -398,21 +341,32 @@ namespace Pokemon
 
 	void LoadFormData(rapidjson::Value& formObject, sForm& form)
 	{
-		form.type1 = static_cast<eType>(formObject["type1"].GetInt());
-		form.type2 = static_cast<eType>(formObject["type2"].GetInt());
+		form.type1 = static_cast<eType>(formObject["type_1"].GetInt());
+		form.type2 = static_cast<eType>(formObject["type_2"].GetInt());
 
-		form.baseStats.hp = formObject["baseHp"].GetUint();
-		form.baseStats.atk = formObject["baseAtk"].GetUint();
-		form.baseStats.spAtk = formObject["baseSpAtk"].GetUint();
-		form.baseStats.def = formObject["baseDef"].GetUint();
-		form.baseStats.spDef = formObject["baseSpDef"].GetUint();
-		form.baseStats.spd = formObject["baseSpd"].GetUint();
+		form.ability1 = formObject["ability_1"].GetUint();
+		form.ability2 = formObject["ability_2"].GetUint();
+		form.hiddenAbility = formObject["hidden_ability"].GetUint();
 
-		form.height = formObject["height"].GetFloat();
-		form.weight = formObject["weight"].GetFloat();
+		form.baseStats.hp = formObject["base_hp"].GetUint();
+		form.baseStats.atk = formObject["base_atk"].GetUint();
+		form.baseStats.def = formObject["base_def"].GetUint();
+		form.baseStats.spAtk = formObject["base_spAtk"].GetUint();
+		form.baseStats.spDef = formObject["base_spDef"].GetUint();
+		form.baseStats.spd = formObject["base_spd"].GetUint();
 
-		form.battleSpriteHeightSize = formObject["battleSpriteHeightSize"].GetFloat();
-		form.battleFrontSpriteFrameCount = formObject["battleFrontSpriteFrameCount"].GetInt();
-		form.battleBackSpriteFrameCount = formObject["battleBackSpriteFrameCount"].GetInt();
+		form.height = formObject["height"].GetInt();
+		form.weight = formObject["weight"].GetInt();
+
+		form.frontSpriteFrameCount = formObject["front_sprite_count"].GetUint();
+		form.backSpriteFrameCount = formObject["back_sprite_count"].GetUint();
+
+		rapidjson::Value& learnset = formObject["learnset"];
+		for (unsigned int i = 0; i < learnset.Size(); i += 2)
+		{
+			int level = learnset[i].GetInt();
+			unsigned int id = learnset[i + 1].GetUint();
+			form.learnset.push_back(std::pair<int, unsigned>(level, id));
+		}
 	}
 }
