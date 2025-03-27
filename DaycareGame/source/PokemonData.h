@@ -138,6 +138,35 @@ namespace Pokemon
 		SERIOUS		// +Spd	  -Spd
 	};
 
+	const static char* Natures_Strings[] =
+	{
+		"Hardy",
+		"Lonely",
+		"Adamant",
+		"Naughty",
+		"Brave",
+		"Bold",
+		"Docile",
+		"Impish",
+		"Lax",
+		"Relaxed",
+		"Modest",
+		"Mild",
+		"Bashful",
+		"Rash",
+		"Quiet",
+		"Calm",
+		"Gentle",
+		"Careful",
+		"Quirky",
+		"Sassy",
+		"Timid",
+		"Hasty",
+		"Jolly",
+		"Naive",
+		"Serious"
+	};
+
 	struct sStats
 	{
 		sStats() : 
@@ -252,6 +281,7 @@ namespace Pokemon
 		bool isSpriteGenderBased = false;
 
 		const std::string MakeRoamingTextureName();
+		const std::string MakeIconTextureName();
 	};
 
 	struct sIndividualData : public sRoamingPokemonData // Individual data (outside of battle)
@@ -276,7 +306,6 @@ namespace Pokemon
 		unsigned int item = 0;
 		std::string nickname = "";
 
-		const std::string MakeIconTextureName();
 		const std::string MakeBattleTextureName(bool isFront = true);
 		//void LoadFormFromSpeciesData();
 	};

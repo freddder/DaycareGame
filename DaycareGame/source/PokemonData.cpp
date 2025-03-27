@@ -20,6 +20,8 @@
 //	return std::string(name.begin(), name.end());
 //}
 
+const std::string PKM_DATA_PATH = "assets/pokemon/";
+
 namespace Pokemon
 {
 	bool OpenPokemonDataFile(rapidjson::Document& doc, const int nationalDexNumber);
@@ -43,7 +45,7 @@ namespace Pokemon
 		std::string dexNumberString = MakeDexNumberFolderName(nationalDexNumber);
 	
 		FILE* fp = 0;
-		fopen_s(&fp, ("assets/pokemon/" + dexNumberString + "/" + dexNumberString + ".json").c_str(), "wb");
+		fopen_s(&fp, (PKM_DATA_PATH + "species/" + dexNumberString + "/" + dexNumberString + ".json").c_str(), "wb");
 		if (fp == 0)
 		{
 			std::cout << "Failed to create file" << std::endl;
@@ -257,7 +259,7 @@ namespace Pokemon
 		return textureName;
 	}
 
-	const std::string sIndividualData::MakeIconTextureName()
+	const std::string sRoamingPokemonData::MakeIconTextureName()
 	{
 		std::string textureName = std::to_string(nationalDexNumber);
 
@@ -326,7 +328,7 @@ namespace Pokemon
 		std::string dexNumberString = MakeDexNumberFolderName(nationalDexNumber);
 
 		FILE* fp = 0;
-		fopen_s(&fp, ("assets/pokemon/" + dexNumberString + "/" + dexNumberString + ".json").c_str(), "rb"); // non-Windows use "r"
+		fopen_s(&fp, (PKM_DATA_PATH + "species/" + dexNumberString + "/" + dexNumberString + ".json").c_str(), "rb"); // non-Windows use "r"
 		if (fp == 0) return false; // File doesn't exists
 
 		// OPTIMIZATION: best buffer size might be different

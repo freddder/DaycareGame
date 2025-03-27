@@ -107,6 +107,7 @@ def create_entry(dex_num):
     for name in specie_data["names"]:
         if name["language"]["name"] == "en":
             file_data["name"] = name["name"]
+            break
     
     file_data["national_dex_number"] = dex_num
 
