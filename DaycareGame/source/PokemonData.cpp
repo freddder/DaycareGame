@@ -8,19 +8,21 @@
 #include <rapidjson/writer.h>
 #include <iostream>
 
-//Name to_name(const std::string& string)
-//{
-//	Name newName;
-//	std::copy(newName.begin(), newName.end(), string);
-//	return newName;
-//}
-//
-//std::string to_string(const Name& name)
-//{
-//	return std::string(name.begin(), name.end());
-//}
-
 const std::string PKM_DATA_PATH = "assets/pokemon/";
+
+bool CompareName(const Name& name, const std::string& str)
+{
+	for (unsigned int i = 0; i < str.length(); i++)
+	{
+		if (name[i] != str[i])
+			return false;
+
+		if (name[i] == '\0' && str[i] == '\0')
+			return true;
+	}
+
+	return true;
+}
 
 namespace Pokemon
 {
@@ -61,7 +63,7 @@ namespace Pokemon
 		d.SetObject();
 
 		d.AddMember("data_version", JSON_DATA_VERSION, allocator);
-		rapidjson::Value name(data.name.c_str(), allocator);
+		rapidjson::Value name(data.name, allocator);
 		d.AddMember("name", name, allocator);
 		d.AddMember("national_dex_number", data.nationalDexNumber, allocator);
 
@@ -77,7 +79,7 @@ namespace Pokemon
 
 		rapidjson::Value defaultForm(rapidjson::kObjectType);
 
-		rapidjson::Value formName(data.defaultFormName.c_str(), allocator);
+		rapidjson::Value formName(data.defaultForm.name, allocator);
 		defaultForm.AddMember("name", formName, allocator);
 
 		defaultForm.AddMember("type_1", data.defaultForm.type1, allocator);
@@ -108,34 +110,34 @@ namespace Pokemon
 		d.AddMember("default_form", defaultForm, allocator);
 
 		rapidjson::Value alternateForms(rapidjson::kArrayType);
-		for (std::map<std::string, sForm>::const_iterator it = data.alternateForms.begin(); it != data.alternateForms.end(); it++)
+		for (unsigned int i = 0; i < data.alternateForms.size(); i++)
 		{
 			rapidjson::Value newAlternateForm(rapidjson::kObjectType);
-			rapidjson::Value alternateFormName(it->first.c_str(), allocator);
+			rapidjson::Value alternateFormName(data.alternateForms[i].name, allocator);
 			newAlternateForm.AddMember("name", alternateFormName, allocator);
 
-			newAlternateForm.AddMember("type_1", it->second.type1, allocator);
-			newAlternateForm.AddMember("type_2", it->second.type2, allocator);
+			newAlternateForm.AddMember("type_1", data.alternateForms[i].type1, allocator);
+			newAlternateForm.AddMember("type_2", data.alternateForms[i].type2, allocator);
 
-			newAlternateForm.AddMember("ability_1", it->second.ability1, allocator);
-			newAlternateForm.AddMember("ability_2", it->second.ability2, allocator);
-			newAlternateForm.AddMember("hidden_ability", it->second.hiddenAbility, allocator);
+			newAlternateForm.AddMember("ability_1", data.alternateForms[i].ability1, allocator);
+			newAlternateForm.AddMember("ability_2", data.alternateForms[i].ability2, allocator);
+			newAlternateForm.AddMember("hidden_ability", data.alternateForms[i].hiddenAbility, allocator);
 
-			newAlternateForm.AddMember("base_hp", it->second.baseStats.hp, allocator);
-			newAlternateForm.AddMember("base_atk", it->second.baseStats.atk, allocator);
-			newAlternateForm.AddMember("base_spAtk", it->second.baseStats.spAtk, allocator);
-			newAlternateForm.AddMember("base_def", it->second.baseStats.def, allocator);
-			newAlternateForm.AddMember("base_spDef", it->second.baseStats.spDef, allocator);
-			newAlternateForm.AddMember("base_spd", it->second.baseStats.spd, allocator);
+			newAlternateForm.AddMember("base_hp", data.alternateForms[i].baseStats.hp, allocator);
+			newAlternateForm.AddMember("base_atk", data.alternateForms[i].baseStats.atk, allocator);
+			newAlternateForm.AddMember("base_spAtk", data.alternateForms[i].baseStats.spAtk, allocator);
+			newAlternateForm.AddMember("base_def", data.alternateForms[i].baseStats.def, allocator);
+			newAlternateForm.AddMember("base_spDef", data.alternateForms[i].baseStats.spDef, allocator);
+			newAlternateForm.AddMember("base_spd", data.alternateForms[i].baseStats.spd, allocator);
 
-			newAlternateForm.AddMember("height", it->second.height, allocator);
-			newAlternateForm.AddMember("weight", it->second.weight, allocator);
+			newAlternateForm.AddMember("height", data.alternateForms[i].height, allocator);
+			newAlternateForm.AddMember("weight", data.alternateForms[i].weight, allocator);
 
 			rapidjson::Value alternateLearnset(rapidjson::kArrayType);
-			for (unsigned int i = 0; i < it->second.learnset.size(); i++)
+			for (unsigned int j = 0; j < data.alternateForms[i].learnset.size(); j++)
 			{
-				alternateLearnset.PushBack(it->second.learnset[i].first, allocator);
-				alternateLearnset.PushBack(it->second.learnset[i].second, allocator);
+				alternateLearnset.PushBack(data.alternateForms[i].learnset[j].first, allocator);
+				alternateLearnset.PushBack(data.alternateForms[i].learnset[j].second, allocator);
 			}
 			newAlternateForm.AddMember("learnset", alternateLearnset, allocator);
 
@@ -163,7 +165,7 @@ namespace Pokemon
 			std::cout << "WARNING: loader function has a different version as json data" << std::endl;
 		}
 
-		data.name = d["name"].GetString();
+		strcpy_s(data.name, d["name"].GetString());
 		data.nationalDexNumber = d["national_dex_number"].GetUint();
 
 		data.genderRatio = d["gender_ratio"].GetInt();
@@ -181,16 +183,13 @@ namespace Pokemon
 		rapidjson::Value& alternateForms = d["alternate_forms"];
 		for (unsigned int i = 0; i < alternateForms.Size(); i++)
 		{
+			data.alternateForms.emplace_back();
 			rapidjson::Value& newFormObject = alternateForms[i];
-			sForm newForm;
-			LoadFormData(newFormObject, newForm);
-
-			std::string formName = newFormObject["name"].GetString();
-			data.alternateForms.insert(std::pair<std::string, sForm>(formName, newForm));
+			LoadFormData(newFormObject, data.alternateForms.back());
 		}
 	}
 
-	void LoadFormData(const int nationalDexNumber, sForm& form, const std::string& formName)
+	void LoadFormData(const int nationalDexNumber, sForm& form, const Name& formName)
 	{
 		rapidjson::Document d;
 		if (!OpenPokemonDataFile(d, nationalDexNumber))
@@ -248,7 +247,7 @@ namespace Pokemon
 
 		if (gender == FEMALE && (isSpriteGenderBased || isFormGenderBased))
 			textureName = textureName + "_f";
-		else if (formName != "") // There is no case where both will be true
+		else if (!CompareName(formName, "")) // There is no case where both will be true
 			textureName = textureName + "_" + formName;
 
 		if (isShiny)
@@ -265,7 +264,7 @@ namespace Pokemon
 
 		if (gender == FEMALE && isFormGenderBased)
 			textureName = textureName + "_f";
-		else if (formName != "") // There is no case where both will be true
+		else if (!CompareName(formName, "")) // There is no case where both will be true
 			textureName = textureName + "_" + formName;
 
 		textureName += "_ico";
@@ -343,6 +342,8 @@ namespace Pokemon
 
 	void LoadFormData(rapidjson::Value& formObject, sForm& form)
 	{
+		strcpy_s(form.name, formObject["name"].GetString());
+
 		form.type1 = static_cast<eType>(formObject["type_1"].GetInt());
 		form.type2 = static_cast<eType>(formObject["type_2"].GetInt());
 

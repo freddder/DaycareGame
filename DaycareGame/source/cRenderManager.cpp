@@ -850,9 +850,9 @@ void cRenderManager::LoadRoamingPokemonSpecieTextures(const Pokemon::sSpeciesDat
     else
     {
         // Load all alternate forms
-        for (std::map<std::string, Pokemon::sForm>::const_iterator it = specieData.alternateForms.cbegin(); it != specieData.alternateForms.cend(); it++)
+        for (unsigned int i = 0; i < specieData.alternateForms.size(); i++)
         {
-            LoadRoamingPokemonFormSpriteSheet(specieData.nationalDexNumber, it->first);
+            LoadRoamingPokemonFormSpriteSheet(specieData.nationalDexNumber, specieData.alternateForms[i].name);
         }
     }
 }

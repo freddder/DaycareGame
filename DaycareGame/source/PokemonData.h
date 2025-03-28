@@ -1,14 +1,10 @@
 #pragma once
 #include <string>
-#include <map>
 #include <vector>
-//#include <array>
 
-// TODO: see if this is better
-//typedef std::array<char, 12> Name;
+typedef char Name[12];
 
-//Name to_name(const std::string& string);
-//std::string to_string(const Name& name);
+bool CompareName(const Name& name, const std::string& str);
 
 namespace Pokemon
 {
@@ -223,6 +219,8 @@ namespace Pokemon
 
 	struct sForm
 	{
+		Name name = "";
+
 		sStats baseStats;
 
 		eType type1 = NORMAL;
@@ -244,7 +242,7 @@ namespace Pokemon
 
 	struct sSpeciesData
 	{
-		std::string name;
+		Name name = "";
 		unsigned int nationalDexNumber = 0;
 
 		int genderRatio = 4; // in eigths (8 = only female; 0 = only male; -1 = genderless)
@@ -258,20 +256,19 @@ namespace Pokemon
 		bool isSpriteGenderBased = false; // Change sprite if its female (doesn't matter if isStatsGenderBased is true)
 
 		sForm defaultForm;
-		std::string defaultFormName = "";
-		std::map<std::string, sForm> alternateForms;
+		std::vector<sForm> alternateForms;
 	};
 
 	const static unsigned int JSON_DATA_VERSION = 1;
 	std::string MakeDexNumberFolderName(const int nationalDexNumber);
 	void SaveSpecieData(const int nationalDexNumber, const sSpeciesData& data);
 	void LoadSpecieData(const int nationalDexNumber, sSpeciesData& data);
-	void LoadFormData(const int nationalDexNumber, sForm& form, const std::string& formName = "");
+	void LoadFormData(const int nationalDexNumber, sForm& form, const Name& formName);
 
 	struct sRoamingPokemonData // Minimal data for rendering sprite in overworld
 	{
 		unsigned int nationalDexNumber = 0;
-		std::string formName = "";
+		Name formName = "";
 
 		int level = 0;
 		eGender gender = NO_GENDER;
@@ -304,7 +301,7 @@ namespace Pokemon
 		sStats EVs; // Effort values
 
 		unsigned int item = 0;
-		std::string nickname = "";
+		Name nickname = "";
 
 		const std::string MakeBattleTextureName(bool isFront = true);
 		//void LoadFormFromSpeciesData();

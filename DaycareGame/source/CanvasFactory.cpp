@@ -457,7 +457,7 @@ cPartyMemberButton::cPartyMemberButton(cUICanvas* canvas, int memberNum)
     icon->anchor = MIDDLE_LEFT;
     icon->aspectRatio = 3.f / 4.f;
     icon->heightPercent = 3.f / 4.f;
-    icon->textureId = canvas->LoadUITexture(member.MakeIconTextureName(), "assets/pokemon/" + Pokemon::MakeDexNumberFolderName(member.nationalDexNumber) + "/");
+    icon->textureId = canvas->LoadUITexture(member.MakeIconTextureName(), "assets/pokemon/species/" + Pokemon::MakeDexNumberFolderName(member.nationalDexNumber) + "/");
     AddChild(icon);
 }
 

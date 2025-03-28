@@ -323,7 +323,7 @@ void RenderImgui()
 
         if (selectedSpecies.nationalDexNumber != 0)
         {
-            std::string title = selectedSpecies.name + " #" + std::to_string(selectedSpecies.nationalDexNumber);
+            std::string title = std::string(selectedSpecies.name) + " #" + std::to_string(selectedSpecies.nationalDexNumber);
             ImGui::Text(title.c_str());
 
             if (ImGui::BeginTable("table1", 2, ImGuiTableFlags_SizingFixedFit))
@@ -384,12 +384,12 @@ void RenderImgui()
             RenderFormData(selectedSpecies.defaultForm);
             ImGui::Separator();
 
-            for (std::map<std::string, Pokemon::sForm>::iterator it = selectedSpecies.alternateForms.begin(); it != selectedSpecies.alternateForms.end(); it++)
+            for (unsigned int i = 0; i < selectedSpecies.alternateForms.size(); i++)
             {
-                std::string formTitle = it->first + " form";
+                std::string formTitle = std::string(selectedSpecies.alternateForms[i].name) + " form";
                 ImGui::Text(formTitle.c_str());
-                ImGui::PushID(it->first.c_str());
-                RenderFormData(it->second);
+                ImGui::PushID(formTitle.c_str());
+                RenderFormData(selectedSpecies.alternateForms[i]);
                 ImGui::PopID();
                 ImGui::Separator();
             }
