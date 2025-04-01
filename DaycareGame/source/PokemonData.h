@@ -131,7 +131,8 @@ namespace Pokemon
 		HASTY,		// +Spd	  -Def
 		JOLLY,		// +Spd	  -SpAtk
 		NAIVE,		// +Spd	  -SpDef
-		SERIOUS		// +Spd	  -Spd
+		SERIOUS,	// +Spd	  -Spd
+		NATURE_COUNT
 	};
 
 	const static char* Natures_Strings[] =
@@ -244,6 +245,7 @@ namespace Pokemon
 	{
 		Name name = "";
 		unsigned int nationalDexNumber = 0;
+		unsigned int childSpecies = 0;
 
 		int genderRatio = 4; // in eigths (8 = only female; 0 = only male; -1 = genderless)
 		eEggGroup eggGroup1 = EGG_NO_EGGS_DISCOVERED;
@@ -259,11 +261,12 @@ namespace Pokemon
 		std::vector<sForm> alternateForms;
 	};
 
-	const static unsigned int JSON_DATA_VERSION = 1;
+	const static unsigned int JSON_DATA_VERSION = 2;
 	std::string MakeDexNumberFolderName(const int nationalDexNumber);
 	void SaveSpecieData(const int nationalDexNumber, const sSpeciesData& data);
 	void LoadSpecieData(const int nationalDexNumber, sSpeciesData& data);
 	void LoadFormData(const int nationalDexNumber, sForm& form, const Name& formName);
+	void GetAllIdsFromEggGroup(eEggGroup group, std::vector<unsigned int>& output);
 
 	struct sRoamingPokemonData // Minimal data for rendering sprite in overworld
 	{
@@ -307,4 +310,5 @@ namespace Pokemon
 		//void LoadFormFromSpeciesData();
 	};
 	sIndividualData GenerateIndividualPokemonData(int nationalDexId);
+	bool GenerateChild(const sIndividualData& parent1, const sIndividualData& parent2, sIndividualData& child);
 }

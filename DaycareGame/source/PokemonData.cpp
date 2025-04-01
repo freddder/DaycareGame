@@ -66,6 +66,7 @@ namespace Pokemon
 		rapidjson::Value name(data.name, allocator);
 		d.AddMember("name", name, allocator);
 		d.AddMember("national_dex_number", data.nationalDexNumber, allocator);
+		d.AddMember("child_species", data.childSpecies, allocator);
 
 		d.AddMember("gender_ratio", data.genderRatio, allocator);
 		d.AddMember("egg_group_1", data.eggGroup1, allocator);
@@ -167,6 +168,7 @@ namespace Pokemon
 
 		strcpy_s(data.name, d["name"].GetString());
 		data.nationalDexNumber = d["national_dex_number"].GetUint();
+		data.childSpecies = d["child_species"].GetUint();
 
 		data.genderRatio = d["gender_ratio"].GetInt();
 		data.eggGroup1 = static_cast<eEggGroup>(d["egg_group_1"].GetInt());
@@ -233,12 +235,121 @@ namespace Pokemon
 		}
 	}
 
+	void GetAllIdsFromEggGroup(eEggGroup group, std::vector<unsigned int>& output)
+	{
+		rapidjson::Document d;
+		FILE* fp = 0;
+		fopen_s(&fp, (PKM_DATA_PATH + "egg_groups.json").c_str(), "rb"); // non-Windows use "r"
+		if (fp == 0) return; // File doesn't exists
+
+		// OPTIMIZATION: best buffer size might be different
+		char readBuffer[4096];
+		rapidjson::FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+		d.ParseStream(is);
+
+		fclose(fp);
+
+		if (d["data_version"].GetInt() != JSON_DATA_VERSION)
+		{
+			std::cout << "WARNING: loader function has a different version as json data" << std::endl;
+		}
+
+		rapidjson::Value& groups = d["groups"];
+		for (unsigned int i = 0; i < groups.Size(); i++)
+		{
+			if (groups[i]["id"].GetUint() != group)
+				continue;
+
+			for (unsigned int j = 0; j < groups[i]["species"].Size(); j++)
+			{
+				output.push_back(groups[i]["species"][j].GetUint());
+			}
+
+			break;
+		}
+	}
+
 	// TODO: have a more versitile way to create battle ready pokemon & incorporate into entering wild encounters and spawn data
 	sIndividualData GenerateIndividualPokemonData(int nationalDexId)
 	{
 		//if (!IsNationalDexNumberValid(nationalDexId)) return;
 
 		return sIndividualData();
+	}
+
+	bool GenerateChild(const sIndividualData& parent1, const sIndividualData& parent2, sIndividualData& child)
+	{
+		// Check if their egg groups match
+		sSpeciesData parent1species;
+		LoadSpecieData(parent1.nationalDexNumber, parent1species);
+		sSpeciesData parent2species;
+		LoadSpecieData(parent2.nationalDexNumber, parent2species);
+
+		if (parent1species.eggGroup1 == EGG_NO_EGGS_DISCOVERED || parent2species.eggGroup1 == EGG_NO_EGGS_DISCOVERED)
+			return false;
+
+		bool firstMatch = parent1species.eggGroup1 == parent2species.eggGroup1 || parent1species.eggGroup1 == parent2species.eggGroup2;
+		bool secondMatch = parent1species.eggGroup2 != EGG_NO_EGG_GROUP &&
+						(parent1species.eggGroup2 == parent2species.eggGroup1 || parent1species.eggGroup2 == parent2species.eggGroup2);
+
+		if (!firstMatch && !secondMatch)
+			return false;
+
+		// Roll for species
+		int chance = rand() % 100;
+		int chilSpecieId = 0;
+		if (chance <= 40)
+		{
+			// do father
+			chilSpecieId = parent1species.childSpecies;
+		}
+		else if (chance <= 80)
+		{
+			// do mother
+			chilSpecieId = parent2species.childSpecies;
+		}
+		else
+		{
+			// do random from egg group
+			std::vector<unsigned int> possibleSpecies;
+			if (firstMatch)
+				GetAllIdsFromEggGroup(parent1species.eggGroup1, possibleSpecies);
+			if (secondMatch)
+				GetAllIdsFromEggGroup(parent1species.eggGroup2, possibleSpecies);
+
+			chilSpecieId = possibleSpecies[rand() % possibleSpecies.size()];
+		}		
+
+		sSpeciesData childSpecie;
+		LoadSpecieData(chilSpecieId, childSpecie);
+
+		// Check if parents current moves can be learned as egg moves
+		child.nationalDexNumber = childSpecie.nationalDexNumber;
+		child.formName; // TODO
+
+		child.level = 1;
+		child.gender; // TODO
+		child.isShiny = rand() % BASE_SHINY_ODDS == 0;
+
+		child.isFormGenderBased = childSpecie.isFormGenderBased;
+		child.isSpriteGenderBased = childSpecie.isSpriteGenderBased;
+
+		child.expToNextLevel; // TODO
+		child.abilityId; // TODO
+		child.nature = static_cast<eNature>(rand() % NATURE_COUNT);
+
+		child.IVs.hp = rand() % 32;
+		child.IVs.atk = rand() % 32;
+		child.IVs.def = rand() % 32;
+		child.IVs.spAtk = rand() % 32;
+		child.IVs.spDef = rand() % 32;
+		child.IVs.spd = rand() % 32;
+
+		// Teach it lv 1 moves
+
+		// Randomise IVs
+
+		return true;
 	}
 
 	const std::string sRoamingPokemonData::MakeRoamingTextureName()
@@ -298,27 +409,6 @@ namespace Pokemon
 
 		return textureName;
 	}
-
-	//void sIndividualData::LoadFormFromSpeciesData()
-	//{
-	//	if (!IsNationalDexNumberValid(nationalDexNumber)) return;
-
-	//	sSpeciesData speciesData;
-	//	LoadSpecieData(nationalDexNumber, speciesData);
-
-	//	if (speciesData.isFormGenderBased && gender == FEMALE)
-	//		form = speciesData.alternateForms["female"];
-	//	else if (formName != "")
-	//		form = speciesData.alternateForms[formName];
-	//	else
-	//		form = speciesData.defaultForm;
-
-	//	if (name == "")
-	//		name = speciesData.name;
-
-	//	isFormGenderBased = speciesData.isFormGenderBased;
-	//	isSpriteGenderBased = speciesData.isSpriteGenderBased;
-	//}
 
 	bool OpenPokemonDataFile(rapidjson::Document& doc, const int nationalDexNumber)
 	{

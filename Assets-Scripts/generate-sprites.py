@@ -56,7 +56,7 @@ def create_entry(dex_num):
     
 
 def main():
-    os.chdir("../DaycareGame/assets/pokemon")
+    os.chdir("../DaycareGame/assets/pokemon/species")
 
     #create_entry(132)
     #create_entry(445)

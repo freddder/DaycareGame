@@ -1,7 +1,8 @@
 {
-    "data_version": 1,
+    "data_version": 2,
     "name": "Garchomp",
     "national_dex_number": 445,
+    "child_species": 443,
     "gender_ratio": 4,
     "egg_group_1": 1,
     "egg_group_2": 14,

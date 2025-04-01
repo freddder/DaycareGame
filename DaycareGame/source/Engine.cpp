@@ -39,6 +39,9 @@ static int searchNationalDexNumber = 0;
 static Pokemon::sSpeciesData selectedSpecies;
 static eEnvironmentWeather selectedWeather = SNOW;
 
+static Pokemon::sIndividualData pkm1;
+static Pokemon::sIndividualData pkm2;
+
 const char* resolutions[] = {
     "2560x1400",
     "1920x1080",
@@ -401,7 +404,7 @@ void RenderImgui()
         }
     }
 
-    if (ImGui::CollapsingHeader("UI"))
+    if (ImGui::CollapsingHeader("Testingshit"))
     {
         
     }

@@ -2,7 +2,19 @@ import requests
 import os
 import json
 
-current_data_version = 1
+current_data_version = 2
+
+egg_incense_exceptions = [
+    113,    # Chancey
+    122,    # Mr. Mime
+    143,    # Snorlax
+    183,    # Marill
+    185,    # Sudowoodo
+    202,    # Wobbuffet
+    226,    # Mantine
+    315,    # Roselia
+    358,    # Chimecho
+]
 
 def get_egg_group_data(group_id):
 
@@ -15,9 +27,23 @@ def get_egg_group_data(group_id):
         "name": data["name"]
     }
 
+    namee = data["name"]
+    print(f"\nGROUP - {namee}")
+
     species = []
     for specie in data["pokemon_species"]:
-        species.append(int(specie["url"].split('/')[-2]))
+        dex_num = int(specie["url"].split('/')[-2])
+
+        url = f"https://pokeapi.co/api/v2/pokemon-species/{dex_num}/"
+        response = requests.get(url)
+        specie_data = response.json()
+
+        specie_name = specie_data["name"]
+        if specie_data["evolves_from_species"] == None or dex_num in egg_incense_exceptions:
+            print(f"{specie_name} - yup")
+            species.append(dex_num)
+        else:
+            print(f"{specie_name} - nop")
     
     group["species"] = species
 

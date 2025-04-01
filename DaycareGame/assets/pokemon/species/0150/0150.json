@@ -1,7 +1,8 @@
 {
-    "data_version": 1,
+    "data_version": 2,
     "name": "Mewtwo",
     "national_dex_number": 150,
+    "child_species": 150,
     "gender_ratio": -1,
     "egg_group_1": 15,
     "egg_group_2": 16,

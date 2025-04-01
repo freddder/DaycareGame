@@ -35,7 +35,7 @@ cPastureCanvas::cPastureCanvas()
 
         cUIImage* icon = new cUIImage();
         icon->aspectRatio = 3.f / 4.f;
-        icon->textureId = LoadUITexture(iconFileName, "assets/pokemon/" + Pokemon::MakeDexNumberFolderName(dexNum) + "/");
+        icon->textureId = LoadUITexture(iconFileName, "assets/pokemon/species/" + Pokemon::MakeDexNumberFolderName(dexNum) + "/");
 
         grid->AssignChildAtIndex(icon, i);
     }

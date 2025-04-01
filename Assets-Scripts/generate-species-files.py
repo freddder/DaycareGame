@@ -4,7 +4,7 @@ import json
 from PIL import Image
 
 max_dex_num = 1008
-current_data_version = 1
+current_data_version = 2
 
 def load_form_data(form_json):
     form_data = {}
@@ -111,6 +111,18 @@ def create_entry(dex_num):
     
     file_data["national_dex_number"] = dex_num
 
+    if specie_data["evolves_from_species"] == None:
+        file_data["child_species"] = dex_num
+    else:
+        evo_url = specie_data["evolution_chain"]["url"]
+        evo_response = requests.get(evo_url)
+        evo_data = evo_response.json()
+
+        if evo_data["baby_trigger_item"] == None:
+            file_data["child_species"] = int(evo_data["chain"]["species"]["url"].split('/')[-2])
+        else:
+            file_data["child_species"] = int(evo_data["chain"]["evolves_to"][0]["species"]["url"].split('/')[-2])
+
     file_data["gender_ratio"] = specie_data["gender_rate"]
 
     file_data["egg_group_1"] = int(specie_data["egg_groups"][0]["url"].split('/')[-2])
@@ -149,16 +161,15 @@ def create_entry(dex_num):
 
 
 def main():
-    os.chdir("../DaycareGame/assets/pokemon")
+    os.chdir("../DaycareGame/assets/pokemon/species")
 
-    #create_entry(150)
-    #create_entry(406)
+    create_entry(150)
+    create_entry(406)
+    create_entry(315)
+    create_entry(407)
     create_entry(413)
-    #create_entry(445)
-    #create_entry(678)
-
-    #for i in range(387, 408):
-    #    create_entry(i)
+    create_entry(445)
+    create_entry(678)
 
 if __name__ == "__main__":
     main()
