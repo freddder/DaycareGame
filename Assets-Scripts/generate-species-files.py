@@ -163,13 +163,13 @@ def create_entry(dex_num):
 def main():
     os.chdir("../DaycareGame/assets/pokemon/species")
 
-    create_entry(150)
-    create_entry(406)
-    create_entry(315)
-    create_entry(407)
-    create_entry(413)
-    create_entry(445)
-    create_entry(678)
+    #create_entry(150)
+    #create_entry(406)
+    #create_entry(315)
+    #create_entry(407)
+    #create_entry(413)
+    #create_entry(445)
+    #create_entry(678)
 
 if __name__ == "__main__":
     main()

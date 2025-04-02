@@ -279,20 +279,51 @@ namespace Pokemon
 
 	bool GenerateChild(const sIndividualData& parent1, const sIndividualData& parent2, sIndividualData& child)
 	{
-		// Check if their egg groups match
 		sSpeciesData parent1species;
 		LoadSpecieData(parent1.nationalDexNumber, parent1species);
 		sSpeciesData parent2species;
 		LoadSpecieData(parent2.nationalDexNumber, parent2species);
 
+		// Check gender
+		if (parent1.gender == parent2.gender)
+		{
+			if (parent1.gender != NO_GENDER)
+				return false;
+
+			// Both genderless, so only if one is a Ditto
+			if (!((parent1species.eggGroup1 == EGG_DITTO && parent2species.eggGroup1 != EGG_NO_EGGS_DISCOVERED) ||
+				parent2species.eggGroup1 == EGG_DITTO && parent1species.eggGroup1 != EGG_NO_EGGS_DISCOVERED))
+				return false;
+		}
+
+		// At least one is no eggs discovered
 		if (parent1species.eggGroup1 == EGG_NO_EGGS_DISCOVERED || parent2species.eggGroup1 == EGG_NO_EGGS_DISCOVERED)
 			return false;
 
-		bool firstMatch = parent1species.eggGroup1 == parent2species.eggGroup1 || parent1species.eggGroup1 == parent2species.eggGroup2;
-		bool secondMatch = parent1species.eggGroup2 != EGG_NO_EGG_GROUP &&
-						(parent1species.eggGroup2 == parent2species.eggGroup1 || parent1species.eggGroup2 == parent2species.eggGroup2);
+		// Both are ditto
+		if (parent1species.eggGroup1 == EGG_DITTO && parent2species.eggGroup1 == EGG_DITTO)
+			return false;
 
-		if (!firstMatch && !secondMatch)
+		eEggGroup groupMatch1 = EGG_NO_EGG_GROUP, groupMatch2 = EGG_NO_EGG_GROUP;
+		if (parent1species.eggGroup1 == EGG_DITTO || parent2species.eggGroup1 == EGG_DITTO) // either is ditto
+		{
+			sSpeciesData& nonDitto = parent1species;
+			if (parent1species.eggGroup1 == EGG_DITTO)
+				nonDitto = parent2species;
+
+			groupMatch1 = nonDitto.eggGroup1;
+			groupMatch2 = nonDitto.eggGroup2;
+		}
+		else // Non are no eggs discovered or ditto
+		{
+			if (parent1species.eggGroup1 == parent2species.eggGroup1 || parent1species.eggGroup1 == parent2species.eggGroup2)
+				groupMatch1 = parent1species.eggGroup1;
+
+			if (parent1species.eggGroup2 == parent2species.eggGroup1 || parent1species.eggGroup2 == parent2species.eggGroup2)
+				groupMatch2 = parent1species.eggGroup2;
+		}
+
+		if (groupMatch1 == EGG_NO_EGG_GROUP && groupMatch2 == EGG_NO_EGG_GROUP)
 			return false;
 
 		// Roll for species
@@ -300,22 +331,22 @@ namespace Pokemon
 		int chilSpecieId = 0;
 		if (chance <= 40)
 		{
-			// do father
+			// do one
 			chilSpecieId = parent1species.childSpecies;
 		}
 		else if (chance <= 80)
 		{
-			// do mother
+			// do another
 			chilSpecieId = parent2species.childSpecies;
 		}
 		else
 		{
 			// do random from egg group
 			std::vector<unsigned int> possibleSpecies;
-			if (firstMatch)
-				GetAllIdsFromEggGroup(parent1species.eggGroup1, possibleSpecies);
-			if (secondMatch)
-				GetAllIdsFromEggGroup(parent1species.eggGroup2, possibleSpecies);
+			if (groupMatch1 != EGG_NO_EGG_GROUP)
+				GetAllIdsFromEggGroup(groupMatch1, possibleSpecies);
+			if (groupMatch2 != EGG_NO_EGG_GROUP)
+				GetAllIdsFromEggGroup(groupMatch2, possibleSpecies);
 
 			chilSpecieId = possibleSpecies[rand() % possibleSpecies.size()];
 		}		

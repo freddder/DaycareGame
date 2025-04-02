@@ -41,6 +41,7 @@ static eEnvironmentWeather selectedWeather = SNOW;
 
 static Pokemon::sIndividualData pkm1;
 static Pokemon::sIndividualData pkm2;
+static Pokemon::sIndividualData child;
 
 const char* resolutions[] = {
     "2560x1400",
@@ -68,352 +69,9 @@ void InitializeImgui()
     ImGui_ImplOpenGL3_Init("#version 330");
 }
 
-void RenderFormData(Pokemon::sForm& form)
-{
-    std::string typePreviewValue = Pokemon::Type_Strings[form.type1];
-    ImGui::PushItemWidth(100);
-    if (ImGui::BeginCombo("Type 1", Pokemon::Type_Strings[form.type1]))
-    {
-        for (int n = 0; n < Pokemon::eType::TYPE_ENUM_COUNT; n++)
-        {
-            const bool is_selected = (form.type1 == n);
-            if (ImGui::Selectable(Pokemon::Type_Strings[n], is_selected) && n != Pokemon::NO_TYPE)
-            {
-                form.type1 = static_cast<Pokemon::eType>(n);
-            }
-
-            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-            if (is_selected)
-                ImGui::SetItemDefaultFocus();
-        }
-        ImGui::EndCombo();
-    }
-    ImGui::SameLine();
-    if (ImGui::BeginCombo("Type 2", Pokemon::Type_Strings[form.type2]))
-    {
-        for (int n = 0; n < Pokemon::eType::TYPE_ENUM_COUNT; n++)
-        {
-            const bool is_selected = (form.type2 == n);
-            if (ImGui::Selectable(Pokemon::Type_Strings[n], is_selected))
-            {
-                form.type2 = static_cast<Pokemon::eType>(n);
-            }
-
-            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-            if (is_selected)
-                ImGui::SetItemDefaultFocus();
-        }
-        ImGui::EndCombo();
-    }
-
-    int hp = form.baseStats.hp;
-    int atk = form.baseStats.atk;
-    int def = form.baseStats.def;
-    int spAtk = form.baseStats.spAtk;
-    int spDef = form.baseStats.spDef;
-    int spd = form.baseStats.spd;
-
-    ImGui::DragInt("HP", &hp, 1, 1, 150);
-    ImGui::DragInt("Attack", &atk, 1, 1, 150);
-    ImGui::DragInt("Defence", &def, 1, 1, 150);
-    ImGui::DragInt("Special Attack", &spAtk, 1, 1, 150);
-    ImGui::DragInt("Special Defence", &spDef, 1, 1, 150);
-    ImGui::DragInt("Speed", &spd, 1, 1, 150);
-
-    form.baseStats.hp = hp;
-    form.baseStats.atk = atk;
-    form.baseStats.def = def;
-    form.baseStats.spAtk = spAtk;
-    form.baseStats.spDef = spDef;
-    form.baseStats.spd = spd;
-
-    ImGui::DragInt("Height(dm)", &form.height, 1, 1, 250);
-    ImGui::SameLine();
-    ImGui::DragInt("Weight(hg)", &form.weight, 1, 1, 10000);
-
-    if (ImGui::TreeNode("Learnset"))
-    {
-        ImGui::BeginTable("", 2, ImGuiTableFlags_Borders);
-        for (unsigned int i = 0; i < form.learnset.size(); i++)
-        {
-            ImGui::TableNextRow();
-            ImGui::TableNextColumn();
-
-            if (form.learnset[i].first == -3)
-                ImGui::Text("Evo");
-            else if (form.learnset[i].first == -2)
-                ImGui::Text("Tutor");
-            else if (form.learnset[i].first == -1)
-                ImGui::Text("TM");
-            else if (form.learnset[i].first == 0)
-                ImGui::Text("Egg");
-            else
-                ImGui::Text(std::to_string(form.learnset[i].first).c_str());
-
-            ImGui::TableNextColumn();
-            ImGui::Text(std::to_string(form.learnset[i].second).c_str());
-            ImGui::TableNextRow();
-        }
-
-        ImGui::EndTable();
-        ImGui::TreePop();
-    }
-}
-
-void RenderImgui()
-{
-    // Imgui
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-
-    //ImGui::ShowDemoWindow();
-    
-    static int currentSelectedResolutionIndex = 3;
-
-    ImGui::Begin("Debug");
-    ImGui::Text("FPS: %f", (1.f / deltaTime));
-    if (ImGui::Button(isFullscreen ? "Window" : "Fullscreen"))
-    {
-        if (isFullscreen) // set windowed
-        {
-            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-            glfwSetWindowAttrib(window, GLFW_DECORATED, GLFW_TRUE);
-            glfwSetWindowPos(window, mode->width/7, mode->height/7);
-
-            std::string resolution = resolutions[currentSelectedResolutionIndex];
-            size_t pos = resolution.find('x');
-            int width = stoi(resolution.substr(0, pos));
-            int height = stoi(resolution.substr(pos + 1));
-            SetWindowResolution(width, height);
-        }
-        else // set borlerless window (fullscreen)
-        {
-            glfwSetWindowAttrib(window, GLFW_DECORATED, GLFW_FALSE);
-            glfwSetWindowPos(window, 0, 0);
-            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-            glfwSetWindowSize(window, mode->width, mode->height);
-        }
-        
-        isFullscreen = !isFullscreen;
-    }
-    
-    if (isFullscreen) ImGui::BeginDisabled();
-
-    // Pass in the preview value visible before opening the combo (it could be anything)
-    std::string resolutionPreviewValue = std::to_string(Manager::camera.SCR_WIDTH) + "x" + std::to_string(Manager::camera.SCR_HEIGHT);
-    float aspectRatio = round(((float)Manager::camera.SCR_WIDTH / (float)Manager::camera.SCR_HEIGHT) * 100.f) / 100.f;
-    ImGui::SameLine(); ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.7f);
-    if (ImGui::BeginCombo(std::to_string(aspectRatio).c_str(), resolutionPreviewValue.c_str()))
-    {
-        for (int n = 0; n < IM_ARRAYSIZE(resolutions); n++)
-        {
-            const bool is_selected = (currentSelectedResolutionIndex == n);
-            if (ImGui::Selectable(resolutions[n], is_selected) && !isFullscreen)
-            {
-                currentSelectedResolutionIndex = n;
-                std::string newResolution = resolutions[n];
-                size_t pos = newResolution.find('x');
-                int width = stoi(newResolution.substr(0, pos));
-                int height = stoi(newResolution.substr(pos + 1));
-
-                SetWindowResolution(width, height);
-            }
-
-            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-            if (is_selected)
-                ImGui::SetItemDefaultFocus();
-        }
-        ImGui::EndCombo();
-    }
-
-    if (isFullscreen) ImGui::EndDisabled();
-
-    ImGui::Separator();
-
-    if (ImGui::CollapsingHeader("Camera"))
-    {
-        float* cameraPosition[3];
-        cameraPosition[0] = &Manager::camera.position.x;
-        cameraPosition[1] = &Manager::camera.position.y;
-        cameraPosition[2] = &Manager::camera.position.z;
-
-        ImGui::DragFloat3("Position", *cameraPosition);
-        ImGui::Checkbox("Player Cam", &Manager::camera.usePlayerCamera);
-        ImGui::DragFloat("FOV", &Manager::camera.FOV);
-        ImGui::DragFloat("Distance", &Manager::camera.targetDistance);
-        ImGui::DragFloat("Angle", &Manager::camera.targetAngle);
-    }
-
-    if (ImGui::CollapsingHeader("Enviornment"))
-    {
-        if (ImGui::BeginCombo("Weather", Weather_Strings[selectedWeather]))
-        {
-            for (int n = 0; n < eEnvironmentWeather::ENUM_COUNT; n++)
-            {
-                const bool is_selected = (selectedWeather == n);
-                if (ImGui::Selectable(Weather_Strings[n], is_selected))
-                {
-                    selectedWeather = static_cast<eEnvironmentWeather>(n);
-                    Manager::scene.SetWeather(selectedWeather);
-                }
-
-                // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-                if (is_selected)
-                    ImGui::SetItemDefaultFocus();
-            }
-            ImGui::EndCombo();
-        }
-
-        ImGui::DragFloat("Wind Speed", &Manager::scene.windSpeed, 0.01f, 0.01f, 10.f);
-
-        if (ImGui::BeginTabBar("Tabs"))
-        {
-            if (ImGui::BeginTabItem("Light"))
-            {
-                float* position[3];
-                position[0] = &Manager::light.lights[0].position.x;
-                position[1] = &Manager::light.lights[0].position.y;
-                position[2] = &Manager::light.lights[0].position.z;
-
-                float* colors[3];
-                colors[0] = &Manager::light.lights[0].diffuse.r;
-                colors[1] = &Manager::light.lights[0].diffuse.g;
-                colors[2] = &Manager::light.lights[0].diffuse.b;
-
-                int* shadowSmooth = &Manager::light.shadowSampleRadius;
-
-                ImGui::ColorEdit3("Color", *colors);
-                ImGui::DragFloat3("Position", *position);
-                ImGui::DragInt("Smoothing", shadowSmooth);
-                ImGui::Image((void*)(intptr_t)Manager::render.GetDepthMapId(), ImVec2(200, 200));
-
-                ImGui::EndTabItem();
-            }
-
-            if (ImGui::BeginTabItem("Fog"))
-            {
-                float* fogColor[3];
-                fogColor[0] = &Manager::scene.fogColor.r;
-                fogColor[1] = &Manager::scene.fogColor.g;
-                fogColor[2] = &Manager::scene.fogColor.b;
-
-                ImGui::ColorEdit3("Color", *fogColor);
-                ImGui::DragFloat("Density", &Manager::scene.fogDensity, 0.005f, 0.f);
-                ImGui::DragFloat("Gradient", &Manager::scene.fogGradient, 0.03f);
-
-                ImGui::EndTabItem();
-            }
-
-            ImGui::EndTabBar();
-        }
-    }
-
-    if (ImGui::CollapsingHeader("Data"))
-    {
-        ImGui::Text("Search National Dex");
-        ImGui::PushItemWidth(50); ImGui::SameLine();
-        ImGui::DragInt(":", &searchNationalDexNumber, 1, 0, 1008);
-
-        ImGui::SameLine();
-        if (ImGui::Button("Load Species Data"))
-        {
-            selectedSpecies.alternateForms.clear();
-            Pokemon::LoadSpecieData(searchNationalDexNumber, selectedSpecies);
-        }
-
-        if (selectedSpecies.nationalDexNumber != 0)
-        {
-            std::string title = std::string(selectedSpecies.name) + " #" + std::to_string(selectedSpecies.nationalDexNumber);
-            ImGui::Text(title.c_str());
-
-            if (ImGui::BeginTable("table1", 2, ImGuiTableFlags_SizingFixedFit))
-            {
-                ImGui::TableNextRow();
-                ImGui::TableNextColumn();
-                
-                ImGui::Image((void*)(intptr_t)Manager::render.GetDepthMapId(), ImVec2(120, 90));
-
-                ImGui::TableNextColumn();
-
-                ImGui::DragInt("Gender ratio", &selectedSpecies.genderRatio, 1, -1, 8);
-                if (ImGui::IsItemHovered()) ImGui::SetTooltip("Chance to be female in eights (-1 for genderless)");
-                if (selectedSpecies.genderRatio != -1)
-                {
-                    ImGui::Checkbox("Are stats gender based", &selectedSpecies.isFormGenderBased);
-                }
-
-                if (ImGui::BeginCombo("Egg Group 1", Pokemon::EggGroup_Strings[selectedSpecies.eggGroup1]))
-                {
-                    for (int n = 0; n < Pokemon::eEggGroup::EGG_ENUM_COUNT; n++)
-                    {
-                        const bool is_selected = (selectedSpecies.eggGroup1 == n);
-                        if (ImGui::Selectable(Pokemon::EggGroup_Strings[n], is_selected) && n != Pokemon::EGG_NO_EGG_GROUP)
-                        {
-                            selectedSpecies.eggGroup1 = static_cast<Pokemon::eEggGroup>(n);
-                        }
-
-                        // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-                        if (is_selected)
-                            ImGui::SetItemDefaultFocus();
-                    }
-                    ImGui::EndCombo();
-                }
-
-                if (ImGui::BeginCombo("Egg Group 2", Pokemon::EggGroup_Strings[selectedSpecies.eggGroup2]))
-                {
-                    for (int n = 0; n < Pokemon::eEggGroup::EGG_ENUM_COUNT; n++)
-                    {
-                        const bool is_selected = (selectedSpecies.eggGroup2 == n);
-                        if (ImGui::Selectable(Pokemon::EggGroup_Strings[n], is_selected))
-                        {
-                            selectedSpecies.eggGroup2 = static_cast<Pokemon::eEggGroup>(n);
-                        }
-
-                        // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-                        if (is_selected)
-                            ImGui::SetItemDefaultFocus();
-                    }
-                    ImGui::EndCombo();
-                }
-
-                ImGui::EndTable();
-            }
-            ImGui::Separator();
-
-            ImGui::Text("Default form");
-            RenderFormData(selectedSpecies.defaultForm);
-            ImGui::Separator();
-
-            for (unsigned int i = 0; i < selectedSpecies.alternateForms.size(); i++)
-            {
-                std::string formTitle = std::string(selectedSpecies.alternateForms[i].name) + " form";
-                ImGui::Text(formTitle.c_str());
-                ImGui::PushID(formTitle.c_str());
-                RenderFormData(selectedSpecies.alternateForms[i]);
-                ImGui::PopID();
-                ImGui::Separator();
-            }
-
-            if (ImGui::Button("Save Species Data"))
-            {
-                Pokemon::SaveSpecieData(selectedSpecies.nationalDexNumber, selectedSpecies);
-            }
-        }
-    }
-
-    if (ImGui::CollapsingHeader("Testingshit"))
-    {
-        
-    }
-
-    ImGui::End();
-
-    ImGui::Render();
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-}
+void RenderImgui();
+void RenderFormData(Pokemon::sForm& form);
+void RenderIndividualData(Pokemon::sIndividualData& data);
 
 void ShutdownImgui()
 {
@@ -631,5 +289,422 @@ namespace Engine
     void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
     {
         //camera.ProcessMouseScroll(static_cast<float>(yoffset));
+    }
+}
+
+void RenderImgui()
+{
+    // Imgui
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+    ImGui::NewFrame();
+
+    //ImGui::ShowDemoWindow();
+
+    static int currentSelectedResolutionIndex = 3;
+
+    ImGui::Begin("Debug");
+    ImGui::Text("FPS: %f", (1.f / deltaTime));
+    if (ImGui::Button(isFullscreen ? "Window" : "Fullscreen"))
+    {
+        if (isFullscreen) // set windowed
+        {
+            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+            glfwSetWindowAttrib(window, GLFW_DECORATED, GLFW_TRUE);
+            glfwSetWindowPos(window, mode->width / 7, mode->height / 7);
+
+            std::string resolution = resolutions[currentSelectedResolutionIndex];
+            size_t pos = resolution.find('x');
+            int width = stoi(resolution.substr(0, pos));
+            int height = stoi(resolution.substr(pos + 1));
+            SetWindowResolution(width, height);
+        }
+        else // set borlerless window (fullscreen)
+        {
+            glfwSetWindowAttrib(window, GLFW_DECORATED, GLFW_FALSE);
+            glfwSetWindowPos(window, 0, 0);
+            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+            glfwSetWindowSize(window, mode->width, mode->height);
+        }
+
+        isFullscreen = !isFullscreen;
+    }
+
+    if (isFullscreen) ImGui::BeginDisabled();
+
+    // Pass in the preview value visible before opening the combo (it could be anything)
+    std::string resolutionPreviewValue = std::to_string(Manager::camera.SCR_WIDTH) + "x" + std::to_string(Manager::camera.SCR_HEIGHT);
+    float aspectRatio = round(((float)Manager::camera.SCR_WIDTH / (float)Manager::camera.SCR_HEIGHT) * 100.f) / 100.f;
+    ImGui::SameLine(); ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.7f);
+    if (ImGui::BeginCombo(std::to_string(aspectRatio).c_str(), resolutionPreviewValue.c_str()))
+    {
+        for (int n = 0; n < IM_ARRAYSIZE(resolutions); n++)
+        {
+            const bool is_selected = (currentSelectedResolutionIndex == n);
+            if (ImGui::Selectable(resolutions[n], is_selected) && !isFullscreen)
+            {
+                currentSelectedResolutionIndex = n;
+                std::string newResolution = resolutions[n];
+                size_t pos = newResolution.find('x');
+                int width = stoi(newResolution.substr(0, pos));
+                int height = stoi(newResolution.substr(pos + 1));
+
+                SetWindowResolution(width, height);
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
+    }
+
+    if (isFullscreen) ImGui::EndDisabled();
+
+    ImGui::Separator();
+
+    if (ImGui::CollapsingHeader("Camera"))
+    {
+        float* cameraPosition[3];
+        cameraPosition[0] = &Manager::camera.position.x;
+        cameraPosition[1] = &Manager::camera.position.y;
+        cameraPosition[2] = &Manager::camera.position.z;
+
+        ImGui::DragFloat3("Position", *cameraPosition);
+        ImGui::Checkbox("Player Cam", &Manager::camera.usePlayerCamera);
+        ImGui::DragFloat("FOV", &Manager::camera.FOV);
+        ImGui::DragFloat("Distance", &Manager::camera.targetDistance);
+        ImGui::DragFloat("Angle", &Manager::camera.targetAngle);
+    }
+
+    if (ImGui::CollapsingHeader("Enviornment"))
+    {
+        if (ImGui::BeginCombo("Weather", Weather_Strings[selectedWeather]))
+        {
+            for (int n = 0; n < eEnvironmentWeather::ENUM_COUNT; n++)
+            {
+                const bool is_selected = (selectedWeather == n);
+                if (ImGui::Selectable(Weather_Strings[n], is_selected))
+                {
+                    selectedWeather = static_cast<eEnvironmentWeather>(n);
+                    Manager::scene.SetWeather(selectedWeather);
+                }
+
+                // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                if (is_selected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndCombo();
+        }
+
+        ImGui::DragFloat("Wind Speed", &Manager::scene.windSpeed, 0.01f, 0.01f, 10.f);
+
+        if (ImGui::BeginTabBar("Tabs"))
+        {
+            if (ImGui::BeginTabItem("Light"))
+            {
+                float* position[3];
+                position[0] = &Manager::light.lights[0].position.x;
+                position[1] = &Manager::light.lights[0].position.y;
+                position[2] = &Manager::light.lights[0].position.z;
+
+                float* colors[3];
+                colors[0] = &Manager::light.lights[0].diffuse.r;
+                colors[1] = &Manager::light.lights[0].diffuse.g;
+                colors[2] = &Manager::light.lights[0].diffuse.b;
+
+                int* shadowSmooth = &Manager::light.shadowSampleRadius;
+
+                ImGui::ColorEdit3("Color", *colors);
+                ImGui::DragFloat3("Position", *position);
+                ImGui::DragInt("Smoothing", shadowSmooth);
+                ImGui::Image((void*)(intptr_t)Manager::render.GetDepthMapId(), ImVec2(200, 200));
+
+                ImGui::EndTabItem();
+            }
+
+            if (ImGui::BeginTabItem("Fog"))
+            {
+                float* fogColor[3];
+                fogColor[0] = &Manager::scene.fogColor.r;
+                fogColor[1] = &Manager::scene.fogColor.g;
+                fogColor[2] = &Manager::scene.fogColor.b;
+
+                ImGui::ColorEdit3("Color", *fogColor);
+                ImGui::DragFloat("Density", &Manager::scene.fogDensity, 0.005f, 0.f);
+                ImGui::DragFloat("Gradient", &Manager::scene.fogGradient, 0.03f);
+
+                ImGui::EndTabItem();
+            }
+
+            ImGui::EndTabBar();
+        }
+    }
+
+    if (ImGui::CollapsingHeader("Data"))
+    {
+        ImGui::Text("Search National Dex");
+        ImGui::PushItemWidth(50); ImGui::SameLine();
+        ImGui::DragInt(":", &searchNationalDexNumber, 1, 0, 1008);
+
+        ImGui::SameLine();
+        if (ImGui::Button("Load Species Data"))
+        {
+            selectedSpecies.alternateForms.clear();
+            Pokemon::LoadSpecieData(searchNationalDexNumber, selectedSpecies);
+        }
+
+        if (selectedSpecies.nationalDexNumber != 0)
+        {
+            std::string title = std::string(selectedSpecies.name) + " #" + std::to_string(selectedSpecies.nationalDexNumber);
+            ImGui::Text(title.c_str());
+
+            if (ImGui::BeginTable("table1", 2, ImGuiTableFlags_SizingFixedFit))
+            {
+                ImGui::TableNextRow();
+                ImGui::TableNextColumn();
+
+                ImGui::Image((void*)(intptr_t)Manager::render.GetDepthMapId(), ImVec2(120, 90));
+
+                ImGui::TableNextColumn();
+
+                ImGui::DragInt("Gender ratio", &selectedSpecies.genderRatio, 1, -1, 8);
+                if (ImGui::IsItemHovered()) ImGui::SetTooltip("Chance to be female in eights (-1 for genderless)");
+                if (selectedSpecies.genderRatio != -1)
+                {
+                    ImGui::Checkbox("Are stats gender based", &selectedSpecies.isFormGenderBased);
+                }
+
+                if (ImGui::BeginCombo("Egg Group 1", Pokemon::EggGroup_Strings[selectedSpecies.eggGroup1]))
+                {
+                    for (int n = 0; n < Pokemon::eEggGroup::EGG_ENUM_COUNT; n++)
+                    {
+                        const bool is_selected = (selectedSpecies.eggGroup1 == n);
+                        if (ImGui::Selectable(Pokemon::EggGroup_Strings[n], is_selected) && n != Pokemon::EGG_NO_EGG_GROUP)
+                        {
+                            selectedSpecies.eggGroup1 = static_cast<Pokemon::eEggGroup>(n);
+                        }
+
+                        // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                        if (is_selected)
+                            ImGui::SetItemDefaultFocus();
+                    }
+                    ImGui::EndCombo();
+                }
+
+                if (ImGui::BeginCombo("Egg Group 2", Pokemon::EggGroup_Strings[selectedSpecies.eggGroup2]))
+                {
+                    for (int n = 0; n < Pokemon::eEggGroup::EGG_ENUM_COUNT; n++)
+                    {
+                        const bool is_selected = (selectedSpecies.eggGroup2 == n);
+                        if (ImGui::Selectable(Pokemon::EggGroup_Strings[n], is_selected))
+                        {
+                            selectedSpecies.eggGroup2 = static_cast<Pokemon::eEggGroup>(n);
+                        }
+
+                        // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+                        if (is_selected)
+                            ImGui::SetItemDefaultFocus();
+                    }
+                    ImGui::EndCombo();
+                }
+
+                ImGui::EndTable();
+            }
+            ImGui::Separator();
+
+            ImGui::Text("Default form");
+            RenderFormData(selectedSpecies.defaultForm);
+            ImGui::Separator();
+
+            for (unsigned int i = 0; i < selectedSpecies.alternateForms.size(); i++)
+            {
+                std::string formTitle = std::string(selectedSpecies.alternateForms[i].name) + " form";
+                ImGui::Text(formTitle.c_str());
+                ImGui::PushID(formTitle.c_str());
+                RenderFormData(selectedSpecies.alternateForms[i]);
+                ImGui::PopID();
+                ImGui::Separator();
+            }
+
+            if (ImGui::Button("Save Species Data"))
+            {
+                Pokemon::SaveSpecieData(selectedSpecies.nationalDexNumber, selectedSpecies);
+            }
+        }
+    }
+
+    if (ImGui::CollapsingHeader("Testingshit"))
+    {
+        static int pkm1Dex;
+        ImGui::DragInt("Parent1 Dex Num", &pkm1Dex, 1, 0, 1008);
+        pkm1.nationalDexNumber = pkm1Dex;
+        ImGui::SameLine();
+        if (ImGui::Button("Randomize"))
+        {
+            pkm1.nationalDexNumber = rand() % 809 + 1;
+            pkm1Dex = pkm1.nationalDexNumber;
+        }
+
+        static int pkm2Dex;
+        ImGui::DragInt("Parent2 Dex Num", &pkm2Dex, 1, 0, 1008);
+        pkm2.nationalDexNumber = pkm2Dex;
+        ImGui::SameLine();
+        if (ImGui::Button("Rand0mize"))
+        {
+            pkm2.nationalDexNumber = rand() % 809 + 1;
+            pkm2Dex = pkm2.nationalDexNumber;
+        }
+
+        if (pkm1.nationalDexNumber != 0)
+        {
+            ImGui::PushID("juh1");
+            RenderIndividualData(pkm1);
+            ImGui::PopID();
+            ImGui::Separator();
+        }
+
+        if (pkm2.nationalDexNumber != 0)
+        {
+            ImGui::PushID("juh2");
+            RenderIndividualData(pkm2);
+            ImGui::PopID();
+            ImGui::Separator();
+        }
+
+        if (pkm1.nationalDexNumber != 0 && pkm2.nationalDexNumber != 0)
+        {
+            if (ImGui::Button("B R E E D"))
+            {
+                Pokemon::GenerateChild(pkm1, pkm2, child);
+            }
+            ImGui::Separator();
+        }
+
+        if (child.nationalDexNumber != 0)
+        {
+            RenderIndividualData(child);
+        }
+    }
+
+    ImGui::End();
+
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void RenderFormData(Pokemon::sForm& form)
+{
+    std::string typePreviewValue = Pokemon::Type_Strings[form.type1];
+    ImGui::PushItemWidth(100);
+    if (ImGui::BeginCombo("Type 1", Pokemon::Type_Strings[form.type1]))
+    {
+        for (int n = 0; n < Pokemon::eType::TYPE_ENUM_COUNT; n++)
+        {
+            const bool is_selected = (form.type1 == n);
+            if (ImGui::Selectable(Pokemon::Type_Strings[n], is_selected) && n != Pokemon::NO_TYPE)
+            {
+                form.type1 = static_cast<Pokemon::eType>(n);
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
+    }
+    ImGui::SameLine();
+    if (ImGui::BeginCombo("Type 2", Pokemon::Type_Strings[form.type2]))
+    {
+        for (int n = 0; n < Pokemon::eType::TYPE_ENUM_COUNT; n++)
+        {
+            const bool is_selected = (form.type2 == n);
+            if (ImGui::Selectable(Pokemon::Type_Strings[n], is_selected))
+            {
+                form.type2 = static_cast<Pokemon::eType>(n);
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
+    }
+
+    int hp = form.baseStats.hp;
+    int atk = form.baseStats.atk;
+    int def = form.baseStats.def;
+    int spAtk = form.baseStats.spAtk;
+    int spDef = form.baseStats.spDef;
+    int spd = form.baseStats.spd;
+
+    ImGui::DragInt("HP", &hp, 1, 1, 150);
+    ImGui::DragInt("Attack", &atk, 1, 1, 150);
+    ImGui::DragInt("Defence", &def, 1, 1, 150);
+    ImGui::DragInt("Special Attack", &spAtk, 1, 1, 150);
+    ImGui::DragInt("Special Defence", &spDef, 1, 1, 150);
+    ImGui::DragInt("Speed", &spd, 1, 1, 150);
+
+    form.baseStats.hp = hp;
+    form.baseStats.atk = atk;
+    form.baseStats.def = def;
+    form.baseStats.spAtk = spAtk;
+    form.baseStats.spDef = spDef;
+    form.baseStats.spd = spd;
+
+    ImGui::DragInt("Height(dm)", &form.height, 1, 1, 250);
+    ImGui::SameLine();
+    ImGui::DragInt("Weight(hg)", &form.weight, 1, 1, 10000);
+
+    if (ImGui::TreeNode("Learnset"))
+    {
+        ImGui::BeginTable("", 2, ImGuiTableFlags_Borders);
+        for (unsigned int i = 0; i < form.learnset.size(); i++)
+        {
+            ImGui::TableNextRow();
+            ImGui::TableNextColumn();
+
+            if (form.learnset[i].first == -3)
+                ImGui::Text("Evo");
+            else if (form.learnset[i].first == -2)
+                ImGui::Text("Tutor");
+            else if (form.learnset[i].first == -1)
+                ImGui::Text("TM");
+            else if (form.learnset[i].first == 0)
+                ImGui::Text("Egg");
+            else
+                ImGui::Text(std::to_string(form.learnset[i].first).c_str());
+
+            ImGui::TableNextColumn();
+            ImGui::Text(std::to_string(form.learnset[i].second).c_str());
+            ImGui::TableNextRow();
+        }
+
+        ImGui::EndTable();
+        ImGui::TreePop();
+    }
+}
+
+void RenderIndividualData(Pokemon::sIndividualData& data)
+{
+    ImGui::Checkbox("Shiny", &data.isShiny);
+
+    if (ImGui::BeginCombo("Nature", Pokemon::Natures_Strings[data.nature]))
+    {
+        for (int n = 0; n < Pokemon::eNature::NATURE_COUNT; n++)
+        {
+            const bool is_selected = (data.nature == n);
+            if (ImGui::Selectable(Pokemon::Natures_Strings[n], is_selected))
+            {
+                data.nature = static_cast<Pokemon::eNature>(n);
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
     }
 }
