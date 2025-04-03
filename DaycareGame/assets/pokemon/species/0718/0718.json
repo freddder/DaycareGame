@@ -144,7 +144,7 @@
     },
     "alternate_forms": [
         {
-            "name": "construct",
+            "name": "10-power-construct",
             "type_1": 16,
             "type_2": 5,
             "ability_1": 211,
@@ -276,7 +276,7 @@
             ]
         },
         {
-            "name": "construct",
+            "name": "50-power-construct",
             "type_1": 16,
             "type_2": 5,
             "ability_1": 211,

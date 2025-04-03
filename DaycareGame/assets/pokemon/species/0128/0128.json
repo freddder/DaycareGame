@@ -150,7 +150,7 @@
     },
     "alternate_forms": [
         {
-            "name": "breed",
+            "name": "paldea-combat-breed",
             "type_1": 2,
             "type_2": 0,
             "ability_1": 22,
@@ -169,7 +169,7 @@
             "learnset": []
         },
         {
-            "name": "breed",
+            "name": "paldea-blaze-breed",
             "type_1": 2,
             "type_2": 10,
             "ability_1": 22,
@@ -188,7 +188,7 @@
             "learnset": []
         },
         {
-            "name": "breed",
+            "name": "paldea-aqua-breed",
             "type_1": 2,
             "type_2": 11,
             "ability_1": 22,

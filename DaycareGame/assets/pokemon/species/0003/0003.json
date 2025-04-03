@@ -142,25 +142,5 @@
             76
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "gmax",
-            "type_1": 12,
-            "type_2": 4,
-            "ability_1": 65,
-            "ability_2": 0,
-            "hidden_ability": 34,
-            "base_hp": 80,
-            "base_atk": 82,
-            "base_def": 83,
-            "base_spAtk": 100,
-            "base_spDef": 100,
-            "base_spd": 80,
-            "height": 240,
-            "weight": 10000,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": []
 }

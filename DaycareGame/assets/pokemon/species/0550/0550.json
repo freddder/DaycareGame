@@ -11,7 +11,7 @@
     "is_sprite_gender_based": false,
     "is_stats_gender_based": false,
     "default_form": {
-        "name": "striped",
+        "name": "red-striped",
         "type_1": 11,
         "type_2": 0,
         "ability_1": 120,
@@ -142,7 +142,7 @@
     },
     "alternate_forms": [
         {
-            "name": "striped",
+            "name": "blue-striped",
             "type_1": 11,
             "type_2": 0,
             "ability_1": 69,
@@ -272,7 +272,7 @@
             ]
         },
         {
-            "name": "striped",
+            "name": "white-striped",
             "type_1": 11,
             "type_2": 0,
             "ability_1": 155,

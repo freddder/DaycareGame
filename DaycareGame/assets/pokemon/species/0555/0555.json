@@ -304,7 +304,7 @@
             ]
         },
         {
-            "name": "standard",
+            "name": "galar-standard",
             "type_1": 15,
             "type_2": 0,
             "ability_1": 255,
@@ -323,7 +323,7 @@
             "learnset": []
         },
         {
-            "name": "zen",
+            "name": "galar-zen",
             "type_1": 15,
             "type_2": 10,
             "ability_1": 255,

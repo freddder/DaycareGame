@@ -29,25 +29,5 @@
         "back_sprite_count": 1,
         "learnset": []
     },
-    "alternate_forms": [
-        {
-            "name": "gmax",
-            "type_1": 9,
-            "type_2": 0,
-            "ability_1": 89,
-            "ability_2": 0,
-            "hidden_ability": 0,
-            "base_hp": 135,
-            "base_atk": 143,
-            "base_def": 143,
-            "base_spAtk": 80,
-            "base_spDef": 65,
-            "base_spd": 34,
-            "height": 250,
-            "weight": 10000,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": []
 }

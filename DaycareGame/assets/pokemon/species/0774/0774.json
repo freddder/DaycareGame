@@ -11,7 +11,7 @@
     "is_sprite_gender_based": false,
     "is_stats_gender_based": false,
     "default_form": {
-        "name": "meteor",
+        "name": "red-meteor",
         "type_1": 6,
         "type_2": 3,
         "ability_1": 197,
@@ -148,7 +148,7 @@
     },
     "alternate_forms": [
         {
-            "name": "meteor",
+            "name": "orange-meteor",
             "type_1": 6,
             "type_2": 3,
             "ability_1": 197,
@@ -284,7 +284,7 @@
             ]
         },
         {
-            "name": "meteor",
+            "name": "yellow-meteor",
             "type_1": 6,
             "type_2": 3,
             "ability_1": 197,
@@ -420,7 +420,7 @@
             ]
         },
         {
-            "name": "meteor",
+            "name": "green-meteor",
             "type_1": 6,
             "type_2": 3,
             "ability_1": 197,
@@ -556,7 +556,7 @@
             ]
         },
         {
-            "name": "meteor",
+            "name": "blue-meteor",
             "type_1": 6,
             "type_2": 3,
             "ability_1": 197,
@@ -692,7 +692,7 @@
             ]
         },
         {
-            "name": "meteor",
+            "name": "indigo-meteor",
             "type_1": 6,
             "type_2": 3,
             "ability_1": 197,
@@ -828,7 +828,7 @@
             ]
         },
         {
-            "name": "meteor",
+            "name": "violet-meteor",
             "type_1": 6,
             "type_2": 3,
             "ability_1": 197,

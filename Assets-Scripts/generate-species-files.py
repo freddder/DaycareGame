@@ -9,7 +9,7 @@ current_data_version = 2
 def load_form_data(form_json):
     form_data = {}
     	
-    split_name = form_json["name"].split('-')
+    split_name = form_json["name"].split('-', 1)
     if len(split_name) > 1:
         form_data["name"] = split_name[-1]
     else:
@@ -150,9 +150,11 @@ def create_entry(dex_num):
         url = form["pokemon"]["url"]
         form_response = requests.get(url)
         form_data = form_response.json()
+
+        splits = form["pokemon"]["name"].split('-')
         if form["is_default"]:
             file_data["default_form"] = load_form_data(form_data)
-        elif "mega" not in form["pokemon"]["name"].split('-'): # dont include megas
+        elif "mega" not in splits and "totem" not in splits and "gmax" not in splits and dex_num != 25: # dont include megas, totems or gmax (also fuck pikachu)
             alternate_forms.append(load_form_data(form_data))
     file_data["alternate_forms"] = alternate_forms
 
@@ -174,8 +176,24 @@ def main():
     #create_entry(445)
     #create_entry(678)
 
+    # DONT FORGET to manually change mr mime and mime jr names in the file (they contain spaces)
+
     for i in range(1, 810):
         create_entry(i)
+
+    # Apparently largest form name is alcremie-ruby-cream-strawberry-sweet with 5 words (yikes)
+    #largest_length = 0
+    #for i in range(10001, 10503):
+    #    url = f"https://pokeapi.co/api/v2/pokemon-form/{i}/"
+    #    response = requests.get(url)
+    #    data = response.json()
+    #
+    #    name = data["name"]
+    #    length = len(data["name"].split('-'))
+    #    if length > largest_length:
+    #        largest_length = length
+    #        print(f"{length}: {name}")
+
 
 if __name__ == "__main__":
     main()

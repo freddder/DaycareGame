@@ -11,7 +11,7 @@
     "is_sprite_gender_based": false,
     "is_stats_gender_based": false,
     "default_form": {
-        "name": "jr",
+        "name": "",
         "type_1": 14,
         "type_2": 18,
         "ability_1": 43,
