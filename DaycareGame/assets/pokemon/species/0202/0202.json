@@ -1,0 +1,42 @@
+{
+    "data_version": 2,
+    "name": "Wobbuffet",
+    "national_dex_number": 202,
+    "child_species": 202,
+    "gender_ratio": 4,
+    "egg_group_1": 11,
+    "egg_group_2": 0,
+    "hatch_cycles": 20,
+    "catch_rate": 45,
+    "is_sprite_gender_based": true,
+    "is_stats_gender_based": false,
+    "default_form": {
+        "name": "",
+        "type_1": 14,
+        "type_2": 0,
+        "ability_1": 23,
+        "ability_2": 0,
+        "hidden_ability": 140,
+        "base_hp": 190,
+        "base_atk": 33,
+        "base_def": 58,
+        "base_spAtk": 33,
+        "base_spDef": 58,
+        "base_spd": 33,
+        "height": 13,
+        "weight": 285,
+        "front_sprite_count": 123,
+        "back_sprite_count": 122,
+        "learnset": [
+            1,
+            68,
+            1,
+            194,
+            1,
+            219,
+            1,
+            243
+        ]
+    },
+    "alternate_forms": []
+}

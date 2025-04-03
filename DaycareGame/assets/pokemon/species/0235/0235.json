@@ -1,0 +1,36 @@
+{
+    "data_version": 2,
+    "name": "Smeargle",
+    "national_dex_number": 235,
+    "child_species": 235,
+    "gender_ratio": 4,
+    "egg_group_1": 5,
+    "egg_group_2": 0,
+    "hatch_cycles": 20,
+    "catch_rate": 45,
+    "is_sprite_gender_based": false,
+    "is_stats_gender_based": false,
+    "default_form": {
+        "name": "",
+        "type_1": 1,
+        "type_2": 0,
+        "ability_1": 20,
+        "ability_2": 101,
+        "hidden_ability": 141,
+        "base_hp": 55,
+        "base_atk": 20,
+        "base_def": 35,
+        "base_spAtk": 20,
+        "base_spDef": 45,
+        "base_spd": 75,
+        "height": 12,
+        "weight": 580,
+        "front_sprite_count": 63,
+        "back_sprite_count": 92,
+        "learnset": [
+            1,
+            166
+        ]
+    },
+    "alternate_forms": []
+}

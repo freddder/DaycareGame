@@ -1,0 +1,42 @@
+{
+    "data_version": 2,
+    "name": "Beldum",
+    "national_dex_number": 374,
+    "child_species": 374,
+    "gender_ratio": -1,
+    "egg_group_1": 10,
+    "egg_group_2": 0,
+    "hatch_cycles": 40,
+    "catch_rate": 3,
+    "is_sprite_gender_based": false,
+    "is_stats_gender_based": false,
+    "default_form": {
+        "name": "",
+        "type_1": 9,
+        "type_2": 14,
+        "ability_1": 29,
+        "ability_2": 0,
+        "hidden_ability": 135,
+        "base_hp": 40,
+        "base_atk": 55,
+        "base_def": 80,
+        "base_spAtk": 35,
+        "base_spDef": 60,
+        "base_spd": 30,
+        "height": 6,
+        "weight": 952,
+        "front_sprite_count": 70,
+        "back_sprite_count": 35,
+        "learnset": [
+            -2,
+            334,
+            -2,
+            428,
+            -2,
+            442,
+            1,
+            36
+        ]
+    },
+    "alternate_forms": []
+}

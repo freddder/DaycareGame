@@ -1,0 +1,42 @@
+{
+    "data_version": 2,
+    "name": "Kakuna",
+    "national_dex_number": 14,
+    "child_species": 13,
+    "gender_ratio": 4,
+    "egg_group_1": 3,
+    "egg_group_2": 0,
+    "hatch_cycles": 15,
+    "catch_rate": 120,
+    "is_sprite_gender_based": false,
+    "is_stats_gender_based": false,
+    "default_form": {
+        "name": "",
+        "type_1": 7,
+        "type_2": 4,
+        "ability_1": 61,
+        "ability_2": 0,
+        "hidden_ability": 0,
+        "base_hp": 45,
+        "base_atk": 25,
+        "base_def": 50,
+        "base_spAtk": 25,
+        "base_spDef": 25,
+        "base_spd": 35,
+        "height": 6,
+        "weight": 100,
+        "front_sprite_count": 47,
+        "back_sprite_count": 39,
+        "learnset": [
+            -3,
+            106,
+            -2,
+            334,
+            -2,
+            450,
+            -2,
+            527
+        ]
+    },
+    "alternate_forms": []
+}

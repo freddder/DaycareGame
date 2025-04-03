@@ -67,9 +67,9 @@ def load_form_data(form_json):
                     move_level = vgd["level_learned_at"]
                     if move_level == 0: # when evolving
                         move_level = -3
-                elif move_learn_method == "egg":
-                    move_level = 0
                 elif move_learn_method == "machine":
+                    move_level = 0
+                elif move_learn_method == "egg":
                     move_level = -1
                 elif move_learn_method == "tutor":
                     move_level = -2
@@ -102,6 +102,9 @@ def create_entry(dex_num):
     specie_response = requests.get(specie_url)
     specie_data = specie_response.json()
 
+    species_name = specie_data["name"]
+    print(species_name)
+
     file_data = { "data_version": current_data_version }
 
     for name in specie_data["names"]:
@@ -126,7 +129,7 @@ def create_entry(dex_num):
     file_data["gender_ratio"] = specie_data["gender_rate"]
 
     file_data["egg_group_1"] = int(specie_data["egg_groups"][0]["url"].split('/')[-2])
-    egg_group_2 = 16
+    egg_group_2 = 0
     if len(specie_data["egg_groups"]) > 1:
         egg_group_2 = int(specie_data["egg_groups"][1]["url"].split('/')[-2])
     file_data["egg_group_2"] = egg_group_2
@@ -170,6 +173,9 @@ def main():
     #create_entry(413)
     #create_entry(445)
     #create_entry(678)
+
+    for i in range(1, 810):
+        create_entry(i)
 
 if __name__ == "__main__":
     main()

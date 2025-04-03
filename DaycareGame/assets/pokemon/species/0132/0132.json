@@ -1,0 +1,36 @@
+{
+    "data_version": 2,
+    "name": "Ditto",
+    "national_dex_number": 132,
+    "child_species": 132,
+    "gender_ratio": -1,
+    "egg_group_1": 13,
+    "egg_group_2": 0,
+    "hatch_cycles": 20,
+    "catch_rate": 35,
+    "is_sprite_gender_based": false,
+    "is_stats_gender_based": false,
+    "default_form": {
+        "name": "",
+        "type_1": 1,
+        "type_2": 0,
+        "ability_1": 7,
+        "ability_2": 0,
+        "hidden_ability": 150,
+        "base_hp": 48,
+        "base_atk": 48,
+        "base_def": 48,
+        "base_spAtk": 48,
+        "base_spDef": 48,
+        "base_spd": 48,
+        "height": 3,
+        "weight": 40,
+        "front_sprite_count": 41,
+        "back_sprite_count": 26,
+        "learnset": [
+            1,
+            144
+        ]
+    },
+    "alternate_forms": []
+}

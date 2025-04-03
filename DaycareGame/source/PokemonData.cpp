@@ -277,6 +277,82 @@ namespace Pokemon
 		return sIndividualData();
 	}
 
+
+	std::string sRoamingPokemonData::MakeRoamingTextureName() const
+	{
+		std::string textureName = std::to_string(nationalDexNumber);
+
+		if (gender == FEMALE && (isSpriteGenderBased || isFormGenderBased))
+			textureName = textureName + "_f";
+		else if (!CompareName(formName, "")) // There is no case where both will be true
+			textureName = textureName + "_" + formName;
+
+		if (isShiny)
+			textureName = textureName + "_s";
+
+		textureName = textureName + ".png";
+
+		return textureName;
+	}
+
+	std::string sRoamingPokemonData::MakeIconTextureName() const
+	{
+		std::string textureName = std::to_string(nationalDexNumber);
+
+		if (gender == FEMALE && isFormGenderBased)
+			textureName = textureName + "_f";
+		else if (!CompareName(formName, "")) // There is no case where both will be true
+			textureName = textureName + "_" + formName;
+
+		textureName += "_ico";
+
+		if (isShiny)
+			textureName = textureName + "_s";
+
+		textureName = textureName + ".png";
+
+		return textureName;
+	}
+
+	std::string sIndividualData::MakeBattleTextureName(bool isFront) const
+	{
+		std::string textureName = std::to_string(nationalDexNumber);
+
+		if (gender == FEMALE && (isSpriteGenderBased || isFormGenderBased))
+			textureName = textureName + "_f";
+		else if (formName != "") // There is no case where both will be true
+			textureName = textureName + "_" + formName;
+
+		if (isFront)
+			textureName = textureName + "_bf";
+		else
+			textureName = textureName + "_bb";
+
+		if (isShiny)
+			textureName = textureName + "_s";
+
+		textureName = textureName + ".png";
+
+		return textureName;
+	}
+
+	bool sIndividualData::HasMove(const unsigned int moveId) const
+	{
+		return moveId == move1 || moveId == move2 || moveId == move3 || moveId == move4;
+	}
+
+	void sIndividualData::LearnEggMove(const unsigned int moveId)
+	{
+		if (move1 == 0)
+			move1 = moveId;
+		else if (move2 == 0)
+			move2 = moveId;
+		else if (move3 == 0)
+			move3 = moveId;
+		else if (move4 == 0)
+			move4 = moveId;
+	}
+
 	bool GenerateChild(const sIndividualData& parent1, const sIndividualData& parent2, sIndividualData& child)
 	{
 		sSpeciesData parent1species;
@@ -349,7 +425,7 @@ namespace Pokemon
 				GetAllIdsFromEggGroup(groupMatch2, possibleSpecies);
 
 			chilSpecieId = possibleSpecies[rand() % possibleSpecies.size()];
-		}		
+		}
 
 		sSpeciesData childSpecie;
 		LoadSpecieData(chilSpecieId, childSpecie);
@@ -359,7 +435,10 @@ namespace Pokemon
 		child.formName; // TODO
 
 		child.level = 1;
-		child.gender; // TODO
+		if (childSpecie.genderRatio == -1)
+			child.gender = NO_GENDER;
+		else
+			child.gender = rand() % 9 < childSpecie.genderRatio ? MALE : FEMALE;
 		child.isShiny = rand() % BASE_SHINY_ODDS == 0;
 
 		child.isFormGenderBased = childSpecie.isFormGenderBased;
@@ -369,6 +448,7 @@ namespace Pokemon
 		child.abilityId; // TODO
 		child.nature = static_cast<eNature>(rand() % NATURE_COUNT);
 
+		// Randomise IVs
 		child.IVs.hp = rand() % 32;
 		child.IVs.atk = rand() % 32;
 		child.IVs.def = rand() % 32;
@@ -376,69 +456,35 @@ namespace Pokemon
 		child.IVs.spDef = rand() % 32;
 		child.IVs.spd = rand() % 32;
 
-		// Teach it lv 1 moves
+		sForm& formUsed = childSpecie.defaultForm; // TODO: use appropriate form
+		for (unsigned int i = 0; i < formUsed.learnset.size(); i++)
+		{
+			if (formUsed.learnset[i].first < -1)
+				continue;
 
-		// Randomise IVs
+			if (formUsed.learnset[i].first > 1)
+				break;
+
+			if (formUsed.learnset[i].first == -1 &&
+				(parent1.HasMove(formUsed.learnset[i].second) || parent2.HasMove(formUsed.learnset[i].second)))
+			{
+				// Teach it egg moves either parent has
+				child.LearnEggMove(formUsed.learnset[i].second);
+			}
+			else if (formUsed.learnset[i].first == 0 &&
+				(parent1.HasMove(formUsed.learnset[i].second) && parent2.HasMove(formUsed.learnset[i].second)))
+			{
+				// Teach it TM both parent has
+				child.LearnEggMove(formUsed.learnset[i].second);
+			}
+			else if (formUsed.learnset[i].first == 1)
+			{
+				// Learn lv 1 moves
+				child.LearnEggMove(formUsed.learnset[i].second);
+			}
+		}
 
 		return true;
-	}
-
-	const std::string sRoamingPokemonData::MakeRoamingTextureName()
-	{
-		std::string textureName = std::to_string(nationalDexNumber);
-
-		if (gender == FEMALE && (isSpriteGenderBased || isFormGenderBased))
-			textureName = textureName + "_f";
-		else if (!CompareName(formName, "")) // There is no case where both will be true
-			textureName = textureName + "_" + formName;
-
-		if (isShiny)
-			textureName = textureName + "_s";
-
-		textureName = textureName + ".png";
-
-		return textureName;
-	}
-
-	const std::string sRoamingPokemonData::MakeIconTextureName()
-	{
-		std::string textureName = std::to_string(nationalDexNumber);
-
-		if (gender == FEMALE && isFormGenderBased)
-			textureName = textureName + "_f";
-		else if (!CompareName(formName, "")) // There is no case where both will be true
-			textureName = textureName + "_" + formName;
-
-		textureName += "_ico";
-
-		if (isShiny)
-			textureName = textureName + "_s";
-
-		textureName = textureName + ".png";
-
-		return textureName;
-	}
-
-	const std::string sIndividualData::MakeBattleTextureName(bool isFront)
-	{
-		std::string textureName = std::to_string(nationalDexNumber);
-
-		if (gender == FEMALE && (isSpriteGenderBased || isFormGenderBased))
-			textureName = textureName + "_f";
-		else if (formName != "") // There is no case where both will be true
-			textureName = textureName + "_" + formName;
-
-		if (isFront)
-			textureName = textureName + "_bf";
-		else
-			textureName = textureName + "_bb";
-
-		if (isShiny)
-			textureName = textureName + "_s";
-
-		textureName = textureName + ".png";
-
-		return textureName;
 	}
 
 	bool OpenPokemonDataFile(rapidjson::Document& doc, const int nationalDexNumber)

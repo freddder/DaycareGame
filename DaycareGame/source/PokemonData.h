@@ -102,7 +102,15 @@ namespace Pokemon
 	{
 		MALE,
 		FEMALE,
-		NO_GENDER
+		NO_GENDER,
+		GENDER_ENUM_COUNT
+	};
+
+	const static char* Gender_Strings[] =
+	{
+		"Male",
+		"Female",
+		"No Gender",
 	};
 
 	enum eNature
@@ -238,6 +246,10 @@ namespace Pokemon
 		unsigned int backSpriteFrameCount = 1;
 
 		// Learnset as a pair of int (level) and unsigned int (move id)
+		// -3 = when evolving
+		// -2 = tutor
+		// -1 = egg move
+		//  0 = TM
 		std::vector<std::pair<int, unsigned int>> learnset;
 	};
 
@@ -280,8 +292,8 @@ namespace Pokemon
 		bool isFormGenderBased = false;
 		bool isSpriteGenderBased = false;
 
-		const std::string MakeRoamingTextureName();
-		const std::string MakeIconTextureName();
+		std::string MakeRoamingTextureName() const;
+		std::string MakeIconTextureName() const;
 	};
 
 	struct sIndividualData : public sRoamingPokemonData // Individual data (outside of battle)
@@ -306,8 +318,11 @@ namespace Pokemon
 		unsigned int item = 0;
 		Name nickname = "";
 
-		const std::string MakeBattleTextureName(bool isFront = true);
+		std::string MakeBattleTextureName(bool isFront = true) const;
 		//void LoadFormFromSpeciesData();
+		bool HasMove(const unsigned int moveId) const;
+		void LearnEggMove(const unsigned int moveId);
+
 	};
 	sIndividualData GenerateIndividualPokemonData(int nationalDexId);
 	bool GenerateChild(const sIndividualData& parent1, const sIndividualData& parent2, sIndividualData& child);

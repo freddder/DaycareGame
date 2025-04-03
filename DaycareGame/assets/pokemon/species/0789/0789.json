@@ -1,0 +1,38 @@
+{
+    "data_version": 2,
+    "name": "Cosmog",
+    "national_dex_number": 789,
+    "child_species": 789,
+    "gender_ratio": -1,
+    "egg_group_1": 15,
+    "egg_group_2": 0,
+    "hatch_cycles": 120,
+    "catch_rate": 45,
+    "is_sprite_gender_based": false,
+    "is_stats_gender_based": false,
+    "default_form": {
+        "name": "",
+        "type_1": 14,
+        "type_2": 0,
+        "ability_1": 109,
+        "ability_2": 0,
+        "hidden_ability": 0,
+        "base_hp": 43,
+        "base_atk": 29,
+        "base_def": 31,
+        "base_spAtk": 29,
+        "base_spDef": 31,
+        "base_spd": 37,
+        "height": 2,
+        "weight": 1,
+        "front_sprite_count": 1,
+        "back_sprite_count": 1,
+        "learnset": [
+            1,
+            150,
+            23,
+            100
+        ]
+    },
+    "alternate_forms": []
+}

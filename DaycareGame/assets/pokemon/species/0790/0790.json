@@ -1,0 +1,38 @@
+{
+    "data_version": 2,
+    "name": "Cosmoem",
+    "national_dex_number": 790,
+    "child_species": 789,
+    "gender_ratio": -1,
+    "egg_group_1": 15,
+    "egg_group_2": 0,
+    "hatch_cycles": 120,
+    "catch_rate": 45,
+    "is_sprite_gender_based": false,
+    "is_stats_gender_based": false,
+    "default_form": {
+        "name": "",
+        "type_1": 14,
+        "type_2": 0,
+        "ability_1": 5,
+        "ability_2": 0,
+        "hidden_ability": 0,
+        "base_hp": 43,
+        "base_atk": 29,
+        "base_def": 131,
+        "base_spAtk": 29,
+        "base_spDef": 131,
+        "base_spd": 37,
+        "height": 1,
+        "weight": 9999,
+        "front_sprite_count": 1,
+        "back_sprite_count": 1,
+        "learnset": [
+            -3,
+            322,
+            1,
+            100
+        ]
+    },
+    "alternate_forms": []
+}

@@ -578,7 +578,9 @@ void RenderImgui()
         {
             if (ImGui::Button("B R E E D"))
             {
-                Pokemon::GenerateChild(pkm1, pkm2, child);
+                child = Pokemon::sIndividualData();
+                if (!Pokemon::GenerateChild(pkm1, pkm2, child))
+                    child.nationalDexNumber = 0;
             }
             ImGui::Separator();
         }
@@ -597,7 +599,6 @@ void RenderImgui()
 
 void RenderFormData(Pokemon::sForm& form)
 {
-    std::string typePreviewValue = Pokemon::Type_Strings[form.type1];
     ImGui::PushItemWidth(100);
     if (ImGui::BeginCombo("Type 1", Pokemon::Type_Strings[form.type1]))
     {
@@ -671,9 +672,9 @@ void RenderFormData(Pokemon::sForm& form)
             else if (form.learnset[i].first == -2)
                 ImGui::Text("Tutor");
             else if (form.learnset[i].first == -1)
-                ImGui::Text("TM");
-            else if (form.learnset[i].first == 0)
                 ImGui::Text("Egg");
+            else if (form.learnset[i].first == 0)
+                ImGui::Text("TM");
             else
                 ImGui::Text(std::to_string(form.learnset[i].first).c_str());
 
@@ -689,6 +690,9 @@ void RenderFormData(Pokemon::sForm& form)
 
 void RenderIndividualData(Pokemon::sIndividualData& data)
 {
+    std::string title = "DEX: " + std::to_string(data.nationalDexNumber);
+    ImGui::Text(title.c_str());
+
     ImGui::Checkbox("Shiny", &data.isShiny);
 
     if (ImGui::BeginCombo("Nature", Pokemon::Natures_Strings[data.nature]))
@@ -707,4 +711,34 @@ void RenderIndividualData(Pokemon::sIndividualData& data)
         }
         ImGui::EndCombo();
     }
+
+    if (ImGui::BeginCombo("Gender", Pokemon::Gender_Strings[data.gender]))
+    {
+        for (int n = 0; n < Pokemon::eGender::GENDER_ENUM_COUNT; n++)
+        {
+            const bool is_selected = (data.gender == n);
+            if (ImGui::Selectable(Pokemon::Gender_Strings[n], is_selected))
+            {
+                data.gender = static_cast<Pokemon::eGender>(n);
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
+    }
+
+    int move1 = data.move1;
+    int move2 = data.move2;
+    int move3 = data.move3;
+    int move4 = data.move4;
+    ImGui::DragInt("Move 1", &move1);
+    ImGui::DragInt("Move 2", &move2);
+    ImGui::DragInt("Move 3", &move3);
+    ImGui::DragInt("Move 4", &move4);
+    data.move1 = move1;
+    data.move2 = move2;
+    data.move3 = move3;
+    data.move4 = move4;
 }

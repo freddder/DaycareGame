@@ -1,0 +1,53 @@
+{
+    "data_version": 2,
+    "name": "Melmetal",
+    "national_dex_number": 809,
+    "child_species": 809,
+    "gender_ratio": -1,
+    "egg_group_1": 15,
+    "egg_group_2": 0,
+    "hatch_cycles": 120,
+    "catch_rate": 3,
+    "is_sprite_gender_based": false,
+    "is_stats_gender_based": false,
+    "default_form": {
+        "name": "",
+        "type_1": 9,
+        "type_2": 0,
+        "ability_1": 89,
+        "ability_2": 0,
+        "hidden_ability": 0,
+        "base_hp": 135,
+        "base_atk": 143,
+        "base_def": 143,
+        "base_spAtk": 80,
+        "base_spDef": 65,
+        "base_spd": 34,
+        "height": 25,
+        "weight": 8000,
+        "front_sprite_count": 1,
+        "back_sprite_count": 1,
+        "learnset": []
+    },
+    "alternate_forms": [
+        {
+            "name": "gmax",
+            "type_1": 9,
+            "type_2": 0,
+            "ability_1": 89,
+            "ability_2": 0,
+            "hidden_ability": 0,
+            "base_hp": 135,
+            "base_atk": 143,
+            "base_def": 143,
+            "base_spAtk": 80,
+            "base_spDef": 65,
+            "base_spd": 34,
+            "height": 250,
+            "weight": 10000,
+            "front_sprite_count": 1,
+            "back_sprite_count": 1,
+            "learnset": []
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "data_version": 2,
+    "name": "Meltan",
+    "national_dex_number": 808,
+    "child_species": 808,
+    "gender_ratio": -1,
+    "egg_group_1": 15,
+    "egg_group_2": 0,
+    "hatch_cycles": 120,
+    "catch_rate": 3,
+    "is_sprite_gender_based": false,
+    "is_stats_gender_based": false,
+    "default_form": {
+        "name": "",
+        "type_1": 9,
+        "type_2": 0,
+        "ability_1": 42,
+        "ability_2": 0,
+        "hidden_ability": 0,
+        "base_hp": 46,
+        "base_atk": 65,
+        "base_def": 65,
+        "base_spAtk": 55,
+        "base_spDef": 35,
+        "base_spd": 34,
+        "height": 2,
+        "weight": 80,
+        "front_sprite_count": 1,
+        "back_sprite_count": 1,
+        "learnset": []
+    },
+    "alternate_forms": []
+}

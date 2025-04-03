@@ -1,0 +1,36 @@
+{
+    "data_version": 2,
+    "name": "Unown",
+    "national_dex_number": 201,
+    "child_species": 201,
+    "gender_ratio": -1,
+    "egg_group_1": 15,
+    "egg_group_2": 0,
+    "hatch_cycles": 40,
+    "catch_rate": 225,
+    "is_sprite_gender_based": false,
+    "is_stats_gender_based": false,
+    "default_form": {
+        "name": "",
+        "type_1": 14,
+        "type_2": 0,
+        "ability_1": 26,
+        "ability_2": 0,
+        "hidden_ability": 0,
+        "base_hp": 48,
+        "base_atk": 72,
+        "base_def": 48,
+        "base_spAtk": 72,
+        "base_spDef": 48,
+        "base_spd": 48,
+        "height": 5,
+        "weight": 50,
+        "front_sprite_count": 96,
+        "back_sprite_count": 94,
+        "learnset": [
+            1,
+            237
+        ]
+    },
+    "alternate_forms": []
+}
