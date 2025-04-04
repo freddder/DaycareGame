@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Linoone",
     "national_dex_number": 264,
     "child_species": 263,
@@ -156,25 +156,6 @@
             374
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "galar",
-            "type_1": 17,
-            "type_2": 1,
-            "ability_1": 53,
-            "ability_2": 82,
-            "hidden_ability": 95,
-            "base_hp": 78,
-            "base_atk": 70,
-            "base_def": 61,
-            "base_spAtk": 50,
-            "base_spDef": 61,
-            "base_spd": 100,
-            "height": 5,
-            "weight": 325,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

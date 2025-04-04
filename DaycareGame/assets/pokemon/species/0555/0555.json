@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Darmanitan",
     "national_dex_number": 555,
     "child_species": 554,
@@ -302,44 +302,7 @@
                 54,
                 315
             ]
-        },
-        {
-            "name": "galar-standard",
-            "type_1": 15,
-            "type_2": 0,
-            "ability_1": 255,
-            "ability_2": 0,
-            "hidden_ability": 161,
-            "base_hp": 105,
-            "base_atk": 140,
-            "base_def": 55,
-            "base_spAtk": 30,
-            "base_spDef": 55,
-            "base_spd": 95,
-            "height": 17,
-            "weight": 1200,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        },
-        {
-            "name": "galar-zen",
-            "type_1": 15,
-            "type_2": 10,
-            "ability_1": 255,
-            "ability_2": 0,
-            "hidden_ability": 161,
-            "base_hp": 105,
-            "base_atk": 160,
-            "base_def": 55,
-            "base_spAtk": 30,
-            "base_spDef": 55,
-            "base_spd": 135,
-            "height": 17,
-            "weight": 1200,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
         }
-    ]
+    ],
+    "variants": []
 }

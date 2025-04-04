@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Shellos",
     "national_dex_number": 422,
     "child_species": 422,
@@ -128,5 +128,9 @@
             105
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": [
+        "west",
+        "east"
+    ]
 }

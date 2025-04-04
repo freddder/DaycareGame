@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Meloetta",
     "national_dex_number": 648,
     "child_species": 648,
@@ -387,5 +387,6 @@
                 195
             ]
         }
-    ]
+    ],
+    "variants": []
 }

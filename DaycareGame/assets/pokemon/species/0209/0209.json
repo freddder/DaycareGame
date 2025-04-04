@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Snubbull",
     "national_dex_number": 209,
     "child_species": 209,
@@ -180,5 +180,6 @@
             242
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

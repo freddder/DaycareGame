@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Furfrou",
     "national_dex_number": 676,
     "child_species": 676,
@@ -136,5 +136,17 @@
             538
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": [
+        "natural",
+        "heart",
+        "star",
+        "diamond",
+        "debutante",
+        "matron",
+        "dandy",
+        "la-reine",
+        "kabuki",
+        "pharaoh"
+    ]
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Munchlax",
     "national_dex_number": 446,
     "child_species": 446,
@@ -182,5 +182,6 @@
             289
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

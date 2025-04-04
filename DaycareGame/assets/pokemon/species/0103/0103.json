@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Exeggutor",
     "national_dex_number": 103,
     "child_species": 102,
@@ -285,5 +285,6 @@
                 437
             ]
         }
-    ]
+    ],
+    "variants": []
 }

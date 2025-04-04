@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Luxray",
     "national_dex_number": 405,
     "child_species": 403,
@@ -122,5 +122,6 @@
             528
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

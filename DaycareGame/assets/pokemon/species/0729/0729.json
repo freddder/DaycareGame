@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Brionne",
     "national_dex_number": 729,
     "child_species": 728,
@@ -128,5 +128,6 @@
             581
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

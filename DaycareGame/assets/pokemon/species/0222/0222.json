@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Corsola",
     "national_dex_number": 222,
     "child_species": 222,
@@ -178,25 +178,6 @@
             175
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "galar",
-            "type_1": 8,
-            "type_2": 0,
-            "ability_1": 133,
-            "ability_2": 0,
-            "hidden_ability": 130,
-            "base_hp": 60,
-            "base_atk": 55,
-            "base_def": 100,
-            "base_spAtk": 65,
-            "base_spDef": 100,
-            "base_spd": 30,
-            "height": 6,
-            "weight": 5,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Krookodile",
     "national_dex_number": 553,
     "child_species": 551,
@@ -174,5 +174,6 @@
             200
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

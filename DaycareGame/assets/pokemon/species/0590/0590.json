@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Foongus",
     "national_dex_number": 590,
     "child_species": 590,
@@ -126,5 +126,6 @@
             147
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

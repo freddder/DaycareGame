@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Cherrim",
     "national_dex_number": 421,
     "child_species": 420,
@@ -110,5 +110,9 @@
             572
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": [
+        "overcast",
+        "sunshine"
+    ]
 }

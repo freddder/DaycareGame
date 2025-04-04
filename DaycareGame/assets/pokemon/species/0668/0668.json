@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Pyroar",
     "national_dex_number": 668,
     "child_species": 667,
@@ -132,5 +132,6 @@
             315
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Omanyte",
     "national_dex_number": 138,
     "child_species": 138,
@@ -152,5 +152,6 @@
             56
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

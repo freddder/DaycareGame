@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Rattata",
     "national_dex_number": 19,
     "child_species": 19,
@@ -289,5 +289,6 @@
                 283
             ]
         }
-    ]
+    ],
+    "variants": []
 }

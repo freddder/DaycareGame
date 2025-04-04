@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Barboach",
     "national_dex_number": 339,
     "child_species": 339,
@@ -128,5 +128,6 @@
             90
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

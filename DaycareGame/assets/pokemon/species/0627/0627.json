@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Rufflet",
     "national_dex_number": 627,
     "child_species": 627,
@@ -118,5 +118,6 @@
             37
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

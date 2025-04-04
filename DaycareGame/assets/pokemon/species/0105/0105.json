@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Marowak",
     "national_dex_number": 105,
     "child_species": 104,
@@ -343,5 +343,6 @@
                 198
             ]
         }
-    ]
+    ],
+    "variants": []
 }

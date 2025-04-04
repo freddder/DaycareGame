@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Combee",
     "national_dex_number": 415,
     "child_species": 415,
@@ -44,5 +44,6 @@
             405
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Wurmple",
     "national_dex_number": 265,
     "child_species": 265,
@@ -42,5 +42,6 @@
             450
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

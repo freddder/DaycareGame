@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Pyukumuku",
     "national_dex_number": 771,
     "child_species": 771,
@@ -106,5 +106,6 @@
             262
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Geodude",
     "national_dex_number": 74,
     "child_species": 74,
@@ -291,5 +291,6 @@
                 444
             ]
         }
-    ]
+    ],
+    "variants": []
 }

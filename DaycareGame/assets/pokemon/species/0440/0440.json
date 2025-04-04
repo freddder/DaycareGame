@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Happiny",
     "national_dex_number": 440,
     "child_species": 440,
@@ -146,5 +146,6 @@
             186
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

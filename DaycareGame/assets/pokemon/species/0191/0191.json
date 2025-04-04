@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sunkern",
     "national_dex_number": 191,
     "child_species": 191,
@@ -128,5 +128,6 @@
             402
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

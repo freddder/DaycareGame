@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Zebstrika",
     "national_dex_number": 523,
     "child_species": 522,
@@ -120,5 +120,6 @@
             37
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

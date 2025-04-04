@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Slowking",
     "national_dex_number": 199,
     "child_species": 79,
@@ -186,25 +186,6 @@
             244
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "galar",
-            "type_1": 4,
-            "type_2": 14,
-            "ability_1": 261,
-            "ability_2": 20,
-            "hidden_ability": 144,
-            "base_hp": 95,
-            "base_atk": 65,
-            "base_def": 80,
-            "base_spAtk": 110,
-            "base_spDef": 110,
-            "base_spd": 30,
-            "height": 18,
-            "weight": 795,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

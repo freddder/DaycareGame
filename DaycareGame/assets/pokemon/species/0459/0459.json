@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Snover",
     "national_dex_number": 459,
     "child_species": 459,
@@ -138,5 +138,6 @@
             329
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

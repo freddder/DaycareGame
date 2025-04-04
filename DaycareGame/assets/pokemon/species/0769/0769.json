@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sandygast",
     "national_dex_number": 769,
     "child_species": 769,
@@ -138,5 +138,6 @@
             201
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

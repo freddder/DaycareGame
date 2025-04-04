@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Deoxys",
     "national_dex_number": 386,
     "child_species": 386,
@@ -761,5 +761,6 @@
                 245
             ]
         }
-    ]
+    ],
+    "variants": []
 }

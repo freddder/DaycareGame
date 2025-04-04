@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Dedenne",
     "national_dex_number": 702,
     "child_species": 702,
@@ -138,5 +138,6 @@
             435
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

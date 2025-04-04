@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Grubbin",
     "national_dex_number": 736,
     "child_species": 736,
@@ -108,5 +108,6 @@
             91
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Raticate",
     "national_dex_number": 20,
     "child_species": 19,
@@ -291,5 +291,6 @@
                 283
             ]
         }
-    ]
+    ],
+    "variants": []
 }

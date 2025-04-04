@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Vivillon",
     "national_dex_number": 666,
     "child_species": 664,
@@ -138,5 +138,27 @@
             542
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": [
+        "meadow",
+        "icy-snow",
+        "polar",
+        "tundra",
+        "continental",
+        "garden",
+        "elegant",
+        "modern",
+        "marine",
+        "archipelago",
+        "high-plains",
+        "sandstorm",
+        "river",
+        "monsoon",
+        "savanna",
+        "sun",
+        "ocean",
+        "jungle",
+        "fancy",
+        "poke-ball"
+    ]
 }

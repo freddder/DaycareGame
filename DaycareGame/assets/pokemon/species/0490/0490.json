@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Manaphy",
     "national_dex_number": 490,
     "child_species": 490,
@@ -146,5 +146,6 @@
             391
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

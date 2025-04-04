@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Shaymin",
     "national_dex_number": 492,
     "child_species": 492,
@@ -231,5 +231,6 @@
                 465
             ]
         }
-    ]
+    ],
+    "variants": []
 }

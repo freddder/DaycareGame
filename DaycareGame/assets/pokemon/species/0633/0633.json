@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Deino",
     "national_dex_number": 633,
     "child_species": 633,
@@ -144,5 +144,6 @@
             200
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

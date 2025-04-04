@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Wynaut",
     "national_dex_number": 360,
     "child_species": 360,
@@ -44,5 +44,6 @@
             243
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

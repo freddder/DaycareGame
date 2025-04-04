@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Celesteela",
     "national_dex_number": 797,
     "child_species": 797,
@@ -146,5 +146,6 @@
             38
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Tynamo",
     "national_dex_number": 602,
     "child_species": 602,
@@ -40,5 +40,6 @@
             451
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

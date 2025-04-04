@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Seadra",
     "national_dex_number": 117,
     "child_species": 116,
@@ -116,5 +116,6 @@
             349
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

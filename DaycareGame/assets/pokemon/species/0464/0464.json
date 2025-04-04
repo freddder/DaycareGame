@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Rhyperior",
     "national_dex_number": 464,
     "child_species": 111,
@@ -188,5 +188,6 @@
             224
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

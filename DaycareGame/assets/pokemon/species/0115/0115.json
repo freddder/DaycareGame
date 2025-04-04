@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Kangaskhan",
     "national_dex_number": 115,
     "child_species": 115,
@@ -198,5 +198,6 @@
             179
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

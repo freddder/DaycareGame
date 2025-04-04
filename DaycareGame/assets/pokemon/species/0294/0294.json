@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Loudred",
     "national_dex_number": 294,
     "child_species": 293,
@@ -142,5 +142,6 @@
             485
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

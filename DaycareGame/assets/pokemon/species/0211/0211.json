@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Qwilfish",
     "national_dex_number": 211,
     "child_species": 211,
@@ -162,25 +162,6 @@
             398
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 17,
-            "type_2": 4,
-            "ability_1": 38,
-            "ability_2": 33,
-            "hidden_ability": 22,
-            "base_hp": 65,
-            "base_atk": 95,
-            "base_def": 85,
-            "base_spAtk": 55,
-            "base_spDef": 55,
-            "base_spd": 85,
-            "height": 5,
-            "weight": 39,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

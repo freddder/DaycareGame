@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Eelektross",
     "national_dex_number": 604,
     "child_species": 602,
@@ -158,5 +158,6 @@
             569
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

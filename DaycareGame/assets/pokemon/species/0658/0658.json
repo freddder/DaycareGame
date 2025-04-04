@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Greninja",
     "national_dex_number": 658,
     "child_species": 656,
@@ -449,5 +449,6 @@
                 56
             ]
         }
-    ]
+    ],
+    "variants": []
 }

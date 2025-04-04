@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Golem",
     "national_dex_number": 76,
     "child_species": 74,
@@ -295,5 +295,6 @@
                 444
             ]
         }
-    ]
+    ],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Feebas",
     "national_dex_number": 349,
     "child_species": 349,
@@ -110,5 +110,6 @@
             175
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

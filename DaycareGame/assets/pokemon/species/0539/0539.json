@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sawk",
     "national_dex_number": 539,
     "child_species": 539,
@@ -148,5 +148,6 @@
             179
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

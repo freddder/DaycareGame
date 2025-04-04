@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Chatot",
     "national_dex_number": 441,
     "child_species": 441,
@@ -130,5 +130,6 @@
             297
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Ampharos",
     "national_dex_number": 181,
     "child_species": 179,
@@ -148,5 +148,6 @@
             87
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

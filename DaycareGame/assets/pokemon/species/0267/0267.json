@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Beautifly",
     "national_dex_number": 267,
     "child_species": 265,
@@ -126,5 +126,6 @@
             483
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

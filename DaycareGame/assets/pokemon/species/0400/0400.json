@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Bibarel",
     "national_dex_number": 400,
     "child_species": 399,
@@ -158,5 +158,6 @@
             174
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

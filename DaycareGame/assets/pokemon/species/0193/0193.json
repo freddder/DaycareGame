@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Yanma",
     "national_dex_number": 193,
     "child_species": 193,
@@ -134,5 +134,6 @@
             405
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

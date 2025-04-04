@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Woobat",
     "national_dex_number": 527,
     "child_species": 527,
@@ -184,5 +184,6 @@
             283
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

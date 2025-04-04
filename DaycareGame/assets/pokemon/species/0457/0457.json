@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Lumineon",
     "national_dex_number": 457,
     "child_species": 456,
@@ -116,5 +116,6 @@
             318
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

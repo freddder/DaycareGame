@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Eevee",
     "national_dex_number": 133,
     "child_species": 133,
@@ -156,5 +156,6 @@
             "back_sprite_count": 1,
             "learnset": []
         }
-    ]
+    ],
+    "variants": []
 }

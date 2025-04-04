@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Goomy",
     "national_dex_number": 704,
     "child_species": 704,
@@ -112,5 +112,6 @@
             406
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

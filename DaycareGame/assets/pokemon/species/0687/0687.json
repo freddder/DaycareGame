@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Malamar",
     "national_dex_number": 687,
     "child_species": 686,
@@ -156,5 +156,6 @@
             276
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

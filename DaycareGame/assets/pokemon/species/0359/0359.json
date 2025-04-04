@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Absol",
     "national_dex_number": 359,
     "child_species": 359,
@@ -210,5 +210,6 @@
             13
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

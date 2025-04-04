@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Blaziken",
     "national_dex_number": 257,
     "child_species": 255,
@@ -174,5 +174,6 @@
             327
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

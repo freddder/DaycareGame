@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Machop",
     "national_dex_number": 66,
     "child_species": 66,
@@ -164,5 +164,6 @@
             223
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

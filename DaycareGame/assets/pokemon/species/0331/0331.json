@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Cacnea",
     "national_dex_number": 331,
     "child_species": 331,
@@ -164,5 +164,6 @@
             194
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

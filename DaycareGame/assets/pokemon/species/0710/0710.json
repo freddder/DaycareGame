@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Pumpkaboo",
     "national_dex_number": 710,
     "child_species": 710,
@@ -579,5 +579,6 @@
                 402
             ]
         }
-    ]
+    ],
+    "variants": []
 }

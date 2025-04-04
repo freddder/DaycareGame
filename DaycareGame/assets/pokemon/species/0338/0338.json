@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Solrock",
     "national_dex_number": 338,
     "child_species": 338,
@@ -176,5 +176,6 @@
             472
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

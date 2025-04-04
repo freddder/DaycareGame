@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Phione",
     "national_dex_number": 489,
     "child_species": 489,
@@ -124,5 +124,6 @@
             240
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Goodra",
     "national_dex_number": 706,
     "child_species": 704,
@@ -146,25 +146,6 @@
             438
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 9,
-            "type_2": 16,
-            "ability_1": 157,
-            "ability_2": 75,
-            "hidden_ability": 183,
-            "base_hp": 80,
-            "base_atk": 100,
-            "base_def": 100,
-            "base_spAtk": 110,
-            "base_spDef": 150,
-            "base_spd": 60,
-            "height": 17,
-            "weight": 3341,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

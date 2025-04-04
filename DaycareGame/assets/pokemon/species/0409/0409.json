@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Rampardos",
     "national_dex_number": 409,
     "child_species": 408,
@@ -172,5 +172,6 @@
             457
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

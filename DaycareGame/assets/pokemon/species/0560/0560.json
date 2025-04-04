@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Scrafty",
     "national_dex_number": 560,
     "child_species": 559,
@@ -170,5 +170,6 @@
             457
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

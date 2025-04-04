@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Nincada",
     "national_dex_number": 290,
     "child_species": 290,
@@ -114,5 +114,6 @@
             91
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

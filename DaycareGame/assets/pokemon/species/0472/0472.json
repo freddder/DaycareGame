@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Gliscor",
     "national_dex_number": 472,
     "child_species": 207,
@@ -164,5 +164,6 @@
             14
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

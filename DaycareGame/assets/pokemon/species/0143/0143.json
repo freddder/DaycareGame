@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Snorlax",
     "national_dex_number": 143,
     "child_species": 143,
@@ -196,5 +196,6 @@
             667
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

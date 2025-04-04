@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Lillipup",
     "national_dex_number": 506,
     "child_species": 506,
@@ -142,5 +142,6 @@
             583
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

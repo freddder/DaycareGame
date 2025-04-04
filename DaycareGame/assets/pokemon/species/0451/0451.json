@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Skorupi",
     "national_dex_number": 451,
     "child_species": 451,
@@ -152,5 +152,6 @@
             440
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

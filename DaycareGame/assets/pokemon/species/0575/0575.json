@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Gothorita",
     "national_dex_number": 575,
     "child_species": 574,
@@ -170,5 +170,6 @@
             478
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

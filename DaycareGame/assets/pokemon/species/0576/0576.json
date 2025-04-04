@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Gothitelle",
     "national_dex_number": 576,
     "child_species": 574,
@@ -180,5 +180,6 @@
             478
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Wishiwashi",
     "national_dex_number": 746,
     "child_species": 746,
@@ -235,5 +235,6 @@
                 56
             ]
         }
-    ]
+    ],
+    "variants": []
 }

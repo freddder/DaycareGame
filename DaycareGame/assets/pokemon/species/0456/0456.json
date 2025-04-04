@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Finneon",
     "national_dex_number": 456,
     "child_species": 456,
@@ -134,5 +134,6 @@
             487
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

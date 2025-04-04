@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Zygarde",
     "national_dex_number": 718,
     "child_species": 718,
@@ -671,5 +671,6 @@
                 200
             ]
         }
-    ]
+    ],
+    "variants": []
 }

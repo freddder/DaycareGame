@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Lickitung",
     "national_dex_number": 108,
     "child_species": 108,
@@ -188,5 +188,6 @@
             378
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

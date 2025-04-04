@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Zweilous",
     "national_dex_number": 634,
     "child_species": 633,
@@ -126,5 +126,6 @@
             200
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

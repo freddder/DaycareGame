@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Kabuto",
     "national_dex_number": 140,
     "child_species": 140,
@@ -142,5 +142,6 @@
             378
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

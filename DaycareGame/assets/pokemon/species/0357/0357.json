@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Tropius",
     "national_dex_number": 357,
     "child_species": 357,
@@ -158,5 +158,6 @@
             76
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

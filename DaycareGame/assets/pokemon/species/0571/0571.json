@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Zoroark",
     "national_dex_number": 571,
     "child_species": 570,
@@ -158,25 +158,6 @@
             417
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 1,
-            "type_2": 8,
-            "ability_1": 149,
-            "ability_2": 0,
-            "hidden_ability": 0,
-            "base_hp": 55,
-            "base_atk": 100,
-            "base_def": 60,
-            "base_spAtk": 125,
-            "base_spDef": 60,
-            "base_spd": 110,
-            "height": 16,
-            "weight": 730,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

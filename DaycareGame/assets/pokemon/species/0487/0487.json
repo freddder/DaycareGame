@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Giratina",
     "national_dex_number": 487,
     "child_species": 487,
@@ -329,5 +329,6 @@
                 506
             ]
         }
-    ]
+    ],
+    "variants": []
 }

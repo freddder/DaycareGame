@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Electrode",
     "national_dex_number": 101,
     "child_species": 100,
@@ -126,25 +126,6 @@
             243
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 13,
-            "type_2": 12,
-            "ability_1": 43,
-            "ability_2": 9,
-            "hidden_ability": 106,
-            "base_hp": 60,
-            "base_atk": 50,
-            "base_def": 70,
-            "base_spAtk": 80,
-            "base_spDef": 80,
-            "base_spd": 150,
-            "height": 12,
-            "weight": 710,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

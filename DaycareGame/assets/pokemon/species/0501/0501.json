@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Oshawott",
     "national_dex_number": 501,
     "child_species": 501,
@@ -146,5 +146,6 @@
             56
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

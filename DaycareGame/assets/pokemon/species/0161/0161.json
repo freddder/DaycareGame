@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sentret",
     "national_dex_number": 161,
     "child_species": 161,
@@ -170,5 +170,6 @@
             304
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Misdreavus",
     "national_dex_number": 200,
     "child_species": 200,
@@ -176,5 +176,6 @@
             408
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

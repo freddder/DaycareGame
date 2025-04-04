@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Lairon",
     "national_dex_number": 305,
     "child_species": 304,
@@ -132,5 +132,6 @@
             368
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

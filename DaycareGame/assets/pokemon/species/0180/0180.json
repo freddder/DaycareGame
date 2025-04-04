@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Flaaffy",
     "national_dex_number": 180,
     "child_species": 179,
@@ -126,5 +126,6 @@
             87
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

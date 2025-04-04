@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Gastly",
     "national_dex_number": 92,
     "child_species": 92,
@@ -174,5 +174,6 @@
             171
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sylveon",
     "national_dex_number": 700,
     "child_species": 133,
@@ -130,5 +130,6 @@
             244
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

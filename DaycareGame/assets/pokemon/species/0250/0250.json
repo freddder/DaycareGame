@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Ho-Oh",
     "national_dex_number": 250,
     "child_species": 250,
@@ -168,5 +168,6 @@
             143
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

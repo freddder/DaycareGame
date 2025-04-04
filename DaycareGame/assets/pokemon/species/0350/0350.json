@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Milotic",
     "national_dex_number": 350,
     "child_species": 349,
@@ -130,5 +130,6 @@
             240
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

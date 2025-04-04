@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Zangoose",
     "national_dex_number": 335,
     "child_species": 335,
@@ -192,5 +192,6 @@
             370
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

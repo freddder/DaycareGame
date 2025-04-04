@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Gyarados",
     "national_dex_number": 130,
     "child_species": 129,
@@ -152,5 +152,6 @@
             63
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Combusken",
     "national_dex_number": 256,
     "child_species": 255,
@@ -144,5 +144,6 @@
             394
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

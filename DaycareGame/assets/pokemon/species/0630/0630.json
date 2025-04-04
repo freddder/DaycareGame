@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Mandibuzz",
     "national_dex_number": 630,
     "child_species": 629,
@@ -142,5 +142,6 @@
             373
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

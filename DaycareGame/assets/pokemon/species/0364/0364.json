@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sealeo",
     "national_dex_number": 364,
     "child_species": 363,
@@ -120,5 +120,6 @@
             329
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

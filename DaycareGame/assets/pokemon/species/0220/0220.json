@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Swinub",
     "national_dex_number": 220,
     "child_species": 220,
@@ -140,5 +140,6 @@
             133
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

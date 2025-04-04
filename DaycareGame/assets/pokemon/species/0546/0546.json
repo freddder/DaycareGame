@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Cottonee",
     "national_dex_number": 546,
     "child_species": 546,
@@ -138,5 +138,6 @@
             76
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

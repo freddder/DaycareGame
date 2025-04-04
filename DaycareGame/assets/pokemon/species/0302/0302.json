@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sableye",
     "national_dex_number": 302,
     "child_species": 302,
@@ -198,5 +198,6 @@
             212
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

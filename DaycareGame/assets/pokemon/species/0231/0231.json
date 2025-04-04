@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Phanpy",
     "national_dex_number": 231,
     "child_species": 231,
@@ -142,5 +142,6 @@
             38
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

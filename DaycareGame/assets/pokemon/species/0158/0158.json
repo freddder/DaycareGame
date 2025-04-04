@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Totodile",
     "national_dex_number": 158,
     "child_species": 158,
@@ -160,5 +160,6 @@
             56
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Eelektrik",
     "national_dex_number": 603,
     "child_species": 602,
@@ -124,5 +124,6 @@
             37
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

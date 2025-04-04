@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Incineroar",
     "national_dex_number": 727,
     "child_species": 725,
@@ -184,5 +184,6 @@
             238
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

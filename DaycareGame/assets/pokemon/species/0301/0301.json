@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Delcatty",
     "national_dex_number": 301,
     "child_species": 300,
@@ -134,5 +134,6 @@
             252
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Rapidash",
     "national_dex_number": 78,
     "child_species": 77,
@@ -126,25 +126,6 @@
             394
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "galar",
-            "type_1": 14,
-            "type_2": 18,
-            "ability_1": 50,
-            "ability_2": 257,
-            "hidden_ability": 107,
-            "base_hp": 65,
-            "base_atk": 100,
-            "base_def": 70,
-            "base_spAtk": 80,
-            "base_spDef": 80,
-            "base_spd": 105,
-            "height": 17,
-            "weight": 800,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

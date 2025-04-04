@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Plusle",
     "national_dex_number": 311,
     "child_species": 311,
@@ -148,5 +148,6 @@
             494
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

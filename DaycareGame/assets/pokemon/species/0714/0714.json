@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Noibat",
     "national_dex_number": 714,
     "child_species": 714,
@@ -156,5 +156,6 @@
             542
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

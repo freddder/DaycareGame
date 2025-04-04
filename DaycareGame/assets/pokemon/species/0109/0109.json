@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Koffing",
     "national_dex_number": 109,
     "child_species": 109,
@@ -148,5 +148,6 @@
             262
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

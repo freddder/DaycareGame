@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Chinchou",
     "national_dex_number": 170,
     "child_species": 170,
@@ -144,5 +144,6 @@
             268
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

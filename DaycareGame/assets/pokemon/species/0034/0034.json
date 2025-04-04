@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Nidoking",
     "national_dex_number": 34,
     "child_species": 32,
@@ -184,5 +184,6 @@
             414
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

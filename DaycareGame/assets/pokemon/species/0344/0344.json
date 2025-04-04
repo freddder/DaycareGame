@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Claydol",
     "national_dex_number": 344,
     "child_species": 343,
@@ -172,5 +172,6 @@
             153
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

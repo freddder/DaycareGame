@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Kyurem",
     "national_dex_number": 646,
     "child_species": 646,
@@ -431,5 +431,6 @@
                 304
             ]
         }
-    ]
+    ],
+    "variants": []
 }

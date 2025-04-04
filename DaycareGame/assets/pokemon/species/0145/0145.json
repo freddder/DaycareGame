@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Zapdos",
     "national_dex_number": 145,
     "child_species": 145,
@@ -132,25 +132,6 @@
             192
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "galar",
-            "type_1": 2,
-            "type_2": 3,
-            "ability_1": 128,
-            "ability_2": 0,
-            "hidden_ability": 0,
-            "base_hp": 90,
-            "base_atk": 125,
-            "base_def": 90,
-            "base_spAtk": 85,
-            "base_spDef": 90,
-            "base_spd": 100,
-            "height": 16,
-            "weight": 582,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

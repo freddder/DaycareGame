@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Mimikyu",
     "national_dex_number": 778,
     "child_species": 778,
@@ -331,5 +331,6 @@
                 220
             ]
         }
-    ]
+    ],
+    "variants": []
 }

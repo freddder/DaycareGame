@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Wooper",
     "national_dex_number": 194,
     "child_species": 194,
@@ -154,25 +154,6 @@
             330
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "paldea",
-            "type_1": 4,
-            "type_2": 5,
-            "ability_1": 38,
-            "ability_2": 11,
-            "hidden_ability": 109,
-            "base_hp": 55,
-            "base_atk": 45,
-            "base_def": 45,
-            "base_spAtk": 25,
-            "base_spDef": 25,
-            "base_spd": 15,
-            "height": 4,
-            "weight": 110,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Samurott",
     "national_dex_number": 503,
     "child_species": 501,
@@ -150,25 +150,6 @@
             56
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 11,
-            "type_2": 17,
-            "ability_1": 67,
-            "ability_2": 0,
-            "hidden_ability": 292,
-            "base_hp": 90,
-            "base_atk": 108,
-            "base_def": 80,
-            "base_spAtk": 100,
-            "base_spDef": 65,
-            "base_spd": 85,
-            "height": 15,
-            "weight": 582,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

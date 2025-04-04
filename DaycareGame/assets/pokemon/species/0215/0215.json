@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sneasel",
     "national_dex_number": 215,
     "child_species": 215,
@@ -184,25 +184,6 @@
             420
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 2,
-            "type_2": 4,
-            "ability_1": 39,
-            "ability_2": 51,
-            "hidden_ability": 124,
-            "base_hp": 55,
-            "base_atk": 95,
-            "base_def": 55,
-            "base_spAtk": 35,
-            "base_spDef": 75,
-            "base_spd": 115,
-            "height": 9,
-            "weight": 270,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

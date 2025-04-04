@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Nosepass",
     "national_dex_number": 299,
     "child_species": 299,
@@ -148,5 +148,6 @@
             199
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Ducklett",
     "national_dex_number": 580,
     "child_species": 580,
@@ -126,5 +126,6 @@
             542
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

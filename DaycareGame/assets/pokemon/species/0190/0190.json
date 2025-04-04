@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Aipom",
     "national_dex_number": 190,
     "child_species": 190,
@@ -182,5 +182,6 @@
             387
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

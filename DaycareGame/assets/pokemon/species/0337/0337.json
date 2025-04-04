@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Lunatone",
     "national_dex_number": 337,
     "child_species": 337,
@@ -172,5 +172,6 @@
             478
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Chansey",
     "national_dex_number": 113,
     "child_species": 113,
@@ -222,5 +222,6 @@
             361
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

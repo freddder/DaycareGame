@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Carnivine",
     "national_dex_number": 455,
     "child_species": 455,
@@ -150,5 +150,6 @@
             438
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

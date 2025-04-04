@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Floette",
     "national_dex_number": 670,
     "child_species": 669,
@@ -253,5 +253,12 @@
                 76
             ]
         }
+    ],
+    "variants": [
+        "red",
+        "yellow",
+        "orange",
+        "blue",
+        "white"
     ]
 }

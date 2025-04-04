@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Rayquaza",
     "national_dex_number": 384,
     "child_species": 384,
@@ -180,5 +180,6 @@
             63
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

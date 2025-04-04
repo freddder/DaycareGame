@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Igglybuff",
     "national_dex_number": 174,
     "child_species": 174,
@@ -158,5 +158,6 @@
             383
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

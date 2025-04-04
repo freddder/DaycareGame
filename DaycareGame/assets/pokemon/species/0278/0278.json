@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Wingull",
     "national_dex_number": 278,
     "child_species": 278,
@@ -138,5 +138,6 @@
             542
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

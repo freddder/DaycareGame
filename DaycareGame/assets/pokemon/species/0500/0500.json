@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Emboar",
     "national_dex_number": 500,
     "child_species": 498,
@@ -178,5 +178,6 @@
             394
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

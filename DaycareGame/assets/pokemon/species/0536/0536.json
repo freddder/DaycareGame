@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Palpitoad",
     "national_dex_number": 536,
     "child_species": 535,
@@ -118,5 +118,6 @@
             304
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Dratini",
     "national_dex_number": 147,
     "child_species": 147,
@@ -140,5 +140,6 @@
             63
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

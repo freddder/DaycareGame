@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Petilil",
     "national_dex_number": 548,
     "child_species": 548,
@@ -130,5 +130,6 @@
             437
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

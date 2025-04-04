@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Frogadier",
     "national_dex_number": 657,
     "child_species": 656,
@@ -132,5 +132,6 @@
             56
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

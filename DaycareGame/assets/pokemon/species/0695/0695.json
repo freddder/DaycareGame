@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Heliolisk",
     "national_dex_number": 695,
     "child_species": 694,
@@ -140,5 +140,6 @@
             598
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Meowstic",
     "national_dex_number": 678,
     "child_species": 677,
@@ -325,5 +325,6 @@
                 248
             ]
         }
-    ]
+    ],
+    "variants": []
 }

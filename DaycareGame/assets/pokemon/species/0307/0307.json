@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Meditite",
     "national_dex_number": 307,
     "child_species": 307,
@@ -180,5 +180,6 @@
             68
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

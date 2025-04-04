@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Smeargle",
     "national_dex_number": 235,
     "child_species": 235,
@@ -32,5 +32,6 @@
             166
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

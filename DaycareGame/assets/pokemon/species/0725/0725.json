@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Litten",
     "national_dex_number": 725,
     "child_species": 725,
@@ -138,5 +138,6 @@
             200
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

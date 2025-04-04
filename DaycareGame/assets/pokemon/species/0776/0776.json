@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Turtonator",
     "national_dex_number": 776,
     "child_species": 776,
@@ -168,5 +168,6 @@
             153
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

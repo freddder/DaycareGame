@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Braixen",
     "national_dex_number": 654,
     "child_species": 653,
@@ -152,5 +152,6 @@
             126
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

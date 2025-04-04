@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Kakuna",
     "national_dex_number": 14,
     "child_species": 13,
@@ -38,5 +38,6 @@
             527
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

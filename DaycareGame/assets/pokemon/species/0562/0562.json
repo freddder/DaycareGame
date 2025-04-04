@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Yamask",
     "national_dex_number": 562,
     "child_species": 562,
@@ -164,25 +164,6 @@
             194
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "galar",
-            "type_1": 5,
-            "type_2": 8,
-            "ability_1": 254,
-            "ability_2": 0,
-            "hidden_ability": 0,
-            "base_hp": 38,
-            "base_atk": 55,
-            "base_def": 85,
-            "base_spAtk": 30,
-            "base_spDef": 65,
-            "base_spd": 30,
-            "height": 5,
-            "weight": 15,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

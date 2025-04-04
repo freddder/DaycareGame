@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Lycanroc",
     "national_dex_number": 745,
     "child_species": 744,
@@ -393,5 +393,6 @@
                 444
             ]
         }
-    ]
+    ],
+    "variants": []
 }

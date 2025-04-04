@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Taillow",
     "national_dex_number": 276,
     "child_species": 276,
@@ -126,5 +126,6 @@
             179
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

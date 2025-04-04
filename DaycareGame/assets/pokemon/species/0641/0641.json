@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Tornadus",
     "national_dex_number": 641,
     "child_species": 641,
@@ -295,5 +295,6 @@
                 399
             ]
         }
-    ]
+    ],
+    "variants": []
 }

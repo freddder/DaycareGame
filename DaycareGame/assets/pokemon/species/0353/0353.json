@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Shuppet",
     "national_dex_number": 353,
     "child_species": 353,
@@ -164,5 +164,6 @@
             566
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

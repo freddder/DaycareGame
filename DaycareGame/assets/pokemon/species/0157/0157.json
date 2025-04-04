@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Typhlosion",
     "national_dex_number": 157,
     "child_species": 155,
@@ -156,25 +156,6 @@
             682
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 10,
-            "type_2": 8,
-            "ability_1": 66,
-            "ability_2": 0,
-            "hidden_ability": 119,
-            "base_hp": 73,
-            "base_atk": 84,
-            "base_def": 78,
-            "base_spAtk": 119,
-            "base_spDef": 85,
-            "base_spd": 95,
-            "height": 16,
-            "weight": 698,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

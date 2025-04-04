@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Tapu Koko",
     "national_dex_number": 785,
     "child_species": 785,
@@ -164,5 +164,6 @@
             486
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

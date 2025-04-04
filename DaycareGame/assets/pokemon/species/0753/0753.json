@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Fomantis",
     "national_dex_number": 753,
     "child_species": 753,
@@ -124,5 +124,6 @@
             241
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

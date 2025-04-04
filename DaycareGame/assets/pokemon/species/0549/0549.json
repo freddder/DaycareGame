@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Lilligant",
     "national_dex_number": 549,
     "child_species": 548,
@@ -116,25 +116,6 @@
             572
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 12,
-            "type_2": 2,
-            "ability_1": 34,
-            "ability_2": 55,
-            "hidden_ability": 102,
-            "base_hp": 70,
-            "base_atk": 105,
-            "base_def": 75,
-            "base_spAtk": 50,
-            "base_spDef": 75,
-            "base_spd": 105,
-            "height": 12,
-            "weight": 192,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

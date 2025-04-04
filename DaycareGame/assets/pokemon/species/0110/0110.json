@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Weezing",
     "national_dex_number": 110,
     "child_species": 109,
@@ -134,25 +134,6 @@
             262
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "galar",
-            "type_1": 4,
-            "type_2": 18,
-            "ability_1": 26,
-            "ability_2": 256,
-            "hidden_ability": 228,
-            "base_hp": 65,
-            "base_atk": 90,
-            "base_def": 120,
-            "base_spAtk": 85,
-            "base_spDef": 70,
-            "base_spd": 60,
-            "height": 30,
-            "weight": 160,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

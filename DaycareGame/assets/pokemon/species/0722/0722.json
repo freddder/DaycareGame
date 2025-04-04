@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Rowlet",
     "national_dex_number": 722,
     "child_species": 722,
@@ -142,5 +142,6 @@
             417
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

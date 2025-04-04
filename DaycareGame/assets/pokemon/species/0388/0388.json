@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Grotle",
     "national_dex_number": 388,
     "child_species": 387,
@@ -118,5 +118,6 @@
             437
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

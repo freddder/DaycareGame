@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Avalugg",
     "national_dex_number": 713,
     "child_species": 712,
@@ -146,25 +146,6 @@
             38
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 15,
-            "type_2": 6,
-            "ability_1": 173,
-            "ability_2": 115,
-            "hidden_ability": 5,
-            "base_hp": 95,
-            "base_atk": 127,
-            "base_def": 184,
-            "base_spAtk": 34,
-            "base_spDef": 36,
-            "base_spd": 38,
-            "height": 14,
-            "weight": 2624,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

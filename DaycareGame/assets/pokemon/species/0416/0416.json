@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Vespiquen",
     "national_dex_number": 416,
     "child_species": 415,
@@ -134,5 +134,6 @@
             207
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

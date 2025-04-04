@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Bronzong",
     "national_dex_number": 437,
     "child_species": 436,
@@ -162,5 +162,6 @@
             484
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

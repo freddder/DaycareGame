@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Illumise",
     "national_dex_number": 314,
     "child_species": 314,
@@ -160,5 +160,6 @@
             611
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

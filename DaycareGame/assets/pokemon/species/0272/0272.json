@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Ludicolo",
     "national_dex_number": 272,
     "child_species": 270,
@@ -134,5 +134,6 @@
             310
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

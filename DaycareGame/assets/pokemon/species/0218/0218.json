@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Slugma",
     "national_dex_number": 218,
     "child_species": 218,
@@ -140,5 +140,6 @@
             414
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Munna",
     "national_dex_number": 517,
     "child_species": 517,
@@ -166,5 +166,6 @@
             500
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

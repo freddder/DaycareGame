@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Tapu Lele",
     "national_dex_number": 786,
     "child_species": 786,
@@ -152,5 +152,6 @@
             585
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

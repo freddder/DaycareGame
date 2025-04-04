@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Nidoran\u2640",
     "national_dex_number": 29,
     "child_species": 29,
@@ -146,5 +146,6 @@
             305
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

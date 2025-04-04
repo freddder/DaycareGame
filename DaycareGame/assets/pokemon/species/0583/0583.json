@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Vanillish",
     "national_dex_number": 583,
     "child_species": 582,
@@ -112,5 +112,6 @@
             329
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

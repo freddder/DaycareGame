@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Chimecho",
     "national_dex_number": 358,
     "child_species": 358,
@@ -186,5 +186,6 @@
             505
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

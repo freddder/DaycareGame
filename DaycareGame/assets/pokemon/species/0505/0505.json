@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Watchog",
     "national_dex_number": 505,
     "child_species": 504,
@@ -168,5 +168,6 @@
             21
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

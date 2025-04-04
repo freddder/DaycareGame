@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Melmetal",
     "national_dex_number": 809,
     "child_species": 809,
@@ -29,5 +29,6 @@
         "back_sprite_count": 1,
         "learnset": []
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

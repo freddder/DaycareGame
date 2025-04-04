@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Latios",
     "national_dex_number": 381,
     "child_species": 381,
@@ -184,5 +184,6 @@
             406
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

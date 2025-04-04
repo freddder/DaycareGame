@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Spinarak",
     "national_dex_number": 167,
     "child_species": 167,
@@ -144,5 +144,6 @@
             672
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

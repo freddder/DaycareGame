@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Flab\u00e9b\u00e9",
     "national_dex_number": 669,
     "child_species": 669,
@@ -138,5 +138,12 @@
             76
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": [
+        "red",
+        "yellow",
+        "orange",
+        "blue",
+        "white"
+    ]
 }

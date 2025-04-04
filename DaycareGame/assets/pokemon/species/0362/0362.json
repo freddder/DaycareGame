@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Glalie",
     "national_dex_number": 362,
     "child_species": 361,
@@ -130,5 +130,6 @@
             258
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Braviary",
     "national_dex_number": 628,
     "child_species": 627,
@@ -128,25 +128,6 @@
             507
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 14,
-            "type_2": 3,
-            "ability_1": 51,
-            "ability_2": 125,
-            "hidden_ability": 110,
-            "base_hp": 110,
-            "base_atk": 83,
-            "base_def": 70,
-            "base_spAtk": 112,
-            "base_spDef": 70,
-            "base_spd": 65,
-            "height": 17,
-            "weight": 434,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

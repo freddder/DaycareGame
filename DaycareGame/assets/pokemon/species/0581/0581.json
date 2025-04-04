@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Swanna",
     "national_dex_number": 581,
     "child_species": 580,
@@ -116,5 +116,6 @@
             542
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

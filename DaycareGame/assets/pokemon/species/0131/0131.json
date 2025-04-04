@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Lapras",
     "national_dex_number": 131,
     "child_species": 131,
@@ -170,5 +170,6 @@
             329
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

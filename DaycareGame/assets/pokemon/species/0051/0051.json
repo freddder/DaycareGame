@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Dugtrio",
     "national_dex_number": 51,
     "child_species": 50,
@@ -249,5 +249,6 @@
                 90
             ]
         }
-    ]
+    ],
+    "variants": []
 }

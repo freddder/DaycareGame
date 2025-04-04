@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Gumshoos",
     "national_dex_number": 735,
     "child_species": 734,
@@ -142,5 +142,6 @@
             156
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

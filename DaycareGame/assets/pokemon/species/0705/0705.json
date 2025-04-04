@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sliggoo",
     "national_dex_number": 705,
     "child_species": 704,
@@ -106,25 +106,6 @@
             406
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 9,
-            "type_2": 16,
-            "ability_1": 157,
-            "ability_2": 75,
-            "hidden_ability": 183,
-            "base_hp": 58,
-            "base_atk": 75,
-            "base_def": 83,
-            "base_spAtk": 83,
-            "base_spDef": 113,
-            "base_spd": 40,
-            "height": 7,
-            "weight": 685,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

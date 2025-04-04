@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Keldeo",
     "national_dex_number": 647,
     "child_species": 647,
@@ -275,5 +275,6 @@
                 370
             ]
         }
-    ]
+    ],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Lombre",
     "national_dex_number": 271,
     "child_species": 270,
@@ -138,5 +138,6 @@
             56
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

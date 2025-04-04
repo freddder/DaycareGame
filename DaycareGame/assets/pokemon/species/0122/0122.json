@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Mr. Mime",
     "national_dex_number": 122,
     "child_species": 122,
@@ -220,25 +220,6 @@
             219
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "galar",
-            "type_1": 15,
-            "type_2": 14,
-            "ability_1": 72,
-            "ability_2": 251,
-            "hidden_ability": 115,
-            "base_hp": 50,
-            "base_atk": 65,
-            "base_def": 65,
-            "base_spAtk": 90,
-            "base_spDef": 90,
-            "base_spd": 100,
-            "height": 14,
-            "weight": 568,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

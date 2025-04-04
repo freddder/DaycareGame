@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Seaking",
     "national_dex_number": 119,
     "child_species": 118,
@@ -122,5 +122,6 @@
             487
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

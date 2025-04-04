@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Araquanid",
     "national_dex_number": 752,
     "child_species": 751,
@@ -130,5 +130,6 @@
             494
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

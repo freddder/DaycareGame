@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Yungoos",
     "national_dex_number": 734,
     "child_species": 734,
@@ -130,5 +130,6 @@
             156
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Dustox",
     "national_dex_number": 269,
     "child_species": 265,
@@ -124,5 +124,6 @@
             483
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

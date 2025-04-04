@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Zeraora",
     "national_dex_number": 807,
     "child_species": 807,
@@ -156,5 +156,6 @@
             435
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

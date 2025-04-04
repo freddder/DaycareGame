@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Golurk",
     "national_dex_number": 623,
     "child_species": 622,
@@ -178,5 +178,6 @@
             566
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

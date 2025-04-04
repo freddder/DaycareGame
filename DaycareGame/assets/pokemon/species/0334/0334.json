@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Altaria",
     "national_dex_number": 334,
     "child_species": 333,
@@ -160,5 +160,6 @@
             585
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

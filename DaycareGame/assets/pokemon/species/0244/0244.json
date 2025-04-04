@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Entei",
     "national_dex_number": 244,
     "child_species": 244,
@@ -128,5 +128,6 @@
             347
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

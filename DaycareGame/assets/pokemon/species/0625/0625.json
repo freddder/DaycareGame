@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Bisharp",
     "national_dex_number": 625,
     "child_species": 624,
@@ -162,5 +162,6 @@
             14
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

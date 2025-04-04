@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Dhelmise",
     "national_dex_number": 781,
     "child_species": 781,
@@ -158,5 +158,6 @@
             438
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

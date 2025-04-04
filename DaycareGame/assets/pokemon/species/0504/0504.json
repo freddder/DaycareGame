@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Patrat",
     "national_dex_number": 504,
     "child_species": 504,
@@ -148,5 +148,6 @@
             21
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

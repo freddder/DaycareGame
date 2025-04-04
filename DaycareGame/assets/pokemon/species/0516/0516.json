@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Simipour",
     "national_dex_number": 516,
     "child_species": 515,
@@ -150,5 +150,6 @@
             503
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

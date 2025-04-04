@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Bunnelby",
     "national_dex_number": 659,
     "child_species": 659,
@@ -144,5 +144,6 @@
             89
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

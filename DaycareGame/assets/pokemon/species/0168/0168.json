@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Ariados",
     "national_dex_number": 168,
     "child_species": 167,
@@ -140,5 +140,6 @@
             672
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

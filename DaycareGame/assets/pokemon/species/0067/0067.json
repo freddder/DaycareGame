@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Machoke",
     "national_dex_number": 67,
     "child_species": 66,
@@ -144,5 +144,6 @@
             223
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

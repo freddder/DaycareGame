@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Liepard",
     "national_dex_number": 510,
     "child_species": 509,
@@ -154,5 +154,6 @@
             583
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

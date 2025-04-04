@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Farfetch\u2019d",
     "national_dex_number": 83,
     "child_species": 83,
@@ -164,25 +164,6 @@
             403
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "galar",
-            "type_1": 2,
-            "type_2": 0,
-            "ability_1": 80,
-            "ability_2": 0,
-            "hidden_ability": 113,
-            "base_hp": 52,
-            "base_atk": 95,
-            "base_def": 55,
-            "base_spAtk": 58,
-            "base_spDef": 62,
-            "base_spd": 55,
-            "height": 8,
-            "weight": 420,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Decidueye",
     "national_dex_number": 724,
     "child_species": 722,
@@ -162,25 +162,6 @@
             417
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 12,
-            "type_2": 2,
-            "ability_1": 65,
-            "ability_2": 0,
-            "hidden_ability": 113,
-            "base_hp": 88,
-            "base_atk": 112,
-            "base_def": 80,
-            "base_spAtk": 95,
-            "base_spDef": 95,
-            "base_spd": 60,
-            "height": 16,
-            "weight": 370,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

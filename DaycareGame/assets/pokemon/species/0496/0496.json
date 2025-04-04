@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Servine",
     "national_dex_number": 496,
     "child_species": 495,
@@ -138,5 +138,6 @@
             437
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Venipede",
     "national_dex_number": 543,
     "child_species": 543,
@@ -116,5 +116,6 @@
             38
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Zorua",
     "national_dex_number": 570,
     "child_species": 570,
@@ -152,25 +152,6 @@
             539
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 1,
-            "type_2": 8,
-            "ability_1": 149,
-            "ability_2": 0,
-            "hidden_ability": 0,
-            "base_hp": 35,
-            "base_atk": 60,
-            "base_def": 40,
-            "base_spAtk": 85,
-            "base_spDef": 40,
-            "base_spd": 70,
-            "height": 7,
-            "weight": 125,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

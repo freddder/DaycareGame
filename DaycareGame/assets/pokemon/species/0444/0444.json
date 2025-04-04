@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Gabite",
     "national_dex_number": 444,
     "child_species": 443,
@@ -122,5 +122,6 @@
             407
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

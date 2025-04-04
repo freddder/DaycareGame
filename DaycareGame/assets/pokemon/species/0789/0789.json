@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Cosmog",
     "national_dex_number": 789,
     "child_species": 789,
@@ -34,5 +34,6 @@
             100
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

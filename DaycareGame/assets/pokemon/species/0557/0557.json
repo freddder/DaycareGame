@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Dwebble",
     "national_dex_number": 557,
     "child_species": 557,
@@ -134,5 +134,6 @@
             439
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

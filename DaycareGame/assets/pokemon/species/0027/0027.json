@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sandshrew",
     "national_dex_number": 27,
     "child_species": 27,
@@ -315,5 +315,6 @@
                 59
             ]
         }
-    ]
+    ],
+    "variants": []
 }

@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Ponyta",
     "national_dex_number": 77,
     "child_species": 77,
@@ -128,25 +128,6 @@
             394
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "galar",
-            "type_1": 14,
-            "type_2": 0,
-            "ability_1": 50,
-            "ability_2": 257,
-            "hidden_ability": 107,
-            "base_hp": 50,
-            "base_atk": 85,
-            "base_def": 55,
-            "base_spAtk": 65,
-            "base_spDef": 65,
-            "base_spd": 90,
-            "height": 8,
-            "weight": 240,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

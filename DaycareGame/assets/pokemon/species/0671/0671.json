@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Florges",
     "national_dex_number": 671,
     "child_species": 669,
@@ -134,5 +134,12 @@
             585
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": [
+        "red",
+        "yellow",
+        "orange",
+        "blue",
+        "white"
+    ]
 }

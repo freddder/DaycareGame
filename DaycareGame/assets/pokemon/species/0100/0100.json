@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Voltorb",
     "national_dex_number": 100,
     "child_species": 100,
@@ -118,25 +118,6 @@
             243
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "hisui",
-            "type_1": 13,
-            "type_2": 12,
-            "ability_1": 43,
-            "ability_2": 9,
-            "hidden_ability": 106,
-            "base_hp": 40,
-            "base_atk": 30,
-            "base_def": 50,
-            "base_spAtk": 55,
-            "base_spDef": 55,
-            "base_spd": 100,
-            "height": 5,
-            "weight": 130,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

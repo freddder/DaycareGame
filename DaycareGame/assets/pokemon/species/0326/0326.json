@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Grumpig",
     "national_dex_number": 326,
     "child_species": 325,
@@ -170,5 +170,6 @@
             340
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

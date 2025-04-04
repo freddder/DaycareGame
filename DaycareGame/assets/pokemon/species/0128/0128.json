@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Tauros",
     "national_dex_number": 128,
     "child_species": 128,
@@ -148,63 +148,6 @@
             416
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "paldea-combat-breed",
-            "type_1": 2,
-            "type_2": 0,
-            "ability_1": 22,
-            "ability_2": 83,
-            "hidden_ability": 291,
-            "base_hp": 75,
-            "base_atk": 110,
-            "base_def": 105,
-            "base_spAtk": 30,
-            "base_spDef": 70,
-            "base_spd": 100,
-            "height": 14,
-            "weight": 1150,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        },
-        {
-            "name": "paldea-blaze-breed",
-            "type_1": 2,
-            "type_2": 10,
-            "ability_1": 22,
-            "ability_2": 83,
-            "hidden_ability": 291,
-            "base_hp": 75,
-            "base_atk": 110,
-            "base_def": 105,
-            "base_spAtk": 30,
-            "base_spDef": 70,
-            "base_spd": 100,
-            "height": 14,
-            "weight": 850,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        },
-        {
-            "name": "paldea-aqua-breed",
-            "type_1": 2,
-            "type_2": 11,
-            "ability_1": 22,
-            "ability_2": 83,
-            "hidden_ability": 291,
-            "base_hp": 75,
-            "base_atk": 110,
-            "base_def": 105,
-            "base_spAtk": 30,
-            "base_spDef": 70,
-            "base_spd": 100,
-            "height": 14,
-            "weight": 1100,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ]
+    "alternate_forms": [],
+    "variants": []
 }

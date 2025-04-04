@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Carbink",
     "national_dex_number": 703,
     "child_species": 703,
@@ -140,5 +140,6 @@
             219
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

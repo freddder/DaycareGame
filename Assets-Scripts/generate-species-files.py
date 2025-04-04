@@ -4,7 +4,10 @@ import json
 from PIL import Image
 
 max_dex_num = 1008
-current_data_version = 2
+current_data_version = 3
+
+# TODO: find a way to classify if species can change form/variant
+# TODO: create a way to describe all possible evolutions and their methods
 
 def load_form_data(form_json):
     form_data = {}
@@ -146,6 +149,7 @@ def create_entry(dex_num):
         file_data["is_stats_gender_based"] = False
 
     alternate_forms = []
+    variants = []
     for form in specie_data["varieties"]:
         url = form["pokemon"]["url"]
         form_response = requests.get(url)
@@ -154,9 +158,47 @@ def create_entry(dex_num):
         splits = form["pokemon"]["name"].split('-')
         if form["is_default"]:
             file_data["default_form"] = load_form_data(form_data)
-        elif "mega" not in splits and "totem" not in splits and "gmax" not in splits and dex_num != 25: # dont include megas, totems or gmax (also fuck pikachu)
+
+            # No spiky ear pichu
+            if dex_num == 172:
+                continue
+
+            # No mothim variants
+            if dex_num == 414:
+                continue
+
+            # Xerneas variants are kinda useless
+            if dex_num == 716:
+                continue
+
+            # Not supporting arceus, genesect or silvally
+            if dex_num == 493 or dex_num == 649 or dex_num == 773:
+                continue
+
+            # Correct mr mime and mime jr name
+            if dex_num == 122 or dex_num == 439:
+                file_data["default_form"]["name"] = ""
+
+            for variant in form_data["forms"]:
+                if variant["name"] != form_data["name"]:
+                    variants.append(variant["name"].split('-', 1)[-1])
+        elif "mega" not in splits and "totem" not in splits and "gmax" not in splits: # dont include megas, totems or gmax
+            # Fuck pikachu and its 30 fukcing pointless forms
+            if dex_num == 25:
+                continue
+
+            # Not supporting galarian or paldean forms (alolan should be fine)
+            if "galar" in splits or "paldea" in splits or "hisui" in splits:
+                continue
+
             alternate_forms.append(load_form_data(form_data))
+            
     file_data["alternate_forms"] = alternate_forms
+    file_data["variants"] = variants
+
+    # some possible overrites
+    # - rename mr mime and mime jr
+    # - clear mothim variants
 
     dump = json.dumps(file_data, indent=4)
     with open(f"{dex_str}.json", 'w') as file:
@@ -175,8 +217,7 @@ def main():
     #create_entry(413)
     #create_entry(445)
     #create_entry(678)
-
-    # DONT FORGET to manually change mr mime and mime jr names in the file (they contain spaces)
+    #create_entry(665)
 
     for i in range(1, 810):
         create_entry(i)

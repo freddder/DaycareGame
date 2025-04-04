@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Comfey",
     "national_dex_number": 764,
     "child_species": 764,
@@ -168,5 +168,6 @@
             583
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

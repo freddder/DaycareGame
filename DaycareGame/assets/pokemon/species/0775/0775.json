@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Komala",
     "national_dex_number": 775,
     "child_species": 775,
@@ -136,5 +136,6 @@
             37
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

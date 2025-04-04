@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Rhyhorn",
     "national_dex_number": 111,
     "child_species": 111,
@@ -180,5 +180,6 @@
             32
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

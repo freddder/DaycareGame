@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Venusaur",
     "national_dex_number": 3,
     "child_species": 1,
@@ -142,5 +142,6 @@
             76
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

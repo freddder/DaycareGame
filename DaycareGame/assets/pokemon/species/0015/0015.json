@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Beedrill",
     "national_dex_number": 15,
     "child_species": 13,
@@ -138,5 +138,6 @@
             565
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

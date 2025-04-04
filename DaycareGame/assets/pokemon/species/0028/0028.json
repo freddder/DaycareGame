@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Sandslash",
     "national_dex_number": 28,
     "child_species": 27,
@@ -281,5 +281,6 @@
                 556
             ]
         }
-    ]
+    ],
+    "variants": []
 }

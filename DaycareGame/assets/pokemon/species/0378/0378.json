@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Regice",
     "national_dex_number": 378,
     "child_species": 378,
@@ -142,5 +142,6 @@
             63
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

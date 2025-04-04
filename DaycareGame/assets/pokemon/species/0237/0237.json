@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Hitmontop",
     "national_dex_number": 237,
     "child_species": 236,
@@ -128,5 +128,6 @@
             501
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

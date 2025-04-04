@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Bonsly",
     "national_dex_number": 438,
     "child_species": 438,
@@ -142,5 +142,6 @@
             38
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }

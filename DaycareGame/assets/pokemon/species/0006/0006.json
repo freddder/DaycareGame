@@ -1,5 +1,5 @@
 {
-    "data_version": 2,
+    "data_version": 3,
     "name": "Charizard",
     "national_dex_number": 6,
     "child_species": 4,
@@ -168,5 +168,6 @@
             517
         ]
     },
-    "alternate_forms": []
+    "alternate_forms": [],
+    "variants": []
 }
