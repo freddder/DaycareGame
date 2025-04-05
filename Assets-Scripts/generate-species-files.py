@@ -3,11 +3,33 @@ import os
 import json
 from PIL import Image
 
-max_dex_num = 1008
-current_data_version = 3
-
 # TODO: find a way to classify if species can change form/variant
 # TODO: create a way to describe all possible evolutions and their methods
+
+max_dex_num = 1008
+current_data_version = 3
+linking_cord_id = 2160
+
+no_variants_override = [
+    172, # No spiky ear pichu
+    414, # No mothim variants
+    716, # Xerneas variants are kinda useless
+    493, # Arceus
+    649, # Xerneas
+    773  # Silvally
+]
+
+def get_matching_evo_branch(branch, dex_num):
+    
+    if int(branch["species"]["url"].split('/')[-2]) == dex_num:
+        return branch
+    
+    for evo_branch in branch["evolves_to"]:
+        new_branch = get_matching_evo_branch(evo_branch, dex_num)
+        if new_branch != False:
+            return new_branch
+        
+    return False
 
 def load_form_data(form_json):
     form_data = {}
@@ -117,18 +139,6 @@ def create_entry(dex_num):
     
     file_data["national_dex_number"] = dex_num
 
-    if specie_data["evolves_from_species"] == None:
-        file_data["child_species"] = dex_num
-    else:
-        evo_url = specie_data["evolution_chain"]["url"]
-        evo_response = requests.get(evo_url)
-        evo_data = evo_response.json()
-
-        if evo_data["baby_trigger_item"] == None:
-            file_data["child_species"] = int(evo_data["chain"]["species"]["url"].split('/')[-2])
-        else:
-            file_data["child_species"] = int(evo_data["chain"]["evolves_to"][0]["species"]["url"].split('/')[-2])
-
     file_data["gender_ratio"] = specie_data["gender_rate"]
 
     file_data["egg_group_1"] = int(specie_data["egg_groups"][0]["url"].split('/')[-2])
@@ -141,8 +151,66 @@ def create_entry(dex_num):
 
     file_data["catch_rate"] = specie_data["capture_rate"]
 
-    file_data["is_sprite_gender_based"] = specie_data["has_gender_differences"]
+    evo_url = specie_data["evolution_chain"]["url"]
+    evo_response = requests.get(evo_url)
+    evo_data = evo_response.json()
 
+    if specie_data["evolves_from_species"] == None:
+        file_data["child_species"] = dex_num
+    else:
+        if evo_data["baby_trigger_item"] == None:
+            file_data["child_species"] = int(evo_data["chain"]["species"]["url"].split('/')[-2])
+        else:
+            file_data["child_species"] = int(evo_data["chain"]["evolves_to"][0]["species"]["url"].split('/')[-2])
+    
+    species_evo_branch = get_matching_evo_branch(evo_data["chain"], dex_num)
+    evolutions = []
+    for new_evo_data in species_evo_branch["evolves_to"]:
+        if dex_num == 489: # phione does not evolve
+            break
+        
+        new_evo = {}
+        new_evo_details = new_evo_data["evolution_details"][-1]
+        new_evo["dex_num"] = int(new_evo_data["species"]["url"].split('/')[-2])
+        new_evo["min_level"] = new_evo_details["min_level"]
+        new_evo["friendship"] = new_evo_details["min_happiness"] != None
+        new_evo["day_time"] = new_evo_details["time_of_day"]
+
+        new_evo["use_item"] = 0
+        if new_evo_details["trigger"]["name"] == "use-item":
+            new_evo["use_item"] = int(new_evo_details["item"]["url"].split('/')[-2])
+        elif new_evo_details["trigger"]["name"] == "trade":
+            if new_evo_details["held_item"] != None:
+                new_evo["use_item"] = int(new_evo_details["held_item"]["url"].split('/')[-2])
+            else:
+                new_evo["use_item"] = linking_cord_id
+
+        new_evo["held_item"] = 0
+        if new_evo_details["held_item"] != None and new_evo["use_item"] == 0:
+            new_evo["held_item"] = int(new_evo_details["held_item"]["url"].split('/')[-2])
+
+        new_evo["gender"] = 0
+        if new_evo_details["gender"] != None:
+            new_evo["gender"] = new_evo_details["gender"]
+
+        new_evo["known_move"] = 0
+        if new_evo_details["known_move"] != None:
+            new_evo["known_move"] = int(new_evo_details["known_move"]["url"].split('/')[-2])
+        elif new_evo["dex_num"] == 700: # Chose baby-doll-eyes to evolve into sylveon
+            new_evo["known_move"] = 608
+
+        if len(new_evo_data["evolution_details"]) > 1:
+            print(f"LOOK AT THIS GUY -> {species_name}")
+        
+        #evolutions.append(new_evo)
+    
+    # Make sure sylveon is above espeon and umbreon
+    if dex_num == 133:
+        evolutions.reverse()
+
+    file_data["evolutions"] = evolutions
+
+    file_data["is_sprite_gender_based"] = specie_data["has_gender_differences"]
     if len(specie_data["varieties"]) > 1:
         file_data["is_stats_gender_based"] = specie_data["varieties"][1]["pokemon"]["name"].split('-')[-1] == "female"
     else:
@@ -159,20 +227,7 @@ def create_entry(dex_num):
         if form["is_default"]:
             file_data["default_form"] = load_form_data(form_data)
 
-            # No spiky ear pichu
-            if dex_num == 172:
-                continue
-
-            # No mothim variants
-            if dex_num == 414:
-                continue
-
-            # Xerneas variants are kinda useless
-            if dex_num == 716:
-                continue
-
-            # Not supporting arceus, genesect or silvally
-            if dex_num == 493 or dex_num == 649 or dex_num == 773:
+            if dex_num in no_variants_override:
                 continue
 
             # Correct mr mime and mime jr name
@@ -196,10 +251,6 @@ def create_entry(dex_num):
     file_data["alternate_forms"] = alternate_forms
     file_data["variants"] = variants
 
-    # some possible overrites
-    # - rename mr mime and mime jr
-    # - clear mothim variants
-
     dump = json.dumps(file_data, indent=4)
     with open(f"{dex_str}.json", 'w') as file:
         file.write(dump)
@@ -210,14 +261,14 @@ def create_entry(dex_num):
 def main():
     os.chdir("../DaycareGame/assets/pokemon/species")
 
-    #create_entry(150)
-    #create_entry(406)
-    #create_entry(315)
-    #create_entry(407)
-    #create_entry(413)
-    #create_entry(445)
-    #create_entry(678)
-    #create_entry(665)
+    #create_entry(67)
+    #create_entry(93)
+    #create_entry(125)
+    #create_entry(133)
+    #create_entry(265)
+    #create_entry(303)
+    #create_entry(361)
+    #create_entry(412)
 
     for i in range(1, 810):
         create_entry(i)

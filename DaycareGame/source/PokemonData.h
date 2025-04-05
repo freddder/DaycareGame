@@ -100,17 +100,17 @@ namespace Pokemon
 
 	enum eGender
 	{
-		MALE,
-		FEMALE,
 		NO_GENDER,
+		FEMALE,
+		MALE,
 		GENDER_ENUM_COUNT
 	};
 
 	const static char* Gender_Strings[] =
 	{
-		"Male",
-		"Female",
 		"No Gender",
+		"Female",
+		"Male",
 	};
 
 	enum eNature
@@ -224,6 +224,18 @@ namespace Pokemon
 		unsigned int accuracy = 100;
 		//int priority = 0;
 		//eMoveTargetType targetType;
+	};
+
+	struct sEvolution
+	{
+		unsigned int dexId = 0;
+		int minLevel = -1;
+		bool friendship = false;
+		//eDayTime dayTime = NONE;
+		int heldItem = -1;
+		int useItem = -1;
+		unsigned int knownMoveId = 0;
+		eGender gender = NO_GENDER;
 	};
 
 	struct sForm
