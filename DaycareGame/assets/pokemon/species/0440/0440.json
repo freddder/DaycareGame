@@ -13,7 +13,7 @@
             "dex_num": 113,
             "min_level": null,
             "friendship": false,
-            "day_time": "day",
+            "day_time": 1,
             "use_item": 0,
             "held_item": 110,
             "gender": 0,

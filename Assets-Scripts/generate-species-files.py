@@ -225,7 +225,14 @@ def create_entry(species_id):
 
         new_evo["min_level"] = new_evo_details["min_level"]
         new_evo["friendship"] = new_evo_details["min_happiness"] != None
-        new_evo["day_time"] = new_evo_details["time_of_day"]
+        if new_evo_details["time_of_day"] == "day":
+            new_evo["day_time"] = 1
+        elif new_evo_details["time_of_day"] == "dusk":
+            new_evo["day_time"] = 2
+        elif new_evo_details["time_of_day"] == "night":
+            new_evo["day_time"] = 3
+        else:
+            new_evo["day_time"] = 0
 
         new_evo["use_item"] = 0
         if new_evo_details["trigger"]["name"] == "use-item":
@@ -254,8 +261,8 @@ def create_entry(species_id):
         elif new_evo["dex_num"] == 700: # Chose baby-doll-eyes to evolve into sylveon
             new_evo["known_move"] = 608
 
-        if len(new_evo_data["evolution_details"]) > 1:
-            print(f"LOOK AT THIS GUY -> {species_name}")
+        #if len(new_evo_data["evolution_details"]) > 1:
+        #    print(f"LOOK AT THIS GUY -> {species_name}")
         
         evolutions.append(new_evo)
     
@@ -273,7 +280,7 @@ def create_entry(species_id):
     file_data["is_form_switchable"] = specie_data["forms_switchable"]
     file_data["is_born_form_random"] = dex_num in species_born_with_random_form
 
-    file_data["default_form"] = default_form            
+    file_data["default_form"] = default_form
     file_data["alternate_forms"] = alternate_forms
     file_data["variants"] = variants
 

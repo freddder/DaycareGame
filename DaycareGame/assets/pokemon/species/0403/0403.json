@@ -13,7 +13,7 @@
             "dex_num": 404,
             "min_level": 15,
             "friendship": false,
-            "day_time": "",
+            "day_time": 0,
             "use_item": 0,
             "held_item": 0,
             "gender": 0,
