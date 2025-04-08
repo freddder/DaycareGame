@@ -3,20 +3,30 @@ import os
 import json
 from PIL import Image
 
-# TODO: find a way to classify if species can change form/variant
-# TODO: create a way to describe all possible evolutions and their methods
+# TODO: gonna have to hardcode those
+# - rockruff
+# - nincada
 
 max_dex_num = 1008
-current_data_version = 3
+current_data_version = 4
 linking_cord_id = 2160
 
 no_variants_override = [
     172, # No spiky ear pichu
     414, # No mothim variants
-    716, # Xerneas variants are kinda useless
     493, # Arceus
-    649, # Xerneas
+    649, # Genesect
+    716, # Xerneas variants are kinda useless
     773  # Silvally
+]
+
+species_born_with_random_form = [
+    201, # Unown
+    422, # Shellos
+    664, # Scatterbug
+    669, # Flabebe
+    710, # Gourgeist
+    774, # Minior
 ]
 
 def get_matching_evo_branch(branch, dex_num):
@@ -110,7 +120,15 @@ def load_form_data(form_json):
     
     return form_data
 
-def create_entry(dex_num):
+def create_entry(species_id):
+    specie_url = f"https://pokeapi.co/api/v2/pokemon-species/{species_id}/"
+    specie_response = requests.get(specie_url)
+    specie_data = specie_response.json()
+
+    species_name = specie_data["name"]
+    print(species_name)
+
+    dex_num = specie_data["id"]
     if dex_num > max_dex_num:
         return
 
@@ -123,32 +141,19 @@ def create_entry(dex_num):
         os.mkdir(folder_path)
     os.chdir(dex_str)
 
-    specie_url = f"https://pokeapi.co/api/v2/pokemon-species/{dex_num}/"
-    specie_response = requests.get(specie_url)
-    specie_data = specie_response.json()
-
-    species_name = specie_data["name"]
-    print(species_name)
-
     file_data = { "data_version": current_data_version }
-
     for name in specie_data["names"]:
         if name["language"]["name"] == "en":
             file_data["name"] = name["name"]
             break
-    
     file_data["national_dex_number"] = dex_num
-
     file_data["gender_ratio"] = specie_data["gender_rate"]
-
     file_data["egg_group_1"] = int(specie_data["egg_groups"][0]["url"].split('/')[-2])
     egg_group_2 = 0
     if len(specie_data["egg_groups"]) > 1:
         egg_group_2 = int(specie_data["egg_groups"][1]["url"].split('/')[-2])
     file_data["egg_group_2"] = egg_group_2
-
     file_data["hatch_cycles"] = specie_data["hatch_counter"]
-
     file_data["catch_rate"] = specie_data["capture_rate"]
 
     evo_url = specie_data["evolution_chain"]["url"]
@@ -162,16 +167,62 @@ def create_entry(dex_num):
             file_data["child_species"] = int(evo_data["chain"]["species"]["url"].split('/')[-2])
         else:
             file_data["child_species"] = int(evo_data["chain"]["evolves_to"][0]["species"]["url"].split('/')[-2])
+
+    default_form = {}
+    alternate_forms = []
+    variants = []
+    has_regional_form = False
+    for form in specie_data["varieties"]:
+        url = form["pokemon"]["url"]
+        form_response = requests.get(url)
+        form_data = form_response.json()
+
+        splits = form["pokemon"]["name"].split('-')
+        if form["is_default"]:
+            default_form = load_form_data(form_data)
+
+            if dex_num in no_variants_override:
+                continue
+
+            # Correct mr mime and mime jr name
+            if dex_num == 122 or dex_num == 439:
+                default_form["name"] = ""
+
+            for variant in form_data["forms"]:
+                if variant["name"] != form_data["name"]:
+                    variants.append(variant["name"].split('-', 1)[-1])
+        elif "mega" not in splits and "totem" not in splits and "gmax" not in splits: # dont include megas, totems or gmax
+            # Fuck pikachu and its 30 fukcing pointless forms (eevee too)
+            if dex_num == 25 or dex_num == 133:
+                continue
+            
+            # Skip this one
+            if form["pokemon"]["name"] == "basculin-white-striped":
+                continue
+
+            # Not supporting regional forms
+            if "alola" in splits or "galar" in splits or "paldea" in splits or "hisui" in splits:
+                has_regional_form = True
+                continue
+
+            alternate_forms.append(load_form_data(form_data))
     
     species_evo_branch = get_matching_evo_branch(evo_data["chain"], dex_num)
     evolutions = []
     for new_evo_data in species_evo_branch["evolves_to"]:
-        if dex_num == 489: # phione does not evolve
+        if dex_num == 489: # Phione does not evolve
             break
-        
         new_evo = {}
         new_evo_details = new_evo_data["evolution_details"][-1]
+        if has_regional_form or dex_num == 104: # Cubone (prob execute too)
+            new_evo_details = new_evo_data["evolution_details"][0]
+        elif dex_num == 349: # Feebas
+            new_evo_details = new_evo_data["evolution_details"][1]
+
         new_evo["dex_num"] = int(new_evo_data["species"]["url"].split('/')[-2])
+        if new_evo["dex_num"] > 810: # no new evolutions
+            continue
+
         new_evo["min_level"] = new_evo_details["min_level"]
         new_evo["friendship"] = new_evo_details["min_happiness"] != None
         new_evo["day_time"] = new_evo_details["time_of_day"]
@@ -184,6 +235,10 @@ def create_entry(dex_num):
                 new_evo["use_item"] = int(new_evo_details["held_item"]["url"].split('/')[-2])
             else:
                 new_evo["use_item"] = linking_cord_id
+        elif dex_num == 299: # Thunder stone for Nosepass
+            new_evo["use_item"] = 83
+        elif dex_num == 739: # Ice stone for Crabrawler
+            new_evo["use_item"] = 885
 
         new_evo["held_item"] = 0
         if new_evo_details["held_item"] != None and new_evo["use_item"] == 0:
@@ -202,7 +257,7 @@ def create_entry(dex_num):
         if len(new_evo_data["evolution_details"]) > 1:
             print(f"LOOK AT THIS GUY -> {species_name}")
         
-        #evolutions.append(new_evo)
+        evolutions.append(new_evo)
     
     # Make sure sylveon is above espeon and umbreon
     if dex_num == 133:
@@ -215,39 +270,10 @@ def create_entry(dex_num):
         file_data["is_stats_gender_based"] = specie_data["varieties"][1]["pokemon"]["name"].split('-')[-1] == "female"
     else:
         file_data["is_stats_gender_based"] = False
+    file_data["is_form_switchable"] = specie_data["forms_switchable"]
+    file_data["is_born_form_random"] = dex_num in species_born_with_random_form
 
-    alternate_forms = []
-    variants = []
-    for form in specie_data["varieties"]:
-        url = form["pokemon"]["url"]
-        form_response = requests.get(url)
-        form_data = form_response.json()
-
-        splits = form["pokemon"]["name"].split('-')
-        if form["is_default"]:
-            file_data["default_form"] = load_form_data(form_data)
-
-            if dex_num in no_variants_override:
-                continue
-
-            # Correct mr mime and mime jr name
-            if dex_num == 122 or dex_num == 439:
-                file_data["default_form"]["name"] = ""
-
-            for variant in form_data["forms"]:
-                if variant["name"] != form_data["name"]:
-                    variants.append(variant["name"].split('-', 1)[-1])
-        elif "mega" not in splits and "totem" not in splits and "gmax" not in splits: # dont include megas, totems or gmax
-            # Fuck pikachu and its 30 fukcing pointless forms
-            if dex_num == 25:
-                continue
-
-            # Not supporting galarian or paldean forms (alolan should be fine)
-            if "galar" in splits or "paldea" in splits or "hisui" in splits:
-                continue
-
-            alternate_forms.append(load_form_data(form_data))
-            
+    file_data["default_form"] = default_form            
     file_data["alternate_forms"] = alternate_forms
     file_data["variants"] = variants
 
@@ -261,14 +287,7 @@ def create_entry(dex_num):
 def main():
     os.chdir("../DaycareGame/assets/pokemon/species")
 
-    #create_entry(67)
-    #create_entry(93)
-    #create_entry(125)
-    #create_entry(133)
-    #create_entry(265)
-    #create_entry(303)
-    #create_entry(361)
-    #create_entry(412)
+    #create_entry("eevee")
 
     for i in range(1, 810):
         create_entry(i)

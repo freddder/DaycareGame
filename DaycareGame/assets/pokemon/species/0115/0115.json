@@ -1,5 +1,5 @@
 {
-    "data_version": 3,
+    "data_version": 4,
     "name": "Kangaskhan",
     "national_dex_number": 115,
     "gender_ratio": 8,
@@ -11,6 +11,8 @@
     "evolutions": [],
     "is_sprite_gender_based": false,
     "is_stats_gender_based": false,
+    "is_form_switchable": true,
+    "is_born_form_random": false,
     "default_form": {
         "name": "",
         "type_1": 1,

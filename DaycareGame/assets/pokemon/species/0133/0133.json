@@ -1,5 +1,5 @@
 {
-    "data_version": 3,
+    "data_version": 4,
     "name": "Eevee",
     "national_dex_number": 133,
     "gender_ratio": 1,
@@ -8,9 +8,92 @@
     "hatch_cycles": 35,
     "catch_rate": 45,
     "child_species": 133,
-    "evolutions": [],
+    "evolutions": [
+        {
+            "dex_num": 700,
+            "min_level": null,
+            "friendship": true,
+            "day_time": "",
+            "use_item": 0,
+            "held_item": 0,
+            "gender": 0,
+            "known_move": 608
+        },
+        {
+            "dex_num": 471,
+            "min_level": null,
+            "friendship": false,
+            "day_time": "",
+            "use_item": 885,
+            "held_item": 0,
+            "gender": 0,
+            "known_move": 0
+        },
+        {
+            "dex_num": 470,
+            "min_level": null,
+            "friendship": false,
+            "day_time": "",
+            "use_item": 85,
+            "held_item": 0,
+            "gender": 0,
+            "known_move": 0
+        },
+        {
+            "dex_num": 197,
+            "min_level": null,
+            "friendship": true,
+            "day_time": "night",
+            "use_item": 0,
+            "held_item": 0,
+            "gender": 0,
+            "known_move": 0
+        },
+        {
+            "dex_num": 196,
+            "min_level": null,
+            "friendship": true,
+            "day_time": "day",
+            "use_item": 0,
+            "held_item": 0,
+            "gender": 0,
+            "known_move": 0
+        },
+        {
+            "dex_num": 136,
+            "min_level": null,
+            "friendship": false,
+            "day_time": "",
+            "use_item": 82,
+            "held_item": 0,
+            "gender": 0,
+            "known_move": 0
+        },
+        {
+            "dex_num": 135,
+            "min_level": null,
+            "friendship": false,
+            "day_time": "",
+            "use_item": 83,
+            "held_item": 0,
+            "gender": 0,
+            "known_move": 0
+        },
+        {
+            "dex_num": 134,
+            "min_level": null,
+            "friendship": false,
+            "day_time": "",
+            "use_item": 84,
+            "held_item": 0,
+            "gender": 0,
+            "known_move": 0
+        }
+    ],
     "is_sprite_gender_based": true,
     "is_stats_gender_based": false,
+    "is_form_switchable": false,
+    "is_born_form_random": false,
     "default_form": {
         "name": "",
         "type_1": 1,
@@ -137,26 +220,6 @@
             376
         ]
     },
-    "alternate_forms": [
-        {
-            "name": "starter",
-            "type_1": 1,
-            "type_2": 0,
-            "ability_1": 50,
-            "ability_2": 91,
-            "hidden_ability": 107,
-            "base_hp": 65,
-            "base_atk": 75,
-            "base_def": 70,
-            "base_spAtk": 65,
-            "base_spDef": 85,
-            "base_spd": 75,
-            "height": 3,
-            "weight": 65,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
-        }
-    ],
+    "alternate_forms": [],
     "variants": []
 }

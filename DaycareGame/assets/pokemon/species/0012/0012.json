@@ -1,5 +1,5 @@
 {
-    "data_version": 3,
+    "data_version": 4,
     "name": "Butterfree",
     "national_dex_number": 12,
     "gender_ratio": 4,
@@ -11,6 +11,8 @@
     "evolutions": [],
     "is_sprite_gender_based": true,
     "is_stats_gender_based": false,
+    "is_form_switchable": false,
+    "is_born_form_random": false,
     "default_form": {
         "name": "",
         "type_1": 7,

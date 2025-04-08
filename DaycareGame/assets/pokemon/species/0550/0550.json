@@ -1,5 +1,5 @@
 {
-    "data_version": 3,
+    "data_version": 4,
     "name": "Basculin",
     "national_dex_number": 550,
     "gender_ratio": 4,
@@ -11,6 +11,8 @@
     "evolutions": [],
     "is_sprite_gender_based": false,
     "is_stats_gender_based": false,
+    "is_form_switchable": false,
+    "is_born_form_random": false,
     "default_form": {
         "name": "red-striped",
         "type_1": 11,
@@ -271,25 +273,6 @@
                 46,
                 457
             ]
-        },
-        {
-            "name": "white-striped",
-            "type_1": 11,
-            "type_2": 0,
-            "ability_1": 155,
-            "ability_2": 91,
-            "hidden_ability": 104,
-            "base_hp": 70,
-            "base_atk": 92,
-            "base_def": 65,
-            "base_spAtk": 80,
-            "base_spDef": 55,
-            "base_spd": 98,
-            "height": 10,
-            "weight": 180,
-            "front_sprite_count": 1,
-            "back_sprite_count": 1,
-            "learnset": []
         }
     ],
     "variants": []

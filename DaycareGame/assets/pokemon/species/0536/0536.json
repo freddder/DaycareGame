@@ -1,5 +1,5 @@
 {
-    "data_version": 3,
+    "data_version": 4,
     "name": "Palpitoad",
     "national_dex_number": 536,
     "gender_ratio": 4,
@@ -8,9 +8,22 @@
     "hatch_cycles": 20,
     "catch_rate": 120,
     "child_species": 535,
-    "evolutions": [],
+    "evolutions": [
+        {
+            "dex_num": 537,
+            "min_level": 36,
+            "friendship": false,
+            "day_time": "",
+            "use_item": 0,
+            "held_item": 0,
+            "gender": 0,
+            "known_move": 0
+        }
+    ],
     "is_sprite_gender_based": false,
     "is_stats_gender_based": false,
+    "is_form_switchable": false,
+    "is_born_form_random": false,
     "default_form": {
         "name": "",
         "type_1": 11,
