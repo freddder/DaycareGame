@@ -12,7 +12,7 @@ namespace Pokemon
 
 	enum eType
 	{
-		NO_TYPE = 0,
+		NO_TYPE,
 		NORMAL,
 		FIGHTING,
 		FLYING,
@@ -172,6 +172,23 @@ namespace Pokemon
 		"Serious"
 	};
 
+	enum eDayTime
+	{
+		NO_DAY_TIME,
+		DAY,
+		DUSK,
+		NIGHT,
+		DAY_TIME_ENUM_COUNT
+	};
+
+	const static char* DayTyme_Strings[] =
+	{
+		"No Day Time",
+		"Day",
+		"Dusk",
+		"Night"
+	};
+
 	struct sStats
 	{
 		sStats() : 
@@ -229,11 +246,11 @@ namespace Pokemon
 	struct sEvolution
 	{
 		unsigned int dexId = 0;
-		int minLevel = -1;
+		int minLevel = 0;
 		bool friendship = false;
-		//eDayTime dayTime = NONE;
-		int heldItem = -1;
-		int useItem = -1;
+		eDayTime dayTime = NO_DAY_TIME;
+		int heldItem = 0;
+		int useItem = 0;
 		unsigned int knownMoveId = 0;
 		eGender gender = NO_GENDER;
 	};
@@ -280,12 +297,16 @@ namespace Pokemon
 
 		bool isFormGenderBased = false; // Use an alternate form if female. Will only be used a few times (ex: Meowstic, Indeedee)
 		bool isSpriteGenderBased = false; // Change sprite if its female (doesn't matter if isStatsGenderBased is true)
+		bool isFormSwitchable = false;
+		bool isBornFormRandom = false;
+
+		std::vector<sEvolution> evolutions;
 
 		sForm defaultForm;
 		std::vector<sForm> alternateForms;
 	};
 
-	const static unsigned int JSON_DATA_VERSION = 2;
+	const static unsigned int JSON_DATA_VERSION = 4;
 	std::string MakeDexNumberFolderName(const int nationalDexNumber);
 	void SaveSpecieData(const int nationalDexNumber, const sSpeciesData& data);
 	void LoadSpecieData(const int nationalDexNumber, sSpeciesData& data);

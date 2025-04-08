@@ -66,20 +66,34 @@ namespace Pokemon
 		rapidjson::Value name(data.name, allocator);
 		d.AddMember("name", name, allocator);
 		d.AddMember("national_dex_number", data.nationalDexNumber, allocator);
-		d.AddMember("child_species", data.childSpecies, allocator);
 
 		d.AddMember("gender_ratio", data.genderRatio, allocator);
 		d.AddMember("egg_group_1", data.eggGroup1, allocator);
 		d.AddMember("egg_group_2", data.eggGroup2, allocator);
 		d.AddMember("hatch_cycles", data.hatchCycles, allocator);
-
 		d.AddMember("catch_rate", data.catchRate, allocator);
+		d.AddMember("child_species", data.childSpecies, allocator);
+
+		rapidjson::Value evolutions(rapidjson::kArrayType);
+		for (unsigned int i = 0; i < data.evolutions.size(); i++)
+		{
+			rapidjson::Value newEvo(rapidjson::kObjectType);
+			newEvo.AddMember("dex_num", data.evolutions[i].dexId, allocator);
+			newEvo.AddMember("min_level", data.evolutions[i].minLevel, allocator);
+			newEvo.AddMember("friendship", data.evolutions[i].friendship, allocator);
+			newEvo.AddMember("day_time", data.evolutions[i].dayTime, allocator);
+			newEvo.AddMember("use_item", data.evolutions[i].useItem, allocator);
+			newEvo.AddMember("held_item", data.evolutions[i].heldItem, allocator);
+			newEvo.AddMember("gender", data.evolutions[i].gender, allocator);
+			newEvo.AddMember("known_move", data.evolutions[i].knownMoveId, allocator);
+		}
 
 		d.AddMember("is_sprite_gender_based", data.isSpriteGenderBased, allocator);
 		d.AddMember("is_stats_gender_based", data.isFormGenderBased, allocator);
+		d.AddMember("is_form_switchable", data.isFormSwitchable, allocator);
+		d.AddMember("is_born_form_random", data.isBornFormRandom, allocator);
 
 		rapidjson::Value defaultForm(rapidjson::kObjectType);
-
 		rapidjson::Value formName(data.defaultForm.name, allocator);
 		defaultForm.AddMember("name", formName, allocator);
 
@@ -178,6 +192,24 @@ namespace Pokemon
 		data.catchRate = d["catch_rate"].GetInt();
 		data.isSpriteGenderBased = d["is_sprite_gender_based"].GetBool();
 		data.isFormGenderBased = d["is_stats_gender_based"].GetBool();
+		data.isFormSwitchable = d["is_form_switchable"].GetBool();
+		data.isBornFormRandom = d["is_born_form_random"].GetBool();
+
+		rapidjson::Value& evolutions = d["evolutions"];
+		for (unsigned int i = 0; i < evolutions.Size(); i++)
+		{
+			data.evolutions.emplace_back();
+			sEvolution& newEvo = data.evolutions.back();
+
+			newEvo.dexId = evolutions[i]["dex_num"].GetUint();
+			newEvo.minLevel = evolutions[i]["min_level"].GetInt();
+			newEvo.friendship = evolutions[i]["friendship"].GetBool();
+			newEvo.dayTime = static_cast<eDayTime>(evolutions[i]["day_time"].GetInt());
+			newEvo.useItem = evolutions[i]["use_item"].GetInt();
+			newEvo.heldItem = evolutions[i]["held_item"].GetInt();
+			newEvo.gender = static_cast<eGender>(evolutions[i]["gender"].GetInt());
+			newEvo.knownMoveId = evolutions[i]["known_move"].GetUint();
+		}
 
 		rapidjson::Value& defaultFormObject = d["default_form"];
 		LoadFormData(defaultFormObject, data.defaultForm);

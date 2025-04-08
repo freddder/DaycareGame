@@ -43,7 +43,7 @@ Every variable represents a check (except **dex_num**). In order to evolve, all 
 | **dex_num** | `int` | National dex number of species to evolve to |
 | **min_level** | `int` | Minimum level required |
 | **friendship** | `bool` | If high friendship is required |
-| **day_time** | `string` | Specific time of day required ( "" if not required)  |
+| **day_time** | `int` | Specific time of day required ( 0 if not required)  |
 | **use_item** | `int` | ID of item used for evolving ( 0 if not required) |
 | **held_item** | `int` | ID of item held when leveling up ( 0 if not required) |
 | **gender** | `int` | If only specific gender can evolve ( 0 = not required, 1 = female only, 2 = male only) |

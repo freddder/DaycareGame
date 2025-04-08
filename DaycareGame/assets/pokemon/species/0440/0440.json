@@ -11,7 +11,7 @@
     "evolutions": [
         {
             "dex_num": 113,
-            "min_level": null,
+            "min_level": 0,
             "friendship": false,
             "day_time": 1,
             "use_item": 0,

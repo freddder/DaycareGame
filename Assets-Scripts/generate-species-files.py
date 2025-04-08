@@ -6,6 +6,8 @@ from PIL import Image
 # TODO: gonna have to hardcode those
 # - rockruff
 # - nincada
+# - tyrogue
+# - wurmple
 
 max_dex_num = 1008
 current_data_version = 4
@@ -223,7 +225,9 @@ def create_entry(species_id):
         if new_evo["dex_num"] > 810: # no new evolutions
             continue
 
-        new_evo["min_level"] = new_evo_details["min_level"]
+        new_evo["min_level"] = 0
+        if new_evo_details["min_level"] != None:
+            new_evo["min_level"] = new_evo_details["min_level"]
         new_evo["friendship"] = new_evo_details["min_happiness"] != None
         if new_evo_details["time_of_day"] == "day":
             new_evo["day_time"] = 1

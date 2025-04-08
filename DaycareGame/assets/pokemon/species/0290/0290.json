@@ -21,7 +21,7 @@
         },
         {
             "dex_num": 292,
-            "min_level": null,
+            "min_level": 0,
             "friendship": false,
             "day_time": 0,
             "use_item": 0,

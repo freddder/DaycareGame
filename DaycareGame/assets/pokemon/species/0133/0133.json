@@ -11,7 +11,7 @@
     "evolutions": [
         {
             "dex_num": 700,
-            "min_level": null,
+            "min_level": 0,
             "friendship": true,
             "day_time": 0,
             "use_item": 0,
@@ -21,7 +21,7 @@
         },
         {
             "dex_num": 471,
-            "min_level": null,
+            "min_level": 0,
             "friendship": false,
             "day_time": 0,
             "use_item": 885,
@@ -31,7 +31,7 @@
         },
         {
             "dex_num": 470,
-            "min_level": null,
+            "min_level": 0,
             "friendship": false,
             "day_time": 0,
             "use_item": 85,
@@ -41,7 +41,7 @@
         },
         {
             "dex_num": 197,
-            "min_level": null,
+            "min_level": 0,
             "friendship": true,
             "day_time": 3,
             "use_item": 0,
@@ -51,7 +51,7 @@
         },
         {
             "dex_num": 196,
-            "min_level": null,
+            "min_level": 0,
             "friendship": true,
             "day_time": 1,
             "use_item": 0,
@@ -61,7 +61,7 @@
         },
         {
             "dex_num": 136,
-            "min_level": null,
+            "min_level": 0,
             "friendship": false,
             "day_time": 0,
             "use_item": 82,
@@ -71,7 +71,7 @@
         },
         {
             "dex_num": 135,
-            "min_level": null,
+            "min_level": 0,
             "friendship": false,
             "day_time": 0,
             "use_item": 83,
@@ -81,7 +81,7 @@
         },
         {
             "dex_num": 134,
-            "min_level": null,
+            "min_level": 0,
             "friendship": false,
             "day_time": 0,
             "use_item": 84,

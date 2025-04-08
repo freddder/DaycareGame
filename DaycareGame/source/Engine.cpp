@@ -72,6 +72,7 @@ void InitializeImgui()
 void RenderImgui();
 void RenderFormData(Pokemon::sForm& form);
 void RenderIndividualData(Pokemon::sIndividualData& data);
+void RenderEvolutionData(Pokemon::sEvolution& data);
 
 void ShutdownImgui()
 {
@@ -452,7 +453,7 @@ void RenderImgui()
         ImGui::SameLine();
         if (ImGui::Button("Load Species Data"))
         {
-            selectedSpecies.alternateForms.clear();
+            selectedSpecies = Pokemon::sSpeciesData();
             Pokemon::LoadSpecieData(searchNationalDexNumber, selectedSpecies);
         }
 
@@ -472,6 +473,7 @@ void RenderImgui()
 
                 ImGui::DragInt("Gender ratio", &selectedSpecies.genderRatio, 1, -1, 8);
                 if (ImGui::IsItemHovered()) ImGui::SetTooltip("Chance to be female in eights (-1 for genderless)");
+
                 if (selectedSpecies.genderRatio != -1)
                 {
                     ImGui::Checkbox("Are stats gender based", &selectedSpecies.isFormGenderBased);
@@ -513,6 +515,17 @@ void RenderImgui()
 
                 ImGui::EndTable();
             }
+
+            if (ImGui::TreeNode("Evolutions"))
+            {
+                for (unsigned int i = 0; i < selectedSpecies.evolutions.size(); i++)
+                {
+                    RenderEvolutionData(selectedSpecies.evolutions[i]);
+                    ImGui::Separator();
+                }
+                ImGui::TreePop();
+            }
+
             ImGui::Separator();
 
             ImGui::Text("Default form");
@@ -741,4 +754,55 @@ void RenderIndividualData(Pokemon::sIndividualData& data)
     data.move2 = move2;
     data.move3 = move3;
     data.move4 = move4;
+}
+
+void RenderEvolutionData(Pokemon::sEvolution& data)
+{
+    int dexNum = data.dexId;
+    ImGui::DragInt("Dex Num", &dexNum, 1, 0, 810);
+    data.dexId = dexNum;
+
+    ImGui::DragInt("Min Level", &data.minLevel, 1, 0, 100);
+    ImGui::Checkbox("Firendship", &data.friendship);
+
+    ImGui::DragInt("Use Item", &data.useItem, 1, 0, 10500);
+    ImGui::DragInt("Held Item", &data.heldItem, 1, 0, 10500);
+
+    int moveKnown = data.knownMoveId;
+    ImGui::DragInt("Move Known", &moveKnown, 1, 0, 10500);
+    data.knownMoveId = moveKnown;
+    
+    if (ImGui::BeginCombo("Day Time", Pokemon::DayTyme_Strings[data.dayTime]))
+    {
+        for (int n = 0; n < Pokemon::eDayTime::DAY_TIME_ENUM_COUNT; n++)
+        {
+            const bool is_selected = (data.dayTime == n);
+            if (ImGui::Selectable(Pokemon::DayTyme_Strings[n], is_selected))
+            {
+                data.dayTime = static_cast<Pokemon::eDayTime>(n);
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
+    }
+
+    if (ImGui::BeginCombo("Gender", Pokemon::Gender_Strings[data.gender]))
+    {
+        for (int n = 0; n < Pokemon::eGender::GENDER_ENUM_COUNT; n++)
+        {
+            const bool is_selected = (data.gender == n);
+            if (ImGui::Selectable(Pokemon::Gender_Strings[n], is_selected))
+            {
+                data.gender = static_cast<Pokemon::eGender>(n);
+            }
+
+            // Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
+            if (is_selected)
+                ImGui::SetItemDefaultFocus();
+        }
+        ImGui::EndCombo();
+    }
 }
