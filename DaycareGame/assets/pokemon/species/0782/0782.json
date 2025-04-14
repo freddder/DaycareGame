@@ -23,7 +23,7 @@
     "is_sprite_gender_based": false,
     "is_stats_gender_based": false,
     "is_form_switchable": false,
-    "is_born_form_random": false,
+    "does_pass_down_form": false,
     "default_form": {
         "name": "o",
         "type_1": 16,

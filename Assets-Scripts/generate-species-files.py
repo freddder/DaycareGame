@@ -8,6 +8,7 @@ from PIL import Image
 # - nincada
 # - tyrogue
 # - wurmple
+# - mothim (textures)
 
 max_dex_num = 1008
 current_data_version = 4
@@ -15,20 +16,18 @@ linking_cord_id = 2160
 
 no_variants_override = [
     172, # No spiky ear pichu
-    414, # No mothim variants
     493, # Arceus
     649, # Genesect
     716, # Xerneas variants are kinda useless
     773  # Silvally
 ]
 
-species_born_with_random_form = [
-    201, # Unown
-    422, # Shellos
-    664, # Scatterbug
-    669, # Flabebe
-    710, # Gourgeist
-    774, # Minior
+species_that_pass_down_form = [
+    412, # Burmy
+    413, # Wormadam,
+    414, # Mothim
+    550, # Basculin
+    741, # Oricorio
 ]
 
 def get_matching_evo_branch(branch, dex_num):
@@ -185,6 +184,11 @@ def create_entry(species_id):
 
             if dex_num in no_variants_override:
                 continue
+            
+            # Add minior to variants intead
+            if dex_num == 774:
+                default_form["name"] = ""
+                continue
 
             # Correct mr mime and mime jr name
             if dex_num == 122 or dex_num == 439:
@@ -200,6 +204,12 @@ def create_entry(species_id):
             
             # Skip this one
             if form["pokemon"]["name"] == "basculin-white-striped":
+                continue
+
+            # Make this minior's variantes intead
+            if dex_num == 774:
+                if "meteor" not in splits:
+                    variants.append(form["pokemon"]["name"].split('-')[-1])
                 continue
 
             # Not supporting regional forms
@@ -282,7 +292,7 @@ def create_entry(species_id):
     else:
         file_data["is_stats_gender_based"] = False
     file_data["is_form_switchable"] = specie_data["forms_switchable"]
-    file_data["is_born_form_random"] = dex_num in species_born_with_random_form
+    file_data["does_pass_down_form"] = dex_num in species_that_pass_down_form
 
     file_data["default_form"] = default_form
     file_data["alternate_forms"] = alternate_forms
@@ -298,7 +308,7 @@ def create_entry(species_id):
 def main():
     os.chdir("../DaycareGame/assets/pokemon/species")
 
-    #create_entry("eevee")
+    #create_entry("minior")
 
     for i in range(1, 810):
         create_entry(i)

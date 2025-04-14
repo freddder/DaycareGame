@@ -10,20 +10,6 @@
 
 const std::string PKM_DATA_PATH = "assets/pokemon/";
 
-bool CompareName(const Name& name, const std::string& str)
-{
-	for (unsigned int i = 0; i < str.length(); i++)
-	{
-		if (name[i] != str[i])
-			return false;
-
-		if (name[i] == '\0' && str[i] == '\0')
-			return true;
-	}
-
-	return true;
-}
-
 namespace Pokemon
 {
 	bool OpenPokemonDataFile(rapidjson::Document& doc, const int nationalDexNumber);
@@ -63,7 +49,7 @@ namespace Pokemon
 		d.SetObject();
 
 		d.AddMember("data_version", JSON_DATA_VERSION, allocator);
-		rapidjson::Value name(data.name, allocator);
+		rapidjson::Value name(data.name.c_str(), allocator);
 		d.AddMember("name", name, allocator);
 		d.AddMember("national_dex_number", data.nationalDexNumber, allocator);
 
@@ -91,10 +77,10 @@ namespace Pokemon
 		d.AddMember("is_sprite_gender_based", data.isSpriteGenderBased, allocator);
 		d.AddMember("is_stats_gender_based", data.isFormGenderBased, allocator);
 		d.AddMember("is_form_switchable", data.isFormSwitchable, allocator);
-		d.AddMember("is_born_form_random", data.isBornFormRandom, allocator);
+		d.AddMember("does_pass_down_form", data.doesPassDownForm, allocator);
 
 		rapidjson::Value defaultForm(rapidjson::kObjectType);
-		rapidjson::Value formName(data.defaultForm.name, allocator);
+		rapidjson::Value formName(data.defaultForm.name.c_str(), allocator);
 		defaultForm.AddMember("name", formName, allocator);
 
 		defaultForm.AddMember("type_1", data.defaultForm.type1, allocator);
@@ -128,7 +114,7 @@ namespace Pokemon
 		for (unsigned int i = 0; i < data.alternateForms.size(); i++)
 		{
 			rapidjson::Value newAlternateForm(rapidjson::kObjectType);
-			rapidjson::Value alternateFormName(data.alternateForms[i].name, allocator);
+			rapidjson::Value alternateFormName(data.alternateForms[i].name.c_str(), allocator);
 			newAlternateForm.AddMember("name", alternateFormName, allocator);
 
 			newAlternateForm.AddMember("type_1", data.alternateForms[i].type1, allocator);
@@ -180,7 +166,7 @@ namespace Pokemon
 			std::cout << "WARNING: loader function has a different version as json data" << std::endl;
 		}
 
-		strcpy_s(data.name, d["name"].GetString());
+		data.name = d["name"].GetString();
 		data.nationalDexNumber = d["national_dex_number"].GetUint();
 		data.childSpecies = d["child_species"].GetUint();
 
@@ -193,7 +179,7 @@ namespace Pokemon
 		data.isSpriteGenderBased = d["is_sprite_gender_based"].GetBool();
 		data.isFormGenderBased = d["is_stats_gender_based"].GetBool();
 		data.isFormSwitchable = d["is_form_switchable"].GetBool();
-		data.isBornFormRandom = d["is_born_form_random"].GetBool();
+		data.doesPassDownForm = d["does_pass_down_form"].GetBool();
 
 		rapidjson::Value& evolutions = d["evolutions"];
 		for (unsigned int i = 0; i < evolutions.Size(); i++)
@@ -220,6 +206,14 @@ namespace Pokemon
 			data.alternateForms.emplace_back();
 			rapidjson::Value& newFormObject = alternateForms[i];
 			LoadFormData(newFormObject, data.alternateForms.back());
+		}
+
+		rapidjson::Value& variants = d["variants"];
+		for (unsigned int i = 0; i < variants.Size(); i++)
+		{
+			data.variants.emplace_back();
+			Name& n = data.variants.back();
+			n = variants[i].GetString();
 		}
 	}
 
@@ -253,7 +247,7 @@ namespace Pokemon
 			rapidjson::Value& alternateForms = d["alternate_forms"];
 			for (unsigned int i = 0; i < alternateForms.Size(); i++)
 			{
-				if (alternateForms[i]["name"].GetString() == formName)
+				if (formName == alternateForms[i]["name"].GetString())
 				{
 					LoadFormData(alternateForms[i], form);
 					break;
@@ -265,6 +259,30 @@ namespace Pokemon
 			rapidjson::Value& defaultFormObject = d["default_form"];
 			LoadFormData(defaultFormObject, form);
 		}
+	}
+
+	sForm& sSpeciesData::GetForm(const Name& name)
+	{
+		if (name == defaultForm.name)
+			return defaultForm;
+		
+		for (unsigned int i = 0; i < alternateForms.size(); i++)
+		{
+			if (name == alternateForms[i].name)
+				return alternateForms[i];
+		}
+
+		return defaultForm;
+	}
+
+	void sSpeciesData::GetRandomFormOrVariant(Name& name) const
+	{
+		if (!variants.empty())
+			name = variants[rand() % variants.size()];
+		else if (!alternateForms.empty())
+			name = alternateForms[rand() % alternateForms.size()].name;
+		else
+			name = defaultForm.name;
 	}
 
 	void GetAllIdsFromEggGroup(eEggGroup group, std::vector<unsigned int>& output)
@@ -281,10 +299,10 @@ namespace Pokemon
 
 		fclose(fp);
 
-		if (d["data_version"].GetInt() != JSON_DATA_VERSION)
-		{
-			std::cout << "WARNING: loader function has a different version as json data" << std::endl;
-		}
+		//if (d["data_version"].GetInt() != JSON_DATA_VERSION)
+		//{
+		//	std::cout << "WARNING: loader function has a different version as json data" << std::endl;
+		//}
 
 		rapidjson::Value& groups = d["groups"];
 		for (unsigned int i = 0; i < groups.Size(); i++)
@@ -316,8 +334,8 @@ namespace Pokemon
 
 		if (gender == FEMALE && (isSpriteGenderBased || isFormGenderBased))
 			textureName = textureName + "_f";
-		else if (!CompareName(formName, "")) // There is no case where both will be true
-			textureName = textureName + "_" + formName;
+		else if (formOrVariantName != "") // There is no case where both will be true
+			textureName = textureName + "_" + formOrVariantName.str();
 
 		if (isShiny)
 			textureName = textureName + "_s";
@@ -333,8 +351,8 @@ namespace Pokemon
 
 		if (gender == FEMALE && isFormGenderBased)
 			textureName = textureName + "_f";
-		else if (!CompareName(formName, "")) // There is no case where both will be true
-			textureName = textureName + "_" + formName;
+		else if (formOrVariantName != "") // There is no case where both will be true
+			textureName = textureName + "_" + formOrVariantName.str();
 
 		textureName += "_ico";
 
@@ -352,8 +370,8 @@ namespace Pokemon
 
 		if (gender == FEMALE && (isSpriteGenderBased || isFormGenderBased))
 			textureName = textureName + "_f";
-		else if (formName != "") // There is no case where both will be true
-			textureName = textureName + "_" + formName;
+		else if (formOrVariantName != "") // There is no case where both will be true
+			textureName = textureName + "_" + formOrVariantName.str();
 
 		if (isFront)
 			textureName = textureName + "_bf";
@@ -412,7 +430,8 @@ namespace Pokemon
 		if (parent1species.eggGroup1 == EGG_DITTO && parent2species.eggGroup1 == EGG_DITTO)
 			return false;
 
-		eEggGroup groupMatch1 = EGG_NO_EGG_GROUP, groupMatch2 = EGG_NO_EGG_GROUP;
+		eEggGroup groupMatch1 = EGG_NO_EGG_GROUP;
+		eEggGroup groupMatch2 = EGG_NO_EGG_GROUP;
 		if (parent1species.eggGroup1 == EGG_DITTO || parent2species.eggGroup1 == EGG_DITTO) // either is ditto
 		{
 			sSpeciesData& nonDitto = parent1species;
@@ -422,7 +441,7 @@ namespace Pokemon
 			groupMatch1 = nonDitto.eggGroup1;
 			groupMatch2 = nonDitto.eggGroup2;
 		}
-		else // Non are no eggs discovered or ditto
+		else // None are no eggs discovered or ditto
 		{
 			if (parent1species.eggGroup1 == parent2species.eggGroup1 || parent1species.eggGroup1 == parent2species.eggGroup2)
 				groupMatch1 = parent1species.eggGroup1;
@@ -437,15 +456,36 @@ namespace Pokemon
 		// Roll for species
 		int chance = rand() % 100;
 		int chilSpecieId = 0;
-		if (chance <= 40)
+		Name inheritedForm;
+		if (chance <= 80)
 		{
-			// do one
-			chilSpecieId = parent1species.childSpecies;
-		}
-		else if (chance <= 80)
-		{
-			// do another
-			chilSpecieId = parent2species.childSpecies;
+			if (parent1species.eggGroup1 == EGG_DITTO || parent2species.eggGroup1 == EGG_DITTO) // pick one that isn't ditto
+			{
+				if (parent1species.eggGroup1 != EGG_DITTO)
+				{
+					chilSpecieId = parent1species.childSpecies;
+					if (parent1species.doesPassDownForm)
+						inheritedForm = parent1.formOrVariantName;
+				}
+				else
+				{
+					chilSpecieId = parent2species.childSpecies;
+					if (parent2species.doesPassDownForm)
+						inheritedForm = parent2.formOrVariantName;
+				}
+			}
+			else if (chance <= 40) // do one
+			{
+				chilSpecieId = parent1species.childSpecies;
+				if (parent1species.doesPassDownForm)
+					inheritedForm = parent1.formOrVariantName;
+			}
+			else // do another
+			{
+				chilSpecieId = parent2species.childSpecies;
+				if (parent2species.doesPassDownForm)
+					inheritedForm = parent2.formOrVariantName;
+			}
 		}
 		else
 		{
@@ -459,22 +499,28 @@ namespace Pokemon
 			chilSpecieId = possibleSpecies[rand() % possibleSpecies.size()];
 		}
 
-		sSpeciesData childSpecie;
-		LoadSpecieData(chilSpecieId, childSpecie);
+		sSpeciesData childSpecies;
+		LoadSpecieData(chilSpecieId, childSpecies);
 
-		// Check if parents current moves can be learned as egg moves
-		child.nationalDexNumber = childSpecie.nationalDexNumber;
-		child.formName; // TODO
-
+		child.nationalDexNumber = childSpecies.nationalDexNumber;
 		child.level = 1;
-		if (childSpecie.genderRatio == -1)
+		child.isShiny = rand() % BASE_SHINY_ODDS == 0;
+		if (childSpecies.genderRatio == -1)
 			child.gender = NO_GENDER;
 		else
-			child.gender = rand() % 9 < childSpecie.genderRatio ? MALE : FEMALE;
-		child.isShiny = rand() % BASE_SHINY_ODDS == 0;
+			child.gender = rand() % 9 < childSpecies.genderRatio ? MALE : FEMALE;
 
-		child.isFormGenderBased = childSpecie.isFormGenderBased;
-		child.isSpriteGenderBased = childSpecie.isSpriteGenderBased;
+		if (childSpecies.isFormGenderBased)
+			child.formOrVariantName = child.gender == FEMALE ? "f" : "";
+		else if (!childSpecies.variants.empty())
+			childSpecies.GetRandomFormOrVariant(child.formOrVariantName);
+		else if (inheritedForm != "")
+			child.formOrVariantName = inheritedForm;
+		else
+			child.formOrVariantName = childSpecies.defaultForm.name;
+
+		child.isFormGenderBased = childSpecies.isFormGenderBased;
+		child.isSpriteGenderBased = childSpecies.isSpriteGenderBased;
 
 		child.expToNextLevel; // TODO
 		child.abilityId; // TODO
@@ -488,7 +534,7 @@ namespace Pokemon
 		child.IVs.spDef = rand() % 32;
 		child.IVs.spd = rand() % 32;
 
-		sForm& formUsed = childSpecie.defaultForm; // TODO: use appropriate form
+		sForm& formUsed = childSpecies.GetForm(child.formOrVariantName);
 		for (unsigned int i = 0; i < formUsed.learnset.size(); i++)
 		{
 			if (formUsed.learnset[i].first < -1)
@@ -541,7 +587,7 @@ namespace Pokemon
 
 	void LoadFormData(rapidjson::Value& formObject, sForm& form)
 	{
-		strcpy_s(form.name, formObject["name"].GetString());
+		form.name = formObject["name"].GetString();
 
 		form.type1 = static_cast<eType>(formObject["type_1"].GetInt());
 		form.type2 = static_cast<eType>(formObject["type_2"].GetInt());

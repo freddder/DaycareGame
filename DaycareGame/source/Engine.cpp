@@ -459,7 +459,7 @@ void RenderImgui()
 
         if (selectedSpecies.nationalDexNumber != 0)
         {
-            std::string title = std::string(selectedSpecies.name) + " #" + std::to_string(selectedSpecies.nationalDexNumber);
+            std::string title = selectedSpecies.name.str() + " #" + std::to_string(selectedSpecies.nationalDexNumber);
             ImGui::Text(title.c_str());
 
             if (ImGui::BeginTable("table1", 2, ImGuiTableFlags_SizingFixedFit))
@@ -520,7 +520,9 @@ void RenderImgui()
             {
                 for (unsigned int i = 0; i < selectedSpecies.evolutions.size(); i++)
                 {
+                    ImGui::PushID(selectedSpecies.evolutions[i].dexId);
                     RenderEvolutionData(selectedSpecies.evolutions[i]);
+                    ImGui::PopID();
                     ImGui::Separator();
                 }
                 ImGui::TreePop();
@@ -534,7 +536,7 @@ void RenderImgui()
 
             for (unsigned int i = 0; i < selectedSpecies.alternateForms.size(); i++)
             {
-                std::string formTitle = std::string(selectedSpecies.alternateForms[i].name) + " form";
+                std::string formTitle = selectedSpecies.alternateForms[i].name.str() + " form";
                 ImGui::Text(formTitle.c_str());
                 ImGui::PushID(formTitle.c_str());
                 RenderFormData(selectedSpecies.alternateForms[i]);
@@ -549,7 +551,7 @@ void RenderImgui()
         }
     }
 
-    if (ImGui::CollapsingHeader("Testingshit"))
+    if (ImGui::CollapsingHeader("Breeding Test"))
     {
         static int pkm1Dex;
         ImGui::DragInt("Parent1 Dex Num", &pkm1Dex, 1, 0, 1008);
@@ -705,6 +707,9 @@ void RenderIndividualData(Pokemon::sIndividualData& data)
 {
     std::string title = "DEX: " + std::to_string(data.nationalDexNumber);
     ImGui::Text(title.c_str());
+
+    std::string form = "FORM: " + data.formOrVariantName.str();
+    ImGui::Text(form.c_str());
 
     ImGui::Checkbox("Shiny", &data.isShiny);
 

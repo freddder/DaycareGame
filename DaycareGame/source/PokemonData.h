@@ -1,10 +1,62 @@
 #pragma once
+#include <string_view>
 #include <string>
 #include <vector>
+#include <array>
 
-typedef char Name[12];
+struct Name {
+	std::array<char, 12> data {};
 
-bool CompareName(const Name& name, const std::string& str);
+	constexpr Name() = default;
+
+	constexpr Name(std::string_view str)
+	{
+		std::size_t len = std::min(str.size(), data.size() - 1); // Leave room for '\0'
+		std::copy_n(str.begin(), len, data.begin());
+		data[len] = '\0'; // Null-terminate
+	}
+
+	// Allow assignment from string-like types
+	Name& operator=(std::string_view str)
+	{
+		std::fill(data.begin(), data.end(), '\0');
+		std::size_t len = std::min(str.size(), data.size() - 1);
+		std::copy_n(str.begin(), len, data.begin());
+		return *this;
+	}
+
+	// Implicit conversion to std::string
+	std::string str() const 
+	{
+		return std::string(data.data()); // Stops at '\0'
+	}
+
+	const char* c_str() const
+	{
+		return data.data(); // Stops at '\0'
+	}
+
+	// Comparisons
+	bool operator==(const std::string& other) const 
+	{
+		return str() == other;
+	}
+
+	bool operator!=(const std::string& other) const
+	{
+		return str() != other;
+	}
+
+	bool operator==(const Name& other) const 
+	{
+		return data == other.data;
+	}
+
+	bool operator!=(const Name& other) const 
+	{
+		return !(*this == other);
+	}
+};
 
 namespace Pokemon
 {
@@ -257,7 +309,7 @@ namespace Pokemon
 
 	struct sForm
 	{
-		Name name = "";
+		Name name;
 
 		sStats baseStats;
 
@@ -284,7 +336,7 @@ namespace Pokemon
 
 	struct sSpeciesData
 	{
-		Name name = "";
+		Name name;
 		unsigned int nationalDexNumber = 0;
 		unsigned int childSpecies = 0;
 
@@ -298,12 +350,16 @@ namespace Pokemon
 		bool isFormGenderBased = false; // Use an alternate form if female. Will only be used a few times (ex: Meowstic, Indeedee)
 		bool isSpriteGenderBased = false; // Change sprite if its female (doesn't matter if isStatsGenderBased is true)
 		bool isFormSwitchable = false;
-		bool isBornFormRandom = false;
+		bool doesPassDownForm = false;
 
 		std::vector<sEvolution> evolutions;
 
 		sForm defaultForm;
 		std::vector<sForm> alternateForms;
+		std::vector<Name> variants;
+
+		sForm& GetForm(const Name& name);
+		void GetRandomFormOrVariant(Name& name) const;
 	};
 
 	const static unsigned int JSON_DATA_VERSION = 4;
@@ -316,7 +372,7 @@ namespace Pokemon
 	struct sRoamingPokemonData // Minimal data for rendering sprite in overworld
 	{
 		unsigned int nationalDexNumber = 0;
-		Name formName = "";
+		Name formOrVariantName;
 
 		int level = 0;
 		eGender gender = NO_GENDER;
@@ -349,7 +405,7 @@ namespace Pokemon
 		sStats EVs; // Effort values
 
 		unsigned int item = 0;
-		Name nickname = "";
+		Name nickname;
 
 		std::string MakeBattleTextureName(bool isFront = true) const;
 		//void LoadFormFromSpeciesData();

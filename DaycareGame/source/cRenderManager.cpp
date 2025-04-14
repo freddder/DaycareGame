@@ -852,7 +852,7 @@ void cRenderManager::LoadRoamingPokemonSpecieTextures(const Pokemon::sSpeciesDat
         // Load all alternate forms
         for (unsigned int i = 0; i < specieData.alternateForms.size(); i++)
         {
-            LoadRoamingPokemonFormSpriteSheet(specieData.nationalDexNumber, specieData.alternateForms[i].name);
+            LoadRoamingPokemonFormSpriteSheet(specieData.nationalDexNumber, specieData.alternateForms[i].name.str());
         }
     }
 }
