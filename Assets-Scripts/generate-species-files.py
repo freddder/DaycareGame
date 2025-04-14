@@ -173,12 +173,16 @@ def create_entry(species_id):
     alternate_forms = []
     variants = []
     has_regional_form = False
+    has_mega = False
     for form in specie_data["varieties"]:
         url = form["pokemon"]["url"]
         form_response = requests.get(url)
         form_data = form_response.json()
 
         splits = form["pokemon"]["name"].split('-')
+        if "mega" in splits:
+            has_mega = True
+
         if form["is_default"]:
             default_form = load_form_data(form_data)
 
@@ -287,11 +291,17 @@ def create_entry(species_id):
     file_data["evolutions"] = evolutions
 
     file_data["is_sprite_gender_based"] = specie_data["has_gender_differences"]
+
     if len(specie_data["varieties"]) > 1:
         file_data["is_stats_gender_based"] = specie_data["varieties"][1]["pokemon"]["name"].split('-')[-1] == "female"
     else:
         file_data["is_stats_gender_based"] = False
-    file_data["is_form_switchable"] = specie_data["forms_switchable"]
+
+    if has_mega:
+        file_data["is_form_switchable"] = False
+    else:
+        file_data["is_form_switchable"] = specie_data["forms_switchable"]
+        
     file_data["does_pass_down_form"] = dex_num in species_that_pass_down_form
 
     file_data["default_form"] = default_form

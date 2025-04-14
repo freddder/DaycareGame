@@ -11,7 +11,7 @@
     "evolutions": [],
     "is_sprite_gender_based": false,
     "is_stats_gender_based": false,
-    "is_form_switchable": true,
+    "is_form_switchable": false,
     "does_pass_down_form": false,
     "default_form": {
         "name": "",
