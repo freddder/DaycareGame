@@ -3,10 +3,20 @@
 #include "Engine.h"
 #include "cMapManager.h"
 
+#include <iostream>
+
 cCharacterEntity::cCharacterEntity(glm::vec3 pos)
 {
 	position = pos;
 	follower = nullptr;
+
+	L = luaL_newstate();
+	luaL_openlibs(L);
+
+	if (luaL_dofile(L, "source/LuaScripts/NPC.lua") != LUA_OK) {
+		std::cerr << "Error loading script: " << lua_tostring(L, -1) << std::endl;
+		lua_pop(L, 1);
+	}
 }
 
 cCharacterEntity::~cCharacterEntity()
@@ -15,6 +25,8 @@ cCharacterEntity::~cCharacterEntity()
 
 	if (spriteModel)
 		delete spriteModel;
+
+	lua_close(L);
 }
 
 void cCharacterEntity::AttemptMovement(eDirection dir, bool run)

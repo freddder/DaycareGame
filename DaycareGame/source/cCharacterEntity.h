@@ -3,6 +3,13 @@
 #include "cEntity.h"
 #include "CharacterSprite.h"
 
+extern "C"
+{
+#include "lua/lua.h"
+#include "lua/lauxlib.h"
+#include "lua/lualib.h"
+}
+
 class cCharacterEntity : public cEntity
 {
 public:
@@ -20,4 +27,7 @@ public:
 	void SetFollower(cCharacterEntity* newFollower);
 	void UnsetFollower();
 	void MoveFollower(glm::vec3 newPos, bool run);
+
+private:
+	lua_State* L;
 };

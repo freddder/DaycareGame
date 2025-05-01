@@ -57,6 +57,9 @@
     <Filter Include="UI\Pastures">
       <UniqueIdentifier>{b9c299e2-06f5-4356-9e1c-c44076bd6821}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Lua">
+      <UniqueIdentifier>{e3daad34-808f-4ec0-bef7-f531c5f82d7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\CanvasFactory.cpp">
@@ -353,6 +356,9 @@
     </None>
     <None Include="assets\shaders\WaveVertShader.glsl">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="source\LuaScripts\NPC.lua">
+      <Filter>Lua</Filter>
     </None>
   </ItemGroup>
 </Project>
