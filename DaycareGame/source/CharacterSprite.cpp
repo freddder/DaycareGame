@@ -34,19 +34,19 @@ glm::vec3 cCharacterSprite::AnimateMovement(eDirection dir, bool run, eEntityMov
 	modelAnimation->Reset(model->position, model->orientation, model->scale);
 
 	// Make model animation
-	glm::vec3 newPosition = model->position;
+	glm::ivec3 newPosition = model->position;
 
 	if (moveResult != eEntityMoveResult::FAILURE)
 	{
-		if (dir == UP) newPosition.x += 1.f;
-		else if (dir == DOWN) newPosition.x -= 1.f;
-		else if (dir == LEFT) newPosition.z -= 1.f;
-		else if (dir == RIGHT) newPosition.z += 1.f;
+		if (dir == UP) newPosition.x += 1;
+		else if (dir == DOWN) newPosition.x -= 1;
+		else if (dir == LEFT) newPosition.z -= 1;
+		else if (dir == RIGHT) newPosition.z += 1;
 	}
 
 	// Ajust height
-	if (moveResult == eEntityMoveResult::SUCCESS_UP) newPosition.y += 1.f;
-	else if (moveResult == eEntityMoveResult::SUCCESS_DOWN) newPosition.y -= 1.f;
+	if (moveResult == eEntityMoveResult::SUCCESS_UP) newPosition.y += 1;
+	else if (moveResult == eEntityMoveResult::SUCCESS_DOWN) newPosition.y -= 1;
 
 	if (!run || moveResult == eEntityMoveResult::FAILURE) modelAnimation->AddPositionKeyFrame(sKeyFrameVec3(0.3f, newPosition));
 	else modelAnimation->AddPositionKeyFrame(sKeyFrameVec3(0.14f, newPosition));

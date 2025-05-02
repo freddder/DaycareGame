@@ -9,14 +9,6 @@ cCharacterEntity::cCharacterEntity(glm::vec3 pos)
 {
 	position = pos;
 	follower = nullptr;
-
-	L = luaL_newstate();
-	luaL_openlibs(L);
-
-	if (luaL_dofile(L, "source/LuaScripts/NPC.lua") != LUA_OK) {
-		std::cerr << "Error loading script: " << lua_tostring(L, -1) << std::endl;
-		lua_pop(L, 1);
-	}
 }
 
 cCharacterEntity::~cCharacterEntity()
@@ -25,8 +17,6 @@ cCharacterEntity::~cCharacterEntity()
 
 	if (spriteModel)
 		delete spriteModel;
-
-	lua_close(L);
 }
 
 void cCharacterEntity::AttemptMovement(eDirection dir, bool run)
@@ -35,8 +25,9 @@ void cCharacterEntity::AttemptMovement(eDirection dir, bool run)
 
 	eEntityMoveResult moveResult = Manager::map.TryMoveEntity(this, dir);
 
-	glm::vec3 prevPos = position;
+	glm::ivec3 prevPos = position;
 	position = spriteModel->AnimateMovement(dir, run, moveResult);
+	currFacingDir = dir;
 
 	if (follower && moveResult != eEntityMoveResult::FAILURE)
 	{

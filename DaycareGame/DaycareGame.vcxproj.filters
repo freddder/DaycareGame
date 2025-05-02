@@ -167,6 +167,9 @@
     <ClCompile Include="source\Pasture.cpp">
       <Filter>UI\Pastures</Filter>
     </ClCompile>
+    <ClCompile Include="source\cNPCCharacter.cpp">
+      <Filter>Entity\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CanvasFactory.h">
@@ -280,6 +283,12 @@
     <ClInclude Include="source\Pasture.h">
       <Filter>UI\Pastures</Filter>
     </ClInclude>
+    <ClInclude Include="source\Lua.hpp">
+      <Filter>Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="source\cNPCCharacter.h">
+      <Filter>Entity\Character</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\2DSnowFragShader.glsl">
@@ -357,7 +366,10 @@
     <None Include="assets\shaders\WaveVertShader.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="source\LuaScripts\NPC.lua">
+    <None Include="source\LuaScripts\TestNPC.lua">
+      <Filter>Lua</Filter>
+    </None>
+    <None Include="source\LuaScripts\NPCLogic.lua">
       <Filter>Lua</Filter>
     </None>
   </ItemGroup>

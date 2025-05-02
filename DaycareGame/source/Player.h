@@ -28,4 +28,6 @@ namespace Player
 
 	void AddPartyMember(const Pokemon::sIndividualData& newPartyMember);
 	void SwitchPartyMembers(const int member1, const int member2);
+
+	void AttemptInteract();
 }

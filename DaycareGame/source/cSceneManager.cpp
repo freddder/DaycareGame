@@ -1,6 +1,7 @@
 #include "cSceneManager.h"
 #include "cWildRoamingPokemon.h"
 #include "cTamedRoamingPokemon.h"
+#include "cNPCCharacter.h"
 #include "Player.h"
 
 #include <time.h>
@@ -212,6 +213,19 @@ std::shared_ptr<cTamedRoamingPokemon> cSceneManager::SpawnTamedPokemon(Pokemon::
 	spawnTile->entity = newTamedPokemon.get();
 
 	return newTamedPokemon;
+}
+
+std::shared_ptr<cNPCCharacter> cSceneManager::SpawnNPC(std::string textureName, glm::vec3 tileLocation)
+{
+	sTile* spawnTile = Manager::map.GetTile(tileLocation);
+	if (!spawnTile || spawnTile->entity != nullptr) return nullptr;
+
+	std::shared_ptr<cNPCCharacter> newNPC = std::make_shared<cNPCCharacter>(textureName, tileLocation);
+	npcs.push_back(newNPC);
+
+	spawnTile->entity = newNPC.get();
+
+	return newNPC;
 }
 
 void cSceneManager::ChangeScene(const std::string newSceneDescFile, const int entranceNumUsed)

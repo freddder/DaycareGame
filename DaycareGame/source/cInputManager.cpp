@@ -55,6 +55,12 @@ void cInputManager::Startup()
 		Player::playerChar->AttemptMovement(RIGHT, inputActions[currInputState][IT_CANCEL].isDown); 
 	};
 
+	sInputAction& moveConfirmAction = inputActions[OVERWORLD_MOVEMENT][IT_CONFIRM];
+	moveConfirmAction.ignoreHoldThreshold = true;
+	moveConfirmAction.PressedAction = [this]() {
+		Player::AttemptInteract();
+	};
+
 	sInputAction& openMenu = inputActions[OVERWORLD_MOVEMENT][IT_MENU];
 	openMenu.PressedAction = [this]() {
 		ChangeInputState(MENU_NAVIGATION);

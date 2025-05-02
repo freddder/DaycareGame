@@ -767,50 +767,48 @@ void cMapManager::RemoveEntityFromTile(glm::ivec3 worldPosition)
 
 eEntityMoveResult cMapManager::TryMoveEntity(cEntity* entityToMove, eDirection direction)
 {
-	int desiredPosX = (int)entityToMove->position.x;
-	int desiredPosY = (int)entityToMove->position.y;
-	int desiredPosZ = (int)entityToMove->position.z;
+	glm::ivec3 desiredPos = entityToMove->position;
 
 	if (direction == eDirection::UP)
-		desiredPosX += 1;
+		desiredPos.x += 1;
 	else if (direction == eDirection::DOWN)
-		desiredPosX -= 1;
+		desiredPos.x -= 1;
 	else if (direction == eDirection::LEFT)
-		desiredPosZ -= 1;
+		desiredPos.z -= 1;
 	else if (direction == eDirection::RIGHT)
-		desiredPosZ += 1;
+		desiredPos.z += 1;
 
-	sQuadrant* desiredQuad = GetQuad(desiredPosX, desiredPosZ);
+	sQuadrant* desiredQuad = GetQuad(desiredPos.x, desiredPos.z);
 	if (!desiredQuad) return eEntityMoveResult::FAILURE; // Tries to walk on a quad that doesn't exists
 
-	desiredPosX += 15 - 32 * desiredQuad->posX;
-	desiredPosZ += 15 - 32 * desiredQuad->posZ;
+	desiredPos.x += 15 - 32 * desiredQuad->posX;
+	desiredPos.z += 15 - 32 * desiredQuad->posZ;
 
 	eEntityMoveResult moveResult = eEntityMoveResult::FAILURE;
-	if (desiredQuad->GetTileFromLocalPosition(glm::vec3(desiredPosX, desiredPosY, desiredPosZ))->IsAvailable()) // same height
+	if (desiredQuad->GetTileFromLocalPosition(desiredPos)->IsAvailable()) // same height
 	{
 		moveResult = eEntityMoveResult::SUCCESS;
 	}
-	else if (desiredQuad->GetTileFromLocalPosition(glm::vec3(desiredPosX, desiredPosY + 1, desiredPosZ))->IsAvailable()) // go up
+	else if (desiredQuad->GetTileFromLocalPosition(glm::ivec3(desiredPos.x, desiredPos.y + 1, desiredPos.z))->IsAvailable()) // go up
 	{
 		moveResult = eEntityMoveResult::SUCCESS_UP;
-		desiredPosY++;
+		desiredPos.y += 1;
 	}
-	else if (desiredQuad->GetTileFromLocalPosition(glm::vec3(desiredPosX, desiredPosY - 1, desiredPosZ))->IsAvailable()) // go down
+	else if (desiredQuad->GetTileFromLocalPosition(glm::ivec3(desiredPos.x, desiredPos.y - 1, desiredPos.z))->IsAvailable()) // go down
 	{
 		moveResult = eEntityMoveResult::SUCCESS_DOWN;
-		desiredPosY--;
+		desiredPos.y -= 1;
 	}
 
 	if (moveResult != eEntityMoveResult::FAILURE)
 	{
 		// OPTIMIZATION: it might be better to have a check on position x and z and direction to easily check
 		// if entity will be changing quad and not have to search for quads twice with a single function call
-		if (sQuadrant* currQuad = GetQuad((int)entityToMove->position.x, (int)entityToMove->position.z))
+		if (sQuadrant* currQuad = GetQuad(entityToMove->position.x, entityToMove->position.z))
 		{
-			int currLocalX = (int)entityToMove->position.x + 15 - 32 * currQuad->posX;
-			int currLocalZ = (int)entityToMove->position.z + 15 - 32 * currQuad->posZ;
-			if (sTile* currTile = currQuad->GetTileFromLocalPosition(glm::vec3(currLocalX, entityToMove->position.y, currLocalZ)))
+			int currLocalX = entityToMove->position.x + 15 - 32 * currQuad->posX;
+			int currLocalZ = entityToMove->position.z + 15 - 32 * currQuad->posZ;
+			if (sTile* currTile = currQuad->GetTileFromLocalPosition(glm::ivec3(currLocalX, entityToMove->position.y, currLocalZ)))
 			{
 				if (currTile->entity == entityToMove)
 				{
@@ -819,7 +817,7 @@ eEntityMoveResult cMapManager::TryMoveEntity(cEntity* entityToMove, eDirection d
 			}
 		}
 
-		sTile* tileToWalk = desiredQuad->GetTileFromLocalPosition(glm::vec3(desiredPosX, desiredPosY, desiredPosZ));
+		sTile* tileToWalk = desiredQuad->GetTileFromLocalPosition(desiredPos);
 		if (tileToWalk->entity)
 		{
 			if (dynamic_cast<cPlayerEntity*>(entityToMove) == Player::playerChar) // Player walk into it

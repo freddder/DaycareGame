@@ -3,6 +3,9 @@
 #include "cTamedRoamingPokemon.h"
 #include "PokemonData.h"
 
+#include "Engine.h"
+#include "cMapManager.h"
+
 namespace Player 
 {
     cPlayerEntity* playerChar;
@@ -52,6 +55,26 @@ namespace Player
         if (member1 == 1 || member2 == 1) // change the following tamed pokemon sprite
         {
             playerPartner.get()->UpdateRoamingData(party[0]);
+        }
+    }
+
+    void AttemptInteract()
+    {
+        glm::ivec3 desiredPos = playerChar->position;
+
+        if (playerChar->currFacingDir == eDirection::UP)
+            desiredPos.x += 1;
+        else if (playerChar->currFacingDir == eDirection::DOWN)
+            desiredPos.x -= 1;
+        else if (playerChar->currFacingDir == eDirection::LEFT)
+            desiredPos.z -= 1;
+        else if (playerChar->currFacingDir == eDirection::RIGHT)
+            desiredPos.z += 1;
+
+        sTile* facingTile = Manager::map.GetTile(desiredPos);
+        if (facingTile && facingTile->entity)
+        {
+            facingTile->entity->PromptInteract();
         }
     }
 }

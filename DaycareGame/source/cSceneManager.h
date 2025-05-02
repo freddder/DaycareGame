@@ -6,6 +6,7 @@
 
 class cWildRoamingPokemon;
 class cTamedRoamingPokemon;
+class cNPCCharacter;
 struct sTile;
 
 enum eEnvironmentWeather
@@ -58,12 +59,14 @@ private:
 	//std::vector<Pokemon::sSpawnData> loadedSpawnData;
 	//std::vector<std::shared_ptr<cWildRoamingPokemon>> roamingWildPokemon;
 	std::vector<std::shared_ptr<cTamedRoamingPokemon>> roamingTamedPokemon;
+	std::vector<std::shared_ptr<cNPCCharacter>> npcs;
 public:
 	//void LoadSpawnData(const int nationalDexId, const int minLevel, const int maxLevel, const Pokemon::eSpawnType spawnType,  const int spawnChance, const std::string formName = "");
 	//std::shared_ptr<cWildRoamingPokemon> SpawnRandomWildPokemon();
 	//std::shared_ptr<cWildRoamingPokemon> SpawnWildPokemon(const Pokemon::sSpawnData& spawnData, glm::vec3 tileLocation, sTile* spawnTile);
 	//void DespawnWildPokemon(cWildRoamingPokemon* pokemonToDespawn);
 	std::shared_ptr<cTamedRoamingPokemon> SpawnTamedPokemon(Pokemon::sRoamingPokemonData& pokemonData, glm::vec3 tileLocation);
+	std::shared_ptr<cNPCCharacter> SpawnNPC(std::string textureName, glm::vec3 tileLocation);
 
 private:
 	//Pokemon::sBattleData enemyBattleData;

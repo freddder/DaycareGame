@@ -38,6 +38,7 @@
     <ClCompile Include="source\cLightManager.cpp" />
     <ClCompile Include="source\cLinearCongruentialGenerator.cpp" />
     <ClCompile Include="source\cMapManager.cpp" />
+    <ClCompile Include="source\cNPCCharacter.cpp" />
     <ClCompile Include="source\cParticleSpawner.cpp" />
     <ClCompile Include="source\cPlayerEntity.cpp" />
     <ClCompile Include="source\cRenderManager.cpp" />
@@ -77,6 +78,7 @@
     <ClInclude Include="source\cLightManager.h" />
     <ClInclude Include="source\cLinearCongruentialGenerator.h" />
     <ClInclude Include="source\cMapManager.h" />
+    <ClInclude Include="source\cNPCCharacter.h" />
     <ClInclude Include="source\cParticleSpawner.h" />
     <ClInclude Include="source\cPlayerEntity.h" />
     <ClInclude Include="source\cRandomNumberGenerator.h" />
@@ -89,6 +91,7 @@
     <ClInclude Include="source\cWildRoamingPokemon.h" />
     <ClInclude Include="source\DrawInfo.h" />
     <ClInclude Include="source\Engine.h" />
+    <ClInclude Include="source\Lua.hpp" />
     <ClInclude Include="source\Pasture.h" />
     <ClInclude Include="source\Player.h" />
     <ClInclude Include="source\PokemonData.h" />
@@ -120,7 +123,8 @@
     <None Include="assets\shaders\VertShader1.glsl" />
     <None Include="assets\shaders\WaveFragShader.glsl" />
     <None Include="assets\shaders\WaveVertShader.glsl" />
-    <None Include="source\LuaScripts\NPC.lua" />
+    <None Include="source\LuaScripts\NPCLogic.lua" />
+    <None Include="source\LuaScripts\TestNPC.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

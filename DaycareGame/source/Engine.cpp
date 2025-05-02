@@ -28,6 +28,7 @@
 #include "Player.h"
 #include "cPlayerEntity.h"
 #include "cTamedRoamingPokemon.h"
+#include "cNPCCharacter.h"
 
 GLFWwindow* window;
 float deltaTime = 0.f;
@@ -173,6 +174,9 @@ namespace Engine
         Player::playerChar->SetFollower(Player::playerPartner.get());
 
         Manager::map.Startup();
+
+        Manager::render.LoadSpriteSheet("AsymetricalNPC_1.png", 3, 4);
+        std::shared_ptr<cNPCCharacter> npc = Manager::scene.SpawnNPC("AsymetricalNPC_1.png", glm::vec3(0.f, 0.f, 20.f));
 
         Manager::input.Startup();
 

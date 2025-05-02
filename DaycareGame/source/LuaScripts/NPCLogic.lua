@@ -1,16 +1,3 @@
-dialogIndex = 0
-dialog = {
-	{ text = "hi" },
-	{ text = "whatchu thinking?", choices = {
-			{ text = "I dont think", next = 3 },
-			{ text = "Whole lotta stuff", next = 4 }
-		}
-	},
-	{ text = "impressive", quit = true },
-	{ text = "ok" },
-	{ text = "socrates" }
-}
-
 function get_next_line(input)
 	if dialogIndex ~= 0 and dialog[dialogIndex].quit ~= nil then
 		dialogIndex = 0
