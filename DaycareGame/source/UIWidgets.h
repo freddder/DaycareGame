@@ -58,13 +58,13 @@ public:
 	void AddChild(cUIWidget* newChild);
 
 protected:
-	const float CalculateHeightPixels();
-	const float CalculateHeightScreenPercent();
-	const float CalculateWidthPixels();
-	const float CalculateWidthScreenPercent();
+	float CalculateHeightPixels() const;
+	float CalculateHeightScreenPercent() const;
+	float CalculateWidthPixels() const;
+	float CalculateWidthScreenPercent() const;
 
-	const float CalculateVerticalTranslate();
-	const float CalculateHorizontalTranslate();
+	float CalculateVerticalTranslate() const;
+	float CalculateHorizontalTranslate() const;
 
 protected:
 	bool isFocused = false;

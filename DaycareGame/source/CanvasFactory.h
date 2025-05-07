@@ -109,3 +109,16 @@ public:
 	virtual void ConfirmAction();
 	virtual void CancelAction();
 };
+
+class cDialogCanvas : public cUICanvas
+{
+	cUIText* textWidget;
+
+public:
+	cDialogCanvas();
+	virtual ~cDialogCanvas() {};
+
+	virtual void ConfirmAction();
+
+	void UpdateText(const std::string& newText);
+};

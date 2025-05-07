@@ -241,7 +241,7 @@ void cUIManager::CreateTextDataBuffer(cUIText* text)
     }
 
     float glyphPixelRatio = text->CalculateHeightPixels() * text->textSizePercent / (float)font.glyphSize;
-    float pixelCutoff = text->CalculateWidthPixels();
+    float pixelCutoff = text->parent->CalculateWidthPixels();
 
     std::vector<sCharBufferData> data;
     int advanceX = 0;
@@ -269,7 +269,7 @@ void cUIManager::CreateTextDataBuffer(cUIText* text)
             sFontCharData& ch = font.characters[c];
 
             int posX = advanceX + ch.bearing.x;
-            int posY = ch.size.y - ch.bearing.y + advanceY;
+            int posY = ch.size.y - ch.bearing.y + advanceY + font.glyphSize;
 
             int sizeX = ch.size.x;
             int sizeY = ch.size.y;
@@ -288,6 +288,11 @@ void cUIManager::CreateTextDataBuffer(cUIText* text)
     }
 
     text->drawCharCount = data.size();
+
+    if (text->dataBufferId != 0)
+    {
+        glDeleteBuffers(1, &text->dataBufferId);
+    }
 
     glGenBuffers(1, &text->dataBufferId);
     glBindBuffer(GL_ARRAY_BUFFER, text->dataBufferId);
@@ -364,6 +369,43 @@ void cUIManager::ExecuteInputAction(eInputType inputType)
     if (newFocus)
         currCanvas->currFocus = newFocus;
 }
+
+static int testCount = 1;
+void cUIManager::ShowDialogLine(const std::string& text)
+{
+    cDialogCanvas* dialogCanvas = nullptr;
+    if (!canvases.empty())
+    {
+        dialogCanvas = dynamic_cast<cDialogCanvas*>(canvases.top());
+    }
+
+    if (!dialogCanvas)
+    {
+        dialogCanvas = new cDialogCanvas();
+        AddCanvas(dialogCanvas);
+    }
+
+    Manager::input.ChangeInputState(MENU_NAVIGATION);
+    
+    dialogCanvas->UpdateText(text);
+}
+
+void cUIManager::EndDialog()
+{
+    cDialogCanvas* dialogCanvas = nullptr;
+    if (!canvases.empty())
+    {
+        dialogCanvas = dynamic_cast<cDialogCanvas*>(canvases.top());
+    }
+
+    if (!dialogCanvas)
+        return;
+
+    canvases.pop();
+    delete dialogCanvas;
+    Manager::input.ChangeInputState(OVERWORLD_MOVEMENT);
+}
+
 void cUIManager::DrawUI()
 {
 	const cUICanvas* canvasToDraw = canvases.top();

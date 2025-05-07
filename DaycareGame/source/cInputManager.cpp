@@ -34,7 +34,7 @@ void cInputManager::Startup()
 	sInputAction& moveUpAction = inputActions[OVERWORLD_MOVEMENT][IT_UP];
 	moveUpAction.ignoreHoldThreshold = true;
 	moveUpAction.HeldAction = [this]() { 
-		Player::playerChar->AttemptMovement(UP, inputActions[currInputState][IT_CANCEL].isDown); 
+		Player::playerChar->AttemptMovement(UP, inputActions[currInputState][IT_CANCEL].isDown);
 	};
 
 	sInputAction& moveDownAction = inputActions[OVERWORLD_MOVEMENT][IT_DOWN];
@@ -56,7 +56,6 @@ void cInputManager::Startup()
 	};
 
 	sInputAction& moveConfirmAction = inputActions[OVERWORLD_MOVEMENT][IT_CONFIRM];
-	moveConfirmAction.ignoreHoldThreshold = true;
 	moveConfirmAction.PressedAction = [this]() {
 		Player::AttemptInteract();
 	};
@@ -73,7 +72,6 @@ void cInputManager::Startup()
 
 	sInputAction& menuCancel = inputActions[MENU_NAVIGATION][IT_CANCEL];
 	menuCancel.PressedAction = [this]() {
-		//ChangeInputState(OVERWORLD_MOVEMENT);
 		Manager::ui.ExecuteInputAction(IT_CANCEL);
 	};
 
@@ -138,9 +136,6 @@ void cInputManager::BindInput(int key, eInputType type)
 
 void cInputManager::UpdateInput(int key, int action)
 {
-	if (key == GLFW_KEY_S && action == GLFW_PRESS)
-		Player::SwitchPartyMembers(1, 2);
-
 	eInputType type = boundInputs[key];
 	if (type == IT_INVALID) return;
 

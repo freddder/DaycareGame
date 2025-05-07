@@ -33,14 +33,14 @@ void cUIWidget::AddChild(cUIWidget* newChild)
 	children.push_back(newChild);
 }
 
-const float cUIWidget::CalculateHeightPixels()
+float cUIWidget::CalculateHeightPixels() const
 {
 	if (!parent) return heightPercent * Manager::camera.SCR_HEIGHT;
 
 	return heightPercent * parent->CalculateHeightPixels();
 }
 
-const float cUIWidget::CalculateHeightScreenPercent()
+float cUIWidget::CalculateHeightScreenPercent() const
 {
 	if (!parent) return heightPercent;
 
@@ -48,17 +48,17 @@ const float cUIWidget::CalculateHeightScreenPercent()
 	return heightInPixels / Manager::camera.SCR_HEIGHT;
 }
 
-const float cUIWidget::CalculateWidthPixels()
+float cUIWidget::CalculateWidthPixels() const
 {
 	return CalculateHeightPixels() / aspectRatio;
 }
 
-const float cUIWidget::CalculateWidthScreenPercent()
+float cUIWidget::CalculateWidthScreenPercent() const
 {
 	return CalculateWidthPixels() / Manager::camera.SCR_WIDTH;
 }
 
-const float cUIWidget::CalculateVerticalTranslate()
+float cUIWidget::CalculateVerticalTranslate() const
 {
 	float parentVerticalTranslation = 0.f;
 	float parentHeightPixels = (float)Manager::camera.SCR_HEIGHT;
@@ -84,7 +84,7 @@ const float cUIWidget::CalculateVerticalTranslate()
 	return parentVerticalTranslation + anchorPercentTranslate + thisPercentTranslate;
 }
 
-const float cUIWidget::CalculateHorizontalTranslate()
+float cUIWidget::CalculateHorizontalTranslate() const
 {
 	float parentHorizontalTranslation = 0.f;
 	float parentWidthPixels = (float)Manager::camera.SCR_WIDTH;

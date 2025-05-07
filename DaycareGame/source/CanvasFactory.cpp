@@ -574,3 +574,38 @@ void cPartyCanvas::CancelAction()
     Engine::currGameMode = eGameMode::MAP;
     Manager::ui.RemoveCanvas();
 }
+
+cDialogCanvas::cDialogCanvas()
+{
+    cUIImage* bubble = new cUIImage();
+    bubble->anchor = BOTTOM_MIDDLE;
+    bubble->aspectRatio = 1.f / 6.f;
+    bubble->heightPercent = 1.f / 5.f;
+    bubble->textureId = LoadUITexture("SpeechBubble.png");
+
+    cUIWidget* textContainer = new cUIWidget();
+    textContainer->heightPercent = 0.9f;
+    textContainer->aspectRatio = 1.f / 6.f;
+    bubble->AddChild(textContainer);
+
+    textWidget = new cUIText();
+    textWidget->anchor = TOP_LEFT;
+    textWidget->fontName = "Truth And Ideals-Normal.ttf";
+    textWidget->heightPercent = 0.3f;
+    textWidget->color = glm::vec3(0.3f);
+    textContainer->AddChild(textWidget);
+
+    defaultFocus = bubble;
+    anchoredWidgets.push_back(bubble);
+}
+
+void cDialogCanvas::ConfirmAction()
+{
+    Player::AttemptInteract();
+}
+
+void cDialogCanvas::UpdateText(const std::string& newText)
+{
+    textWidget->text = newText;
+    Manager::ui.CreateTextDataBuffer(textWidget);
+}

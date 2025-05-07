@@ -88,5 +88,10 @@ public:
     void ExecuteInputAction(eInputType inputType); // For navigation and functionality
 
 public:
+    void ShowDialogLine(const std::string& text);
+    //int ShowDialogOptions(lua_State* L);
+    void EndDialog();
+
+public:
     void DrawUI();
 };

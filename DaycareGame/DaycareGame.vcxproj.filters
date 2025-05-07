@@ -170,6 +170,9 @@
     <ClCompile Include="source\cNPCCharacter.cpp">
       <Filter>Entity\Character</Filter>
     </ClCompile>
+    <ClCompile Include="source\LuaCallable.cpp">
+      <Filter>Globals</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CanvasFactory.h">
@@ -288,6 +291,9 @@
     </ClInclude>
     <ClInclude Include="source\cNPCCharacter.h">
       <Filter>Entity\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LuaCallable.h">
+      <Filter>Globals</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

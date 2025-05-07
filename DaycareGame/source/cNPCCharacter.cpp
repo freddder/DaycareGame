@@ -3,6 +3,8 @@
 #include "Lua.hpp"
 #include <iostream>
 
+#include "LuaCallable.h"
+
 cNPCCharacter::cNPCCharacter(std::string textureName, glm::vec3 pos) : cCharacterEntity(pos)
 {
 	blocksTile = true;
@@ -21,6 +23,9 @@ cNPCCharacter::cNPCCharacter(std::string textureName, glm::vec3 pos) : cCharacte
 		std::cerr << "Error loading script: " << lua_tostring(L, -1) << std::endl;
 		lua_pop(L, 1);
 	}
+
+	lua_register(L, "ShowDialogLine", ShowDialogLine);
+	lua_register(L, "EndDialog", EndDialog);
 }
 
 cNPCCharacter::~cNPCCharacter()
@@ -32,9 +37,5 @@ void cNPCCharacter::PromptInteract()
 {
 	lua_getglobal(L, "interact");
 	lua_pushinteger(L, 0);
-	lua_pcall(L, 1, 1, 0);
-
-	std::string result = lua_tostring(L, -1);
-	std::cout << result << std::endl;
-	lua_pop(L, 1);
+	lua_pcall(L, 1, 0, 0);
 }
