@@ -113,12 +113,18 @@ public:
 class cDialogCanvas : public cUICanvas
 {
 	cUIText* textWidget;
+	cUIImage* optionsWidget;
+	cUIWidget* optionsContainer;
+	std::vector<cUIText*> options;
+	unsigned int hoveredOptionIndex = 0;
 
 public:
 	cDialogCanvas();
 	virtual ~cDialogCanvas() {};
 
-	virtual void ConfirmAction();
+	virtual void ConfirmAction() override;
+	virtual void MoveAction(const eDirection dir) override;
 
 	void UpdateText(const std::string& newText);
+	void ShowOptions(const std::vector<std::string>& options);
 };

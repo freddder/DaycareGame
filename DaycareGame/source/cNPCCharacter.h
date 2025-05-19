@@ -13,5 +13,5 @@ public:
 private:
 	lua_State* L;
 public:
-	virtual void PromptInteract() override;
+	virtual void PromptInteract(int input = 0) override;
 };

@@ -61,8 +61,9 @@ void cUIManager::Startup()
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
-    LoadFont("Truth And Ideals-Normal.ttf", 24);
+    LoadFont("Truth And Ideals-Normal.ttf", 32);
     LoadFont("Truth And Ideals - Fighting Ideals-Normal.ttf", 32);
+    LoadFont("HyliaSerifBeta-Regular.otf", 32);
 
     // Will probably move this to a better place
     cOverworldCanvas* oc = new cOverworldCanvas();
@@ -138,6 +139,10 @@ void cUICanvas::ConfirmAction()
 }
 
 void cUICanvas::CancelAction()
+{
+}
+
+void cUICanvas::MoveAction(const eDirection dir)
 {
 }
 
@@ -305,9 +310,14 @@ void cUIManager::CreateTextDataBuffer(cUIText* text)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-unsigned int cUIManager::GetFontGlyphSize(std::string fontName)
+unsigned int cUIManager::GetFontGlyphSize(const std::string& fontName)
 {
     return fonts[fontName].glyphSize;
+}
+
+unsigned int cUIManager::GetFontTextureId(const std::string& fontName)
+{
+    return fonts[fontName].textureAtlusId;
 }
 
 void cUIManager::SetupFont(const std::string fontName)
@@ -350,27 +360,30 @@ void cUIManager::ExecuteInputAction(eInputType inputType)
     }
 
     cUIWidget* newFocus = nullptr;
+    eDirection dir;
     switch (inputType)
     {
     case IT_UP:
-        newFocus = currCanvas->currFocus->MoveFocus(UP);
+        dir = UP;
         break;
     case IT_DOWN:
-        newFocus = currCanvas->currFocus->MoveFocus(DOWN);
+        dir = DOWN;
         break;
     case IT_LEFT:
-        newFocus = currCanvas->currFocus->MoveFocus(LEFT);
+        dir = LEFT;
         break;
     case IT_RIGHT:
-        newFocus = currCanvas->currFocus->MoveFocus(RIGHT);
+        dir = RIGHT;
         break;
     }
+
+    newFocus = currCanvas->currFocus->MoveFocus(dir);
+    currCanvas->MoveAction(dir);
     
     if (newFocus)
         currCanvas->currFocus = newFocus;
 }
 
-static int testCount = 1;
 void cUIManager::ShowDialogLine(const std::string& text)
 {
     cDialogCanvas* dialogCanvas = nullptr;
@@ -390,6 +403,20 @@ void cUIManager::ShowDialogLine(const std::string& text)
     dialogCanvas->UpdateText(text);
 }
 
+void cUIManager::ShowDialogOptions(const std::vector<std::string>& options)
+{
+    cDialogCanvas* dialogCanvas = nullptr;
+    if (!canvases.empty())
+    {
+        dialogCanvas = dynamic_cast<cDialogCanvas*>(canvases.top());
+    }
+
+    if (!dialogCanvas)
+        return;
+
+    dialogCanvas->ShowOptions(options);
+}
+
 void cUIManager::EndDialog()
 {
     cDialogCanvas* dialogCanvas = nullptr;
@@ -404,6 +431,7 @@ void cUIManager::EndDialog()
     canvases.pop();
     delete dialogCanvas;
     Manager::input.ChangeInputState(OVERWORLD_MOVEMENT);
+    Engine::currInteractingEntity = nullptr;
 }
 
 void cUIManager::DrawUI()

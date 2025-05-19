@@ -1,8 +1,8 @@
 dialog = {
 	{ text = "hi" },
-	{ text = "whatchu thinking?", quit = true, choices = {
-			{ text = "I dont think", next = 3 },
-			{ text = "Whole lotta stuff", next = 4 }
+	{ text = "whatchu thinking?", choices = {
+			{ text = "Yes", next = 3 },
+			{ text = "No", next = 4 }
 		}
 	},
 	{ text = "impressive", quit = true },
@@ -12,5 +12,5 @@ dialog = {
 }
 
 function interact(input)
-	s = get_next_line(dialog)
+	get_next_line(dialog, input)
 end

@@ -97,6 +97,7 @@ namespace Manager
 namespace Engine
 {
     eGameMode currGameMode = eGameMode::MAP;
+    cEntity* currInteractingEntity = nullptr;
 
     // camera
     float lastX = 1200 / 2.0f;
@@ -425,7 +426,8 @@ void RenderImgui()
                 ImGui::ColorEdit3("Color", *colors);
                 ImGui::DragFloat3("Position", *position);
                 ImGui::DragInt("Smoothing", shadowSmooth);
-                ImGui::Image((void*)(intptr_t)Manager::render.GetDepthMapId(), ImVec2(200, 200));
+                //ImGui::Image((void*)(intptr_t)Manager::render.GetDepthMapId(), ImVec2(200, 200));
+                ImGui::Image((void*)(intptr_t)Manager::ui.GetFontTextureId("Truth And Ideals-Normal.ttf"), ImVec2(200, 200));
 
                 ImGui::EndTabItem();
             }

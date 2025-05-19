@@ -56,6 +56,7 @@ protected:
 	cUIWidget* parent;
 public:
 	void AddChild(cUIWidget* newChild);
+	void ClearChildren();
 
 protected:
 	float CalculateHeightPixels() const;

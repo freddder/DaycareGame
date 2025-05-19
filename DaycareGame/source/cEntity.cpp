@@ -9,7 +9,7 @@ cEntity::~cEntity()
 {
 }
 
-void cEntity::PromptInteract()
+void cEntity::PromptInteract(int input)
 {
 }
 

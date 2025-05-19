@@ -11,7 +11,7 @@ public:
 	bool blocksTile = false;
 
 	// Interact
-	virtual void PromptInteract();
+	virtual void PromptInteract(int input = 0);
 	virtual void WalkInteract();
 
 	// AI

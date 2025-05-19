@@ -33,6 +33,15 @@ void cUIWidget::AddChild(cUIWidget* newChild)
 	children.push_back(newChild);
 }
 
+void cUIWidget::ClearChildren()
+{
+	for (unsigned int i = 0; i < children.size(); i++)
+	{
+		delete children[i];
+	}
+	children.clear();
+}
+
 float cUIWidget::CalculateHeightPixels() const
 {
 	if (!parent) return heightPercent * Manager::camera.SCR_HEIGHT;
@@ -213,6 +222,8 @@ cUIImage::~cUIImage()
 
 void cUIImage::Draw()
 {
+	if (isHidden) return;
+
 	cUIWidget::Draw();
 
 	if (textureId == 0) return;

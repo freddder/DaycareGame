@@ -10,6 +10,7 @@ class cMapManager;
 class cSceneManager;
 class cUIManager;
 class cInputManager;
+class cEntity;
 
 namespace Manager
 {
@@ -33,6 +34,7 @@ enum eGameMode
 namespace Engine
 {
 	extern eGameMode currGameMode;
+	extern cEntity* currInteractingEntity;
 
 	bool InitializeGLFW();
 

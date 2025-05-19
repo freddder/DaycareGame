@@ -26,6 +26,7 @@ protected:
     cUIWidget* currFocus;
     virtual void ConfirmAction();
     virtual void CancelAction();
+    virtual void MoveAction(const eDirection dir);
     void ResetFocus();
 
     friend class cUIManager;
@@ -80,7 +81,8 @@ private:
 public:
     void LoadFont(const std::string fontName, const unsigned int glyphSize);
     void CreateTextDataBuffer(cUIText* text);
-    unsigned int GetFontGlyphSize(std::string fontName);
+    unsigned int GetFontGlyphSize(const std::string& fontName);
+    unsigned int GetFontTextureId(const std::string& fontName);
     void SetupFont(const std::string fontName);
 
     // Functionality
@@ -89,7 +91,7 @@ public:
 
 public:
     void ShowDialogLine(const std::string& text);
-    //int ShowDialogOptions(lua_State* L);
+    void ShowDialogOptions(const std::vector<std::string>& options);
     void EndDialog();
 
 public:

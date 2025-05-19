@@ -3,6 +3,7 @@
 #include "Lua.hpp"
 #include <iostream>
 
+#include "Engine.h"
 #include "LuaCallable.h"
 
 cNPCCharacter::cNPCCharacter(std::string textureName, glm::vec3 pos) : cCharacterEntity(pos)
@@ -25,6 +26,7 @@ cNPCCharacter::cNPCCharacter(std::string textureName, glm::vec3 pos) : cCharacte
 	}
 
 	lua_register(L, "ShowDialogLine", ShowDialogLine);
+	lua_register(L, "ShowDialogOptions", ShowDialogOptions);
 	lua_register(L, "EndDialog", EndDialog);
 }
 
@@ -33,9 +35,12 @@ cNPCCharacter::~cNPCCharacter()
 	lua_close(L);
 }
 
-void cNPCCharacter::PromptInteract()
+void cNPCCharacter::PromptInteract(int input)
 {
+	// CAREFUL: if doning this way, make sure this is set back to null when done interacting
+	Engine::currInteractingEntity = this;
+
 	lua_getglobal(L, "interact");
-	lua_pushinteger(L, 0);
+	lua_pushinteger(L, input);
 	lua_pcall(L, 1, 0, 0);
 }

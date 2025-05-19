@@ -595,17 +595,84 @@ cDialogCanvas::cDialogCanvas()
     textWidget->color = glm::vec3(0.3f);
     textContainer->AddChild(textWidget);
 
-    defaultFocus = bubble;
+    optionsWidget = new cUIImage();
+    optionsWidget->anchor = MIDDLE_RIGHT;
+    optionsWidget->verticalTranslate = 1.f;
+    optionsWidget->textureId = LoadUITexture("SpeechBubble.png");
+    optionsWidget->isHidden = true;
+    bubble->AddChild(optionsWidget);
+
+    optionsContainer = new cUIWidget();
+    optionsContainer->heightPercent = 0.8f;
+    optionsWidget->AddChild(optionsContainer);
+
+    defaultFocus = textWidget;
     anchoredWidgets.push_back(bubble);
 }
 
 void cDialogCanvas::ConfirmAction()
 {
-    Player::AttemptInteract();
+    if (currFocus == textWidget)
+    {
+        Engine::currInteractingEntity->PromptInteract();
+    }
+    else
+    {
+        optionsWidget->isHidden = true;
+        currFocus = textWidget;
+        Engine::currInteractingEntity->PromptInteract(hoveredOptionIndex + 1);
+    }
+}
+
+void cDialogCanvas::MoveAction(const eDirection dir)
+{
+    if (currFocus == textWidget) return;
+
+    if (dir == UP && hoveredOptionIndex > 0)
+    {
+        hoveredOptionIndex--;
+    }
+    else if (dir == DOWN && hoveredOptionIndex < options.size() - 1)
+    {
+        hoveredOptionIndex++;
+    }
 }
 
 void cDialogCanvas::UpdateText(const std::string& newText)
 {
     textWidget->text = newText;
     Manager::ui.CreateTextDataBuffer(textWidget);
+}
+
+void cDialogCanvas::ShowOptions(const std::vector<std::string>& optionsTexts)
+{
+    if (optionsTexts.empty()) return;
+
+    optionsContainer->ClearChildren();
+    options.clear();
+
+    for (unsigned int i = 0; i < optionsTexts.size(); i++)
+    {
+        cUIText* newOption = new cUIText();
+        newOption->anchor = TOP_LEFT;
+        newOption->heightPercent = 0.3f;
+        newOption->verticalTranslate = -(newOption->heightPercent * i);// -(0.1f * (i + 1));
+        newOption->fontName = "Truth And Ideals-Normal.ttf";
+        newOption->text = optionsTexts[i];
+        newOption->color = glm::vec3(0.3f);
+        optionsContainer->AddChild(newOption);
+        Manager::ui.CreateTextDataBuffer(newOption);
+        
+        options.push_back(newOption);
+
+
+        if (i != 0)
+        {
+            newOption->SetMoveFocus(options[i - 1], UP, true);
+        }
+    }
+
+    currFocus = options[0];
+    hoveredOptionIndex = 0;
+    optionsWidget->isHidden = false;
 }
