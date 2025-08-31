@@ -7,7 +7,7 @@ struct sParticle
 {
 	glm::vec3 position;
 	glm::vec3 velocity;
-	float timer;
+	float timer = -1.f;
 };
 
 class cParticleSpawner
@@ -41,7 +41,7 @@ public:
 private:
 	std::vector<sParticle> particles;
 	float timer = 0.f;
-	int maxParticles;
+	unsigned int trackIndex = 0;
 public:
 	float spawnRate = -1.f; // particles spawned per second; negative for not spawn on timer
 	float particleLifeTime = 1.f;
@@ -53,9 +53,10 @@ private:
 
 private:
 	bool SpawnParticle();
-public:
 	void SpawnParticles(unsigned int numToSpawn);
+	void UpdateParticleuffer(unsigned int index);
 
+public:
 	void Update(float deltaTime);
 
 	friend class cRenderManager;

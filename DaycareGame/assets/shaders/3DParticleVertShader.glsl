@@ -35,11 +35,7 @@ void main()
 		+ cameraRight * vPosition.x * modelScale.x
 		+ cameraUp * vPosition.y * modelScale.y;
 
-	mat4 VP = projection * view;
-
-	gl_Position = VP * vec4(finalVertPos, 1.f);
-
-	fVertWorldPosition = vec4(finalVertPos, 1);
+	fVertWorldPosition = vec4(finalVertPos, oOffset.w);
 
 	fUVx2 = vUVx2;
 

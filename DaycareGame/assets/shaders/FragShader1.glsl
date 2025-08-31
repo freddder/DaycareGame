@@ -43,17 +43,19 @@ float ShadowCalculation(vec4 fragPosLightSpace);
 
 void main()
 {
+	// TODO: fix particles not "despawning"
+	// Used for 3D particle (w = timer)
+	if (fVertWorldPosition.w < 0.0)
+		discard;
 
 	vec4 vertColor;
-
-	if(useWholeColor)
+	if (useWholeColor)
 	{
 		vertColor = wholeColor;
 	}
 	else
 	{
 		vertColor = texture(texture_0, vec2(fUVx2.x, fUVx2.y));
-
 		if(vertColor.a < 0.1)
 			discard;
 	}
@@ -99,9 +101,9 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     float bias = 0.002;
 	float shadow = 0.0;
 	vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
-	for(int x = shadowSampleRadius * -1; x <= shadowSampleRadius; ++x)
+	for (int x = shadowSampleRadius * -1; x <= shadowSampleRadius; ++x)
 	{
-	    for(int y = shadowSampleRadius * -1; y <= shadowSampleRadius; ++y)
+	    for (int y = shadowSampleRadius * -1; y <= shadowSampleRadius; ++y)
 	    {
 	        float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
 	        shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;        

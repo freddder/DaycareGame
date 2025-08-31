@@ -9,13 +9,12 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-cParticleSpawner::cParticleSpawner(glm::vec3 position, cRenderModel _model, unsigned int _maxParticles)
+cParticleSpawner::cParticleSpawner(glm::vec3 position, cRenderModel _model, unsigned int maxParticles)
 {
 	spawnPosition = position;
 	isPositionPlayerRelative = false;
 
-	particles.reserve(_maxParticles);
-	maxParticles = _maxParticles; // if -1, no limit
+	particles.resize(maxParticles);
 	timer = 0.f;
 
 	model = _model;
@@ -43,7 +42,7 @@ cParticleSpawner::cParticleSpawner(glm::vec3 position, cRenderModel _model, unsi
 	// Create buffer for particle data (position + timer)
 	glGenBuffers(1, &particleBufferId);
 	glBindBuffer(GL_ARRAY_BUFFER, particleBufferId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * _maxParticles, NULL, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * maxParticles, NULL, GL_DYNAMIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -56,7 +55,11 @@ cParticleSpawner::~cParticleSpawner()
 
 bool cParticleSpawner::SpawnParticle()
 {
-	if (particles.size() >= particles.capacity()) return false;
+	sParticle& particle = particles[trackIndex];
+
+	// Particle still exists
+	if (particle.timer > 0.f)
+		return false;
 
 	double randomPosX;
 	double randomPosY;
@@ -88,15 +91,22 @@ bool cParticleSpawner::SpawnParticle()
 		(((float)randomSpdZ * (maxSpeedOffset.z - minSpeedOffset.z)) / (1 - 0)) + minSpeedOffset.z
 	);
 
-	particles.emplace_back();
-	sParticle& newParticle = particles.back();
-	newParticle.position = newParticlePosOffset + spawnPosition;
-	newParticle.velocity = newParticleSpdOffset + spawnSpeed;
-	newParticle.timer = 0.f;
+	particle.position = newParticlePosOffset + spawnPosition;
+	particle.velocity = newParticleSpdOffset + spawnSpeed;
+	particle.timer = 0.f;
 
 	if (isPositionPlayerRelative)
 	{
-		newParticle.position += Player::GetPlayerPosition();
+		particle.position += Player::GetPlayerPosition();
+	}
+
+	if (trackIndex == particles.size() - 1)
+	{
+		trackIndex = 0;
+	}
+	else
+	{
+		trackIndex++;
 	}
 
 	return true;
@@ -108,6 +118,11 @@ void cParticleSpawner::SpawnParticles(unsigned int numToSpawn)
 	{
 		SpawnParticle();
 	}
+}
+
+void cParticleSpawner::UpdateParticleuffer(unsigned int index)
+{
+	glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * index, sizeof(glm::vec4), glm::value_ptr(glm::vec4(particles[index].position, particles[index].timer)));
 }
 
 void cParticleSpawner::Update(float deltaTime)
@@ -126,13 +141,15 @@ void cParticleSpawner::Update(float deltaTime)
 
 	for (int i = 0; i < particles.size(); i++)
 	{
+		if (particles[i].timer < 0.f)
+			continue;
+
 		particles[i].timer += deltaTime;
 
 		if (particles[i].timer > particleLifeTime)
 		{
-			particles.erase(particles.begin() + i);
-			i--;
-
+			particles[i].timer = -1.f;
+			UpdateParticleuffer(i);
 			continue;
 		}
 
@@ -143,7 +160,7 @@ void cParticleSpawner::Update(float deltaTime)
 		particles[i].velocity += gravity * deltaTime;
 
 		// Update buffer
-		glBufferSubData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * i, sizeof(glm::vec4), glm::value_ptr(glm::vec4(particles[i].position, particles[i].timer)));
+		UpdateParticleuffer(i);
 	}
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
