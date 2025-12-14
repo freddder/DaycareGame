@@ -3,6 +3,7 @@
 
 #include <stack>
 #include <map>
+#include "Hash.h"
 
 enum eInputType;
 
@@ -16,7 +17,7 @@ protected:
 
     // Textures
 protected:
-    std::map<std::string, unsigned int> textures;
+    std::map<Hash_v, unsigned int> textures;
 public:
     // Load a texture to be used on this canvas and return its id. If no subdirectory specified will look in ui folder
     unsigned int LoadUITexture(const std::string fileName, const std::string subdirectory = "");
@@ -77,13 +78,13 @@ public:
 
     // Fonts
 private:
-    std::map<std::string, sFontData> fonts;
+    std::map<Hash_v, sFontData> fonts;
 public:
-    void LoadFont(const std::string fontName, const unsigned int glyphSize);
+    void LoadFont(const std::string& fontName, const unsigned int glyphSize);
     void CreateTextDataBuffer(cUIText* text);
-    unsigned int GetFontGlyphSize(const std::string& fontName);
+    unsigned int GetFontGlyphSize(const Hash_v& fontHash);
     unsigned int GetFontTextureId(const std::string& fontName);
-    void SetupFont(const std::string fontName);
+    void SetupFont(const Hash_v& fontHash);
 
     // Functionality
 public:

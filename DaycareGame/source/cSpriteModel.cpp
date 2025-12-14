@@ -6,10 +6,10 @@
 cSpriteModel::cSpriteModel()
 {
 	currSpriteId = 0;
-	shaderName = "sprite";
+	shaderHash = ComputeHash("sprite");
 }
 
 void cSpriteModel::SetUpUniforms()
 {
-	Manager::render.SetupSpriteSheet(textureName, currSpriteId);
+	Manager::render.SetupSpriteSheet(textureHash, currSpriteId);
 }

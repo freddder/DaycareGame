@@ -9,7 +9,7 @@ enum eEntityMoveResult;
 class cCharacterSprite
 {
 public:
-	cCharacterSprite(std::string textureName, glm::vec3 pos);
+	cCharacterSprite(const std::string& textureName, glm::vec3 pos);
 	virtual ~cCharacterSprite();
 
 protected:
@@ -25,7 +25,7 @@ public:
 class cOverworldPokemonSprite : public cCharacterSprite
 {
 public:
-	cOverworldPokemonSprite(std::string textureName, glm::vec3 pos);
+	cOverworldPokemonSprite(const std::string& textureName, glm::vec3 pos);
 	virtual ~cOverworldPokemonSprite();
 
 private:
@@ -49,7 +49,7 @@ public:
 class cPlayerSprite : public cCharacterSprite
 {
 public:
-	cPlayerSprite(std::string textureName, glm::vec3 pos);
+	cPlayerSprite(const std::string& textureName, glm::vec3 pos);
 	virtual ~cPlayerSprite();
 
 private:

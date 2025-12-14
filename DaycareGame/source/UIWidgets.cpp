@@ -9,6 +9,9 @@
 
 #include "cAnimation.h"
 
+const static Hash_v UI_SHADER = ComputeHash("ui");
+const static Hash_v TEXT_SHADER = ComputeHash("text");
+
 cUIWidget::~cUIWidget()
 {
 	for (int i = 0; i < children.size(); i++)
@@ -230,7 +233,7 @@ void cUIImage::Draw()
 
 	unsigned int textureIdToUse = !isFocused || hoveredTextureId == 0 ? textureId : hoveredTextureId;
 
-	Manager::render.use("ui");
+	Manager::render.use(UI_SHADER);
 	
 	unsigned int shaderTextureUnit = 0;
 	glActiveTexture(shaderTextureUnit + GL_TEXTURE0); // GL_TEXTURE0 = 33984
@@ -290,14 +293,14 @@ void cUIText::Draw()
 	float widthPercent = CalculateWidthScreenPercent();
 	float heightPercent = CalculateHeightScreenPercent();
 
-	float pixelGlyphRatio = heightPercent * scrHeight * textSizePercent / (float)Manager::ui.GetFontGlyphSize(fontName);
+	float pixelGlyphRatio = heightPercent * scrHeight * textSizePercent / (float)Manager::ui.GetFontGlyphSize(fontHash);
 
 	float finalHorizontalTranslation = horizontalTranslation - widthPercent;
 	float finalVerticalTranslation = verticalTranslation + heightPercent;
 	glm::vec2 origin = glm::vec2(finalHorizontalTranslation, finalVerticalTranslation);
 
-	Manager::render.use("text");
-	Manager::ui.SetupFont(fontName);
+	Manager::render.use(TEXT_SHADER);
+	Manager::ui.SetupFont(fontHash);
 	Manager::render.setVec3("color", color);
 
 	Manager::render.setVec2("originOffset", origin);

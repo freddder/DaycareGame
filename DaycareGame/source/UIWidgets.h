@@ -1,6 +1,7 @@
 #pragma once
+#include "Hash.h"
+
 #include <vector>
-#include <string>
 #include <glm/glm.hpp>
 
 enum eAnchor
@@ -116,7 +117,7 @@ public:
 
 	unsigned int dataBufferId = 0;
 	size_t drawCharCount = 0;
-	std::string fontName;
+	Hash_v fontHash;
 	std::string text;
 	glm::vec3 color = glm::vec3(1.f);
 	float textSizePercent = 1.f; // Of this widget

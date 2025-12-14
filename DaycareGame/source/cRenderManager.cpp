@@ -179,6 +179,8 @@ void cRenderManager::Startup()
     CreateShaderProgram("particle", "3DParticleVertShader.glsl", "FragShader1.glsl");
     CreateShaderProgram("ui", "UIVertShader.glsl", "UIFragShader.glsl");
     CreateShaderProgram("text", "TextVertShader.glsl", "TextFragShader.glsl");
+
+    skyboxShaderHash = ComputeHash("skybox");
 }
 
 void cRenderManager::Shutdown()
@@ -196,9 +198,11 @@ void cRenderManager::Shutdown()
     //battleModels.clear();
 }
 
-void cRenderManager::CreateShaderProgram(std::string programName, const char* vertexPath, const char* fragmentPath)
+void cRenderManager::CreateShaderProgram(const std::string& programName, const char* vertexPath, const char* fragmentPath)
 {
-    if (programs.count(programName) != 0) // it exists
+    Hash_v hash = ComputeHash(programName);
+
+    if (programs.count(hash) != 0) // it exists
     {
         std::cout << "This shadder program already exists" << std::endl;
         return;
@@ -267,7 +271,7 @@ void cRenderManager::CreateShaderProgram(std::string programName, const char* ve
     sShaderProgram newShader;
     newShader.ID = ID;
 
-    programs.insert(std::pair<std::string, sShaderProgram>(programName, newShader));
+    programs.insert(std::pair<Hash_v, sShaderProgram>(hash, newShader));
 
     // add Matrices block to matrices
     unsigned int ubMatricesIndex = glGetUniformBlockIndex(newShader.ID, "Matrices");
@@ -291,13 +295,16 @@ unsigned int cRenderManager::GetDepthMapId()
     return depthMapID;
 }
 
-bool cRenderManager::LoadModel(std::string fileName, std::string programName)
+bool cRenderManager::LoadModel(const std::string& fileName, const std::string& programName)
 {
-    std::map<std::string, sShaderProgram>::iterator itPrograms = programs.find(programName);
+    Hash_v programHash = ComputeHash(programName);
+    Hash_v modelHash = ComputeHash(fileName);
+
+    std::map<Hash_v, sShaderProgram>::iterator itPrograms = programs.find(programHash);
     if (itPrograms == programs.end()) return false;
 
-    std::map<std::string, sModelDrawInfo>::iterator itDrawInfo = programs[programName].modelsLoaded.find(fileName);
-    if (itDrawInfo != programs[programName].modelsLoaded.end()) return true; // already loaded
+    std::map<Hash_v, sModelDrawInfo>::iterator itDrawInfo = programs[programHash].modelsLoaded.find(modelHash);
+    if (itDrawInfo != programs[programHash].modelsLoaded.end()) return true; // already loaded
 
     Assimp::Importer importer;
 
@@ -318,7 +325,7 @@ bool cRenderManager::LoadModel(std::string fileName, std::string programName)
     if (!scene->HasMeshes())
         return false;
 
-    use(programName);
+    use(programHash);
 
     sModelDrawInfo newModel;
     newModel.numMeshes = scene->mNumMeshes;
@@ -391,10 +398,10 @@ bool cRenderManager::LoadModel(std::string fileName, std::string programName)
 
             aiString path;
             material->GetTexture(aiTextureType_DIFFUSE, 0, &path);
-            newMeshInfo.textureName = path.C_Str();
+            newMeshInfo.textureHash = ComputeHash(path.C_Str());
 
             // Load texture
-            LoadTexture(newMeshInfo.textureName);
+            LoadTexture(path.C_Str());
         }
 
 #pragma region VAO_Creation
@@ -468,7 +475,7 @@ bool cRenderManager::LoadModel(std::string fileName, std::string programName)
         newModel.allMeshesData.push_back(newMeshInfo);
     } // end of per mesh
 
-    programs[programName].modelsLoaded.insert(std::pair<std::string, sModelDrawInfo>(fileName, newModel));
+    programs[programHash].modelsLoaded.insert(std::pair<Hash_v, sModelDrawInfo>(modelHash, newModel));
 
     return true;
 }
@@ -492,13 +499,13 @@ void cRenderManager::UnloadModels()
     }
 }
 
-bool cRenderManager::FindModelByName(std::string fileName, std::string programName, sModelDrawInfo& modelInfo)
+bool cRenderManager::FindModelByHashValue(const Hash_v& fileHash, const Hash_v& programHash, sModelDrawInfo& modelInfo)
 {
-    if (programs.find(programName) == programs.end()) return false; // Didn't find it
+    if (programs.find(programHash) == programs.end()) return false; // Didn't find it
 
-    std::map<std::string, sModelDrawInfo>::iterator itDrawInfo = programs[programName].modelsLoaded.find(fileName);
+    std::map<Hash_v, sModelDrawInfo>::iterator itDrawInfo = programs[programHash].modelsLoaded.find(fileHash);
 
-    if (itDrawInfo == programs[programName].modelsLoaded.end()) return false; // Didn't find it
+    if (itDrawInfo == programs[programHash].modelsLoaded.end()) return false; // Didn't find it
 
     modelInfo = itDrawInfo->second;
     return true;
@@ -528,11 +535,11 @@ void cRenderManager::checkCompileErrors(unsigned int shader, std::string type)
     }
 }
 
-void cRenderManager::use(std::string programName)
+void cRenderManager::use(const Hash_v& programHash)
 {
-    if (programs.count(programName) == 0) return; // Doesn't exists
+    if (programs.count(programHash) == 0) return; // Doesn't exists
 
-    currShader = programName;
+    currShader = programHash;
     glUseProgram(programs[currShader].ID);
 }
 
@@ -712,11 +719,12 @@ unsigned int cRenderManager::CreateTexture(const std::string fullPath, int& widt
     return textureId;
 }
 
-void cRenderManager::LoadTexture(const std::string fileName, const std::string subdirectory)
+void cRenderManager::LoadTexture(const std::string& fileName, const std::string& subdirectory)
 {
     if (fileName == "") return;
 
-    if (textures.find(fileName) != textures.end()) return; // texture already created
+    Hash_v fileHash = ComputeHash(fileName);
+    if (textures.find(fileHash) != textures.end()) return; // texture already created
 
     std::string fullPath = TEXTURE_PATH + subdirectory + fileName;
     int width, height;
@@ -725,19 +733,19 @@ void cRenderManager::LoadTexture(const std::string fileName, const std::string s
 
     if (newTexture.textureId != 0)
     {
-        textures.insert(std::pair<std::string, sTexture>(fileName, newTexture));
+        textures.insert(std::pair<Hash_v, sTexture>(fileHash, newTexture));
     }
 }
 
 void cRenderManager::UnloadTextures()
 {
-    for (std::map<std::string, sTexture>::iterator it = textures.begin(); it != textures.end(); it++)
+    for (std::map<Hash_v, sTexture>::iterator it = textures.begin(); it != textures.end(); it++)
     {
         glDeleteTextures(1, &it->second.textureId);
     }
     textures.clear();
 
-    for (std::map<std::string, sSpriteSheet>::iterator it = spriteSheets.begin(); it != spriteSheets.end(); it++)
+    for (std::map<Hash_v, sSpriteSheet>::iterator it = spriteSheets.begin(); it != spriteSheets.end(); it++)
     {
         glDeleteTextures(1, &it->second.textureId);
     }
@@ -786,7 +794,8 @@ void cRenderManager::LoadRoamingPokemonFormSpriteSheet(const int nationalDexId, 
     textureName = textureName + ".png";
 
     // Check if not already loaded
-    if (spriteSheets.find(textureName) != spriteSheets.end()) return;
+    Hash_v textureHash = ComputeHash(textureName);
+    if (spriteSheets.find(textureHash) != spriteSheets.end()) return;
 
     std::string dexIdString = Pokemon::MakeDexNumberFolderName(nationalDexId);
     std::string texturePath = PKM_DATA_PATH + "species/" + dexIdString + "/";
@@ -802,10 +811,11 @@ void cRenderManager::LoadRoamingPokemonFormSpriteSheet(const int nationalDexId, 
     newSheet.textureId = CreateTexture(fullPath, width, height);
 
     if (newSheet.textureId != 0)
-        spriteSheets.insert(std::pair<std::string, sSpriteSheet>(textureName, newSheet));
+        spriteSheets.insert(std::pair<Hash_v, sSpriteSheet>(textureHash, newSheet));
 
     // Check if shiny not already loaded
-    if (spriteSheets.find(shinyTextureName) != spriteSheets.end()) return;
+    Hash_v shinyTextureHash = ComputeHash(shinyTextureName);
+    if (spriteSheets.find(shinyTextureHash) != spriteSheets.end()) return;
 
     // Create shiny sprite sheet
     sSpriteSheet newShinySheet;
@@ -817,12 +827,13 @@ void cRenderManager::LoadRoamingPokemonFormSpriteSheet(const int nationalDexId, 
     newShinySheet.textureId = CreateTexture(shinyFullPath, width, height);
 
     if (newShinySheet.textureId != 0)
-        spriteSheets.insert(std::pair<std::string, sSpriteSheet>(shinyTextureName, newShinySheet));
+        spriteSheets.insert(std::pair<Hash_v, sSpriteSheet>(shinyTextureHash, newShinySheet));
 }
 
 void cRenderManager::LoadSpriteSheet(const std::string spriteSheetName, unsigned int cols, unsigned int rows, bool sym, const std::string subdirectory)
 {
-    if (spriteSheets.count(spriteSheetName)) return; // texture already created
+    Hash_v spriteSheetHash = ComputeHash(spriteSheetName);
+    if (spriteSheets.count(spriteSheetHash)) return; // texture already created
 
     sSpriteSheet newSheet;
     newSheet.numCols = cols;
@@ -834,7 +845,7 @@ void cRenderManager::LoadSpriteSheet(const std::string spriteSheetName, unsigned
     newSheet.textureId = CreateTexture(fullPath, width, height);
 
     if (newSheet.textureId != 0)
-        spriteSheets[spriteSheetName] = newSheet;
+        spriteSheets[spriteSheetHash] = newSheet;
 }
 
 void cRenderManager::LoadRoamingPokemonSpecieTextures(const Pokemon::sSpeciesData& specieData)
@@ -857,11 +868,12 @@ void cRenderManager::LoadRoamingPokemonSpecieTextures(const Pokemon::sSpeciesDat
     }
 }
 
-float cRenderManager::LoadPokemonBattleSpriteSheet(Pokemon::sIndividualData& data, bool isFront)
+float cRenderManager::LoadPokemonBattleSpriteSheet(const Pokemon::sIndividualData& data, bool isFront)
 {
     std::string textureName = data.MakeBattleTextureName(isFront);
+    Hash_v textureHash = ComputeHash(textureName);
 
-    if (textures.find(textureName) != textures.end()) return 1.f; // already loaded
+    if (textures.find(textureHash) != textures.end()) return 1.f; // already loaded
 
     std::string dexIdString = std::to_string(data.nationalDexNumber);
     while (dexIdString.length() < 4)
@@ -878,14 +890,14 @@ float cRenderManager::LoadPokemonBattleSpriteSheet(Pokemon::sIndividualData& dat
     int width, height;
     newSpriteSheet.textureId = CreateTexture(fullPath, width, height);
 
-    spriteSheets.insert(std::pair<std::string, sSpriteSheet>(textureName, newSpriteSheet));
+    spriteSheets.insert(std::pair<Hash_v, sSpriteSheet>(textureHash, newSpriteSheet));
 
     return (float)width / newSpriteSheet.numCols / height;
 }
 
-void cRenderManager::SetupSpriteSheet(const std::string sheetName, const int spriteId, const unsigned int shaderTextureUnit)
+void cRenderManager::SetupSpriteSheet(const Hash_v& sheetHash, const int spriteId, const unsigned int shaderTextureUnit)
 {
-    sSpriteSheet sheet = spriteSheets[sheetName];
+    sSpriteSheet sheet = spriteSheets[sheetHash];
 
     setInt("spriteId", spriteId);
     setInt("numCols", sheet.numCols);
@@ -901,7 +913,7 @@ void cRenderManager::SetupSpriteSheet(const std::string sheetName, const int spr
     setInt(shaderVariable, shaderTextureUnit);
 }
 
-void cRenderManager::SetupTexture(const std::string textureToSetup, const unsigned int shaderTextureUnit)
+void cRenderManager::SetupTexture(const Hash_v& textureToSetup, const unsigned int shaderTextureUnit)
 {
     if (textures.find(textureToSetup) == textures.end())
     {
@@ -922,9 +934,9 @@ void cRenderManager::SetupTexture(const std::string textureToSetup, const unsign
 void cRenderManager::DrawObject(std::shared_ptr<cRenderModel> model)
 {
     sModelDrawInfo drawInfo;
-    if (!FindModelByName(model->meshName, model->shaderName, drawInfo)) return;
+    if (!FindModelByHashValue(model->meshHash, model->shaderHash, drawInfo)) return;
 
-    use(model->shaderName);
+    use(model->shaderHash);
     
     setVec3("modelPosition", model->position);
     setMat4("modelOrientationX", glm::rotate(glm::mat4(1.0f), model->orientation.x, glm::vec3(1.f, 0.f, 0.f)));
@@ -943,7 +955,7 @@ void cRenderManager::DrawObject(std::shared_ptr<cRenderModel> model)
 
     for (unsigned int i = 0; i < drawInfo.allMeshesData.size(); i++)
     {
-        if (model->textureName == "") SetupTexture(drawInfo.allMeshesData[i].textureName);
+        if (model->textureHash == EMPTY_HASH) SetupTexture(drawInfo.allMeshesData[i].textureHash);
 
         // Bind VAO
         glBindVertexArray(drawInfo.allMeshesData[i].VAO_ID);
@@ -993,9 +1005,9 @@ void cRenderManager::DrawObject(std::shared_ptr<cRenderModel> model)
 void cRenderManager::DrawParticles(cParticleSpawner* spawner)
 {
     sModelDrawInfo drawInfo;
-    if (!FindModelByName(spawner->model.meshName, spawner->model.shaderName, drawInfo)) return;
+    if (!FindModelByHashValue(spawner->model.meshHash, spawner->model.shaderHash, drawInfo)) return;
     
-    use(spawner->model.shaderName);
+    use(spawner->model.shaderHash);
     setVec3("cameraPosition", Manager::camera.position);
     setVec3("modelScale", spawner->model.scale);
     setBool("useWholeColor", spawner->model.useWholeColor);
@@ -1009,8 +1021,7 @@ void cRenderManager::DrawParticles(cParticleSpawner* spawner)
     for (unsigned int i = 0; i < drawInfo.allMeshesData.size(); i++)
     {
         // Setup texture
-        std::string textureToUse = spawner->model.textureName;
-        SetupTexture(textureToUse);
+        SetupTexture(spawner->model.textureHash);
     
         // Bind VAO
         glBindVertexArray(drawInfo.allMeshesData[i].VAO_ID);
@@ -1154,7 +1165,7 @@ void cRenderManager::DrawFrame()
 
     // Draw skybox
     glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
-    use("skybox");
+    use(skyboxShaderHash);
     view = glm::mat4(glm::mat3(Manager::camera.GetViewMatrix())); // remove translation from the view matrix
     projection = Manager::camera.GetProjectionMatrix();
 

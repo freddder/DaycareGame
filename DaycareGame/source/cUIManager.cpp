@@ -78,7 +78,7 @@ void cUIManager::Shutdown()
 		canvases.pop();
 	}
 
-    for (std::map<std::string, sFontData>::iterator it = fonts.begin(); it != fonts.end(); it++)
+    for (std::map<Hash_v, sFontData>::iterator it = fonts.begin(); it != fonts.end(); it++)
     {
         glDeleteBuffers(1, &it->second.textureAtlusId);
     }
@@ -105,7 +105,7 @@ cUICanvas::~cUICanvas()
 		delete anchoredWidgets[i];
 	}
 
-    for (std::map<std::string, unsigned int>::iterator it = textures.begin(); it != textures.end(); it++)
+    for (std::map<Hash_v, unsigned int>::iterator it = textures.begin(); it != textures.end(); it++)
     {
         glDeleteTextures(1, &it->second);
     }
@@ -115,7 +115,9 @@ unsigned int cUICanvas::LoadUITexture(const std::string fileName, const std::str
 {
     if (fileName == "") return 0;
 
-    if (textures.find(fileName) != textures.end()) return textures[fileName]; // texture already loaded
+    Hash_v h = ComputeHash(fileName);
+
+    if (textures.find(h) != textures.end()) return textures[h]; // texture already loaded
 
     std::string fullPath = "";
     fullPath += subdirectory == "" ? UI_TEXTURE_PATH : subdirectory;
@@ -126,7 +128,7 @@ unsigned int cUICanvas::LoadUITexture(const std::string fileName, const std::str
 
     if (textureId != 0)
     {
-        textures.insert(std::pair<std::string, unsigned int>(fileName, textureId));
+        textures.insert(std::pair<Hash_v, unsigned int>(h, textureId));
     }
 
     return textureId;
@@ -160,7 +162,7 @@ unsigned int cUIManager::GetUIQuadVAO()
     return uiQuadVAO;
 }
 
-void cUIManager::LoadFont(const std::string fontName, const unsigned int glyphSize)
+void cUIManager::LoadFont(const std::string& fontName, const unsigned int glyphSize)
 {
     FT_Library ft;
     // All functions return a value different than 0 whenever an error occurred
@@ -224,7 +226,8 @@ void cUIManager::LoadFont(const std::string fontName, const unsigned int glyphSi
         newFont.characters.insert(std::pair<char, sFontCharData>(c, newChar));
     }
 
-    fonts.insert(std::pair<std::string, sFontData>(fontName, newFont));
+    Hash_v fontHash = ComputeHash(fontName);
+    fonts.insert(std::pair<Hash_v, sFontData>(fontHash, newFont));
 
     glBindTexture(GL_TEXTURE_2D, 0);
     FT_Done_Face(face);
@@ -234,8 +237,8 @@ void cUIManager::LoadFont(const std::string fontName, const unsigned int glyphSi
 // Make sure to call this after setting this widget's parent
 void cUIManager::CreateTextDataBuffer(cUIText* text)
 {
-    if (fonts.find(text->fontName) == fonts.end()) return; // font doesn't exists
-    sFontData& font = fonts[text->fontName];
+    if (fonts.find(text->fontHash) == fonts.end()) return; // font doesn't exists
+    sFontData& font = fonts[text->fontHash];
 
     std::stringstream ss(text->text);
     std::vector<std::string> words;
@@ -310,21 +313,21 @@ void cUIManager::CreateTextDataBuffer(cUIText* text)
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
-unsigned int cUIManager::GetFontGlyphSize(const std::string& fontName)
+unsigned int cUIManager::GetFontGlyphSize(const Hash_v& fontHash)
 {
-    return fonts[fontName].glyphSize;
+    return fonts[fontHash].glyphSize;
 }
 
 unsigned int cUIManager::GetFontTextureId(const std::string& fontName)
 {
-    return fonts[fontName].textureAtlusId;
+    return fonts[ComputeHash(fontName)].textureAtlusId;
 }
 
-void cUIManager::SetupFont(const std::string fontName)
+void cUIManager::SetupFont(const Hash_v& fontHash)
 {
-    if (fonts.find(fontName) == fonts.end()) return; // font doesn't exists
+    if (fonts.find(fontHash) == fonts.end()) return; // font doesn't exists
 
-    unsigned int textureId = fonts[fontName].textureAtlusId;
+    unsigned int textureId = fonts[fontHash].textureAtlusId;
 
     glActiveTexture(GL_TEXTURE0);	// GL_TEXTURE0 = 33984
     glBindTexture(GL_TEXTURE_2D, textureId);
@@ -334,7 +337,7 @@ void cUIManager::SetupFont(const std::string fontName)
 
     Manager::render.setInt("atlasRowsNum", FONT_ATLAS_ROWS);
     Manager::render.setInt("atlasColsNum", FONT_ATLAS_COLS);
-    Manager::render.setInt("glyphSize", fonts[fontName].glyphSize);
+    Manager::render.setInt("glyphSize", fonts[fontHash].glyphSize);
 }
 
 void cUIManager::ExecuteInputAction(eInputType inputType)

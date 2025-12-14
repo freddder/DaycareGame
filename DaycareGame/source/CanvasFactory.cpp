@@ -27,7 +27,7 @@ cMenuButtonWidget::cMenuButtonWidget(cUICanvas* canvas, std::string text, std::s
     AddChild(icon);
 
     cUIText* textWidget = new cUIText();
-    textWidget->fontName = "Truth And Ideals-Normal.ttf";
+    textWidget->fontHash = ComputeHash("Truth And Ideals-Normal.ttf");
     textWidget->text = text;
     textWidget->heightPercent = 0.3f;
     AddChild(textWidget);
@@ -447,7 +447,7 @@ cPartyMemberButton::cPartyMemberButton(cUICanvas* canvas, int memberNum)
     heightPercent = 1.f / 3.5f;
 
     cUIText* memberText = new cUIText();
-    memberText->fontName = "Truth And Ideals-Normal.ttf";
+    memberText->fontHash = ComputeHash("Truth And Ideals-Normal.ttf");
     memberText->text = "notthat";// member.nickname;
     memberText->heightPercent = 0.3f;
     AddChild(memberText);
@@ -590,7 +590,7 @@ cDialogCanvas::cDialogCanvas()
 
     textWidget = new cUIText();
     textWidget->anchor = TOP_LEFT;
-    textWidget->fontName = "Truth And Ideals-Normal.ttf";
+    textWidget->fontHash = ComputeHash("Truth And Ideals-Normal.ttf");
     textWidget->heightPercent = 0.3f;
     textWidget->color = glm::vec3(0.3f);
     textContainer->AddChild(textWidget);
@@ -657,7 +657,7 @@ void cDialogCanvas::ShowOptions(const std::vector<std::string>& optionsTexts)
         newOption->anchor = TOP_LEFT;
         newOption->heightPercent = 0.3f;
         newOption->verticalTranslate = -(newOption->heightPercent * i);// -(0.1f * (i + 1));
-        newOption->fontName = "Truth And Ideals-Normal.ttf";
+        newOption->fontHash = ComputeHash("Truth And Ideals-Normal.ttf");
         newOption->text = optionsTexts[i];
         newOption->color = glm::vec3(0.3f);
         optionsContainer->AddChild(newOption);

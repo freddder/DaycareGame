@@ -173,6 +173,9 @@
     <ClCompile Include="source\LuaCallable.cpp">
       <Filter>Globals</Filter>
     </ClCompile>
+    <ClCompile Include="source\Hash.cpp">
+      <Filter>Globals</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\CanvasFactory.h">
@@ -293,6 +296,9 @@
       <Filter>Entity\Character</Filter>
     </ClInclude>
     <ClInclude Include="source\LuaCallable.h">
+      <Filter>Globals</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Hash.h">
       <Filter>Globals</Filter>
     </ClInclude>
   </ItemGroup>

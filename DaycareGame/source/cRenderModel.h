@@ -1,4 +1,6 @@
 #pragma once
+#include "Hash.h"
+
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
@@ -10,7 +12,7 @@ public:
 	cRenderModel();
 	~cRenderModel();
 
-	std::string meshName;
+	Hash_v meshHash;
 
 	glm::vec3 position;
 	glm::vec3 orientation;
@@ -25,9 +27,9 @@ public:
 	bool useWholeColor;
 	glm::vec4 wholeColor;
 
-	std::string textureName;
+	Hash_v textureHash;
 
-	std::string shaderName;
+	Hash_v shaderHash;
 
 	void InstanceObject(std::vector<glm::vec4>& offsets);
 

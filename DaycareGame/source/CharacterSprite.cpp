@@ -7,12 +7,12 @@
 #include "cInputManager.h"
 #include "cSceneManager.h"
 
-cCharacterSprite::cCharacterSprite(std::string textureName, glm::vec3 pos)
+cCharacterSprite::cCharacterSprite(const std::string& textureName, glm::vec3 pos)
 {
 	model = Manager::render.CreateSpriteModel();
-	model->meshName = "SpriteHolder.obj";
+	model->meshHash = ComputeHash("SpriteHolder.obj");
 	model->position = pos;
-	model->textureName = textureName;
+	model->textureHash = ComputeHash(textureName);
 
 	spriteAnimation = std::make_shared<cSpriteAnimation>(model->currSpriteId, model->scale);
 	modelAnimation = std::make_shared<cModelAnimation>(model->position, model->orientation, model->scale);
@@ -54,7 +54,7 @@ glm::vec3 cCharacterSprite::AnimateMovement(eDirection dir, bool run, eEntityMov
 	return newPosition;
 }
 
-cOverworldPokemonSprite::cOverworldPokemonSprite(std::string textureName, glm::vec3 pos) : cCharacterSprite(textureName, pos)
+cOverworldPokemonSprite::cOverworldPokemonSprite(const std::string& textureName, glm::vec3 pos) : cCharacterSprite(textureName, pos)
 {
 	lastDesiredDirection = DOWN;
 	spriteAnimation->isRepeat = true;
@@ -137,7 +137,7 @@ glm::vec3 cNPCSprite::AnimateMovement(eDirection dir, bool run, eEntityMoveResul
 	return cCharacterSprite::AnimateMovement(dir, run, moveResult);
 }
 
-cPlayerSprite::cPlayerSprite(std::string textureName, glm::vec3 pos) : cCharacterSprite(textureName, pos)
+cPlayerSprite::cPlayerSprite(const std::string& textureName, glm::vec3 pos) : cCharacterSprite(textureName, pos)
 {
 	lastDesiredDirection = DOWN;
 	switchLeg = false;

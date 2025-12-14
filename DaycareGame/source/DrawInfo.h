@@ -1,5 +1,6 @@
 #pragma once
-#include <string>
+#include "Hash.h"
+
 #include <vector>
 
 struct sVertexData
@@ -20,7 +21,7 @@ struct sMeshDrawInfo
 	unsigned int numberOfIndices;
 	unsigned int numberOfTriangles;
 
-	std::string textureName;
+	Hash_v textureHash;
 };
 
 struct sModelDrawInfo

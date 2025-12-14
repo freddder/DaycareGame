@@ -16,10 +16,10 @@ cRenderModel::cRenderModel()
 
 	wholeColor = glm::vec4(1.f, 1.f, 1.f, 1.f);
 
-	meshName = "";
-	textureName = "";
+	meshHash = EMPTY_HASH;
+	textureHash = EMPTY_HASH;
 
-	shaderName = "scene";
+	shaderHash = ComputeHash("scene");
 }
 
 cRenderModel::~cRenderModel()
@@ -46,7 +46,7 @@ void cRenderModel::InstanceObject(std::vector<glm::vec4>& offsets)
 // This might change when dynamic map loading is implemented (not using a general texture map)
 void cRenderModel::SetUpUniforms()
 {
-	if (textureName == "") return;
+	if (textureHash == EMPTY_HASH) return;
 
-	Manager::render.SetupTexture(textureName);
+	Manager::render.SetupTexture(textureHash);
 }

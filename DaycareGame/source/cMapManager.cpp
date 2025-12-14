@@ -349,7 +349,7 @@ void cMapManager::LoadMap(const std::string mapDescriptionFile, const unsigned i
 	// Load new map
 	std::string mapModelName = d["mapModelFileName"].GetString();
 	Manager::render.LoadModel(mapModelName, "scene");
-	mapModel->meshName = mapModelName;
+	mapModel->meshHash = ComputeHash(mapModelName);
 
 	// Load simple walkable tiles
 	rapidjson::Value& walkableTileData = d["walkableTiles"];
@@ -410,7 +410,7 @@ void cMapManager::LoadMap(const std::string mapDescriptionFile, const unsigned i
 
 		int animationType = currInstancedTile["animationType"].GetInt();
 		mapInstancedTiles[tileId].instancedModel = Manager::render.CreateAnimatedModel(static_cast<eAnimatedModel>(animationType));
-		mapInstancedTiles[tileId].instancedModel->meshName = currInstancedTile["meshName"].GetString();
+		mapInstancedTiles[tileId].instancedModel->meshHash = ComputeHash(currInstancedTile["meshName"].GetString());
 		mapInstancedTiles[tileId].instancedModel->orientation.y = glm::radians(meshOrientationY);
 		mapInstancedTiles[tileId].modelOffset = meshPosOffset;
 	}

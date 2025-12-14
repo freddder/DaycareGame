@@ -1,10 +1,12 @@
 #pragma once
+#include "DrawInfo.h"
+#include "cRenderModel.h"
+#include "Hash.h"
+
 #include <glm/glm.hpp>
 #include <set>
 #include <map>
 #include <memory>
-#include "DrawInfo.h"
-#include "cRenderModel.h"
 
 namespace Pokemon
 {
@@ -15,7 +17,7 @@ namespace Pokemon
 struct sShaderProgram
 {
     unsigned int ID;
-    std::map<std::string, sModelDrawInfo> modelsLoaded; // stored by file name
+    std::map<Hash_v, sModelDrawInfo> modelsLoaded;
     std::map<std::string, unsigned int> uniformLocations;
 };
 
@@ -51,13 +53,13 @@ public:
 
     // Shaders
 private:
-    std::string currShader;
-    std::map<std::string, sShaderProgram> programs;
+    Hash_v currShader;
+    std::map<Hash_v, sShaderProgram> programs;
     void checkCompileErrors(unsigned int shader, std::string type);
-    void CreateShaderProgram(std::string programName, const char* vertexPath, const char* fragmentPath);
+    void CreateShaderProgram(const std::string& programName, const char* vertexPath, const char* fragmentPath);
 public:
     unsigned int GetCurrentShaderId();
-    void use(std::string programName);
+    void use(const Hash_v& programHash);
     void setBool(const std::string& name, bool value);
     void setInt(const std::string& name, int value);
     void setFloat(const std::string& name, float value);
@@ -85,9 +87,9 @@ private:
     // Models loading
 private:
     unsigned int notInstancedOffsetBufferId;
-    bool FindModelByName(std::string fileName, std::string programName, sModelDrawInfo& modelInfo);
+    bool FindModelByHashValue(const Hash_v& fileHash, const Hash_v& programHash, sModelDrawInfo& modelInfo);
 public:
-    bool LoadModel(std::string fileName, std::string programName);
+    bool LoadModel(const std::string& fileName, const std::string& programName);
     void UnloadModels();
 
     // Render models
@@ -102,26 +104,27 @@ public:
 
     // Textures
 private:
-    std::map<std::string, sTexture> textures;
+    std::map<Hash_v, sTexture> textures;
     unsigned int CreateTexture(const std::string fullPath, int& width, int& height);
 public:
-    void LoadTexture(const std::string fileName, const std::string subdirectory = "");
+    void LoadTexture(const std::string& fileName, const std::string& subdirectory = "");
     void UnloadTextures();
     unsigned int CreateCubemap(const std::vector<std::string> faces); // TEMP
 
 private:
-    std::map<std::string, sSpriteSheet> spriteSheets;
+    std::map<Hash_v, sSpriteSheet> spriteSheets;
 public:
     void LoadRoamingPokemonFormSpriteSheet(const int nationalDexId, const std::string& formTag = "");
     void LoadSpriteSheet(const std::string spriteSheetName, unsigned int cols, unsigned int rows, bool sym = false, const std::string subdirectory = "");
     void LoadRoamingPokemonSpecieTextures(const Pokemon::sSpeciesData& specieData);
-    float LoadPokemonBattleSpriteSheet(Pokemon::sIndividualData& data, bool isFront = true); // kinda wanted to make this const but whatever
+    float LoadPokemonBattleSpriteSheet(const Pokemon::sIndividualData& data, bool isFront = true); // kinda wanted to make this const but whatever
 
-    void SetupSpriteSheet(const std::string sheetName, const int spriteId, const unsigned int shaderTextureUnit = 0);
-    void SetupTexture(const std::string textureToSetup, const unsigned int shaderTextureUnit = 0);
+    void SetupSpriteSheet(const Hash_v& sheetHash, const int spriteId, const unsigned int shaderTextureUnit = 0);
+    void SetupTexture(const Hash_v& textureToSetup, const unsigned int shaderTextureUnit = 0);
 
     // Drawing
 private:
+    Hash_v skyboxShaderHash;
     void DrawObject(std::shared_ptr<cRenderModel> model);
     void DrawParticles(class cParticleSpawner* spawner);
     void DrawShadowPass(glm::mat4& outLightSpaceMatrix);

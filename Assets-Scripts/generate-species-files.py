@@ -121,6 +121,7 @@ def load_form_data(form_json):
     
     return form_data
 
+# [1, 1008]
 def create_entry(species_id):
     specie_url = f"https://pokeapi.co/api/v2/pokemon-species/{species_id}/"
     specie_response = requests.get(specie_url)

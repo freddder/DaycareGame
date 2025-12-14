@@ -14,7 +14,7 @@ cAnimatedModel::~cAnimatedModel()
 
 cFoamModel::cFoamModel()
 {
-	shaderName = "foam";
+	shaderHash = ComputeHash("foam");
 	textureOffset = glm::vec3(0);
 
 	animation = std::make_shared<cSinAnimation>(textureOffset, 2, 0);
@@ -33,7 +33,7 @@ void cFoamModel::SetUpUniforms()
 
 cOceanModel::cOceanModel()
 {
-	shaderName = "ocean";
+	shaderHash = ComputeHash("ocean");
 	globalUVRatios = glm::vec2(0.35f);
 	textureOffset = glm::vec3(0.f);
 	timer = 0.f;
@@ -61,7 +61,7 @@ void cOceanModel::SetUpUniforms()
 
 cWaveModel::cWaveModel()
 {
-	shaderName = "wave";
+	shaderHash = ComputeHash("wave");
 	textureOffset = glm::vec3(0);
 	timer = 0.f;
 
@@ -84,7 +84,7 @@ void cWaveModel::SetUpUniforms()
 
 cTreeModel::cTreeModel()
 {
-	shaderName = "tree";
+	shaderHash = ComputeHash("tree");
 	timer = 0.f;
 }
 
