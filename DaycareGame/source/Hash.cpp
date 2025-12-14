@@ -1,5 +1,6 @@
 #include "Hash.h"
 
+// https://cp-algorithms.com/string/string-hashing.html
 Hash_v ComputeHash(const std::string& s)
 {
     const int p = 31;
